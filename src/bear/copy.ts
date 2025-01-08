@@ -1,5 +1,6 @@
 import { format } from 'date-fns'
 import * as fs from 'fs'
+
 import { error, info } from '../utils'
 
 const sourceFile =
