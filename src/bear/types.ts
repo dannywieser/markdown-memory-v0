@@ -17,11 +17,12 @@ export interface BearRawTag {
 }
 
 export interface BearProcessedNote {
+  body: MarkdownBody
   created: string
   hasFiles: boolean
   hasImages: boolean
   id: string
   modified: string
-  text: MarkdownBody
+  rawText: string
   title: string
 }

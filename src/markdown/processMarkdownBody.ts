@@ -72,7 +72,7 @@ export default function processMarkdownBody(rawLines: string): MarkdownBody {
       processedLines.push(createMarkDownLine(line))
     }
   })
-  console.log(JSON.stringify(processedLines, null, 2))
+  //console.log(JSON.stringify(processedLines, null, 2))
   return {
     lines: processedLines,
   }

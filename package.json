@@ -19,6 +19,7 @@
     "extract": "vite-node ./src/extract/index.ts",
     "test": "jest",
     "vite": "vite",
+    "clean": "rimraf db-backup/* && rimraf daily-extracts/*",
     "db": "cp ~/Library/Group\\ Containers/9K33E3U3T4.net.shinyfrog.bear/Application\\ Data/database.sqlite ."
   },
   "private": true,
@@ -36,6 +37,7 @@
     "globals": "15.12.0",
     "jest": "29.7.0",
     "prettier": "2.6.2",
+    "rimraf": "^6.0.1",
     "ts-jest": "29.2.5",
     "tslib": "2.3.0",
     "typescript": "5.7.2",

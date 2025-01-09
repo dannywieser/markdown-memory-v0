@@ -1,5 +1,5 @@
 import { processMarkdownBody } from '../markdown'
-import { fmtDate } from '../utils'
+import { fmtDate, info } from '../utils'
 import { BearProcessedNote, BearRawNote } from './types'
 
 // times are from 2001 vs 1970
@@ -16,13 +16,15 @@ const convertDate = (bearDate: string) => {
 }
 
 export default function processNote(rawNote: BearRawNote): BearProcessedNote {
+  info(`processing note: ${rawNote.ZTITLE}`)
   return {
+    body: processMarkdownBody(rawNote.ZTEXT),
     created: convertDate(rawNote.ZCREATIONDATE),
     hasFiles: rawNote.ZHASFILES === 1,
     hasImages: rawNote.ZHASIMAGES === 1,
     id: rawNote.ZUNIQUEIDENTIFIER,
     modified: convertDate(rawNote.ZMODIFICATIONDATE),
-    text: processMarkdownBody(rawNote.ZTEXT),
+    rawText: rawNote.ZTEXT,
     title: rawNote.ZTITLE,
   }
 }
