@@ -1,3 +1,5 @@
+import { MarkdownBody } from '../markdown/types'
+
 export interface BearRawNote {
   ZCREATIONDATE: string
   ZHASFILES: number
@@ -18,7 +20,8 @@ export interface BearProcessedNote {
   created: string
   hasFiles: boolean
   hasImages: boolean
+  id: string
   modified: string
-  text: string
+  text: MarkdownBody
   title: string
 }
