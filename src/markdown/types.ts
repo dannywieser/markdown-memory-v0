@@ -1,6 +1,8 @@
 export type MarkdownLineType =
   | 'blank'
   | 'blockquote'
+  | 'codeblock'
+  | 'codeboundary'
   | 'h1'
   | 'h2'
   | 'h3'
@@ -10,7 +12,7 @@ export type MarkdownLineType =
   | 'p'
   | 'unorderedlist'
 
-export type MarkdownTextType = 'image' | 'link' | 'string'
+export type MarkdownTextType = 'code' | 'image' | 'link' | 'string'
 
 export interface MarkdownText {
   href?: string

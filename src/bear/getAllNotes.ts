@@ -10,8 +10,8 @@ export async function getAllNotes(
   try {
     const db = await openDB(dbFile)
     const raw = await db.all(sql)
-    //return raw.map(processNote)
-    return [processNote(raw[3])]
+    return raw.map(processNote)
+    //return [processNote(raw[57], 0)]
   } catch (e) {
     error('failed to read DB')
     console.error(e)
