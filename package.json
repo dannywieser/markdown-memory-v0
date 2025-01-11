@@ -17,7 +17,7 @@
   "scripts": {
     "lint": "eslint .",
     "extract": "vite-node ./src/extract/index.ts",
-    "test": "jest",
+    "test": "vite-node ./src/markdown/testing.ts",
     "vite": "vite",
     "clean": "rimraf db-backup/* && rimraf daily-extracts/*",
     "db": "cp ~/Library/Group\\ Containers/9K33E3U3T4.net.shinyfrog.bear/Application\\ Data/database.sqlite ."
