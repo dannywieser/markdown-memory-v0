@@ -1,6 +1,10 @@
-import { debug } from '../utils'
 import processMarkdownText from './processMarkdownText'
-import { MarkdownBody, MarkdownLine } from './types'
+import {
+  MarkdownBody,
+  MarkdownLine,
+  MarkdownLineType,
+  MarkdownText,
+} from './types'
 
 const types = {
   blockquote: '> ',
@@ -14,30 +18,57 @@ const types = {
   unorderedlist: '* ',
 }
 
-function createMarkDownLine(line: string): MarkdownLine {
-  // TODO - determine line type (via startsWith)
-  const textSegments = processMarkdownText(line.split(''))
+let inCodeBlock = false
 
-  return {
-    textSegments,
-    type: 'p',
+const processType = (type: string): MarkdownLineType => {
+  if (type === 'codeblock') {
+    if (!inCodeBlock) {
+      inCodeBlock = true
+      return 'codestart'
+    } else {
+      inCodeBlock = false
+      return 'codeend'
+    }
+  } else {
+    return type as MarkdownLineType
   }
+}
+
+function createMarkDownLine(line: string): MarkdownLine {
+  for (const [typeKey, typeValue] of Object.entries(types)) {
+    if (line.startsWith(typeValue)) {
+      const textArr = line.replace(typeValue, '').split('')
+      const textSegments = processMarkdownText(textArr)
+      const type = processType(typeKey)
+      return { textSegments, type }
+    }
+  }
+
+  if (line.trim().length === 0) {
+    return { textSegments: [{ text: '', type: 'string' }], type: 'blank' }
+  }
+
+  if (inCodeBlock) {
+    const textSegments: MarkdownText[] = [{ text: line, type: 'code' }]
+    return { textSegments, type: 'codebody' }
+  }
+
+  const textSegments = processMarkdownText(line.trim().split(''))
+  return { textSegments, type: 'p' }
 }
 
 export default function processMarkdownBody(rawLines: string): MarkdownBody {
   const lines = rawLines.split('\n')
   const processedLines: MarkdownLine[] = []
-  //const textSegments: MarkdownText[] = []
+
   lines.forEach((line: string) => {
     if (line) {
       const mdLine = createMarkDownLine(line)
-      console.log(mdLine)
-      // if (mdLine) {
-      //   processedLines.push(mdLine)
-      // }
+      if (mdLine) {
+        processedLines.push(mdLine)
+      }
     }
   })
-  // console.log(JSON.stringify(processedLines, null, 2))
   return {
     lines: processedLines,
   }

@@ -1,7 +1,9 @@
 export type MarkdownLineType =
   | 'blank'
   | 'blockquote'
-  | 'codeblock'
+  | 'codebody'
+  | 'codeend'
+  | 'codestart'
   | 'h1'
   | 'h2'
   | 'h3'
