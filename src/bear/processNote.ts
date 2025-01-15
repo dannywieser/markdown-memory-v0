@@ -15,11 +15,8 @@ const convertDate = (bearDate: string) => {
   return fmtDate(new Date(epochMs))
 }
 
-export default function processNote(
-  rawNote: BearRawNote,
-  index: number
-): BearProcessedNote {
-  info(`[${index}] ${rawNote.ZTITLE}`)
+export default function processNote(rawNote: BearRawNote): BearProcessedNote {
+  //info(`[${index}] ${rawNote.ZTITLE}`)
   return {
     body: processMarkdownBody(rawNote.ZTEXT),
     created: convertDate(rawNote.ZCREATIONDATE),

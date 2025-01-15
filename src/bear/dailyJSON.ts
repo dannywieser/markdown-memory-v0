@@ -2,7 +2,7 @@ import * as fs from 'fs'
 
 import { currentDate, error, info } from '../utils'
 
-const destDir = './daily-extracts'
+const destDir = './public/daily-extracts'
 
 export function dailyJSON(contents: string) {
   const date = currentDate()
