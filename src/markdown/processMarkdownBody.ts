@@ -15,7 +15,7 @@ const types = {
   h4: '#### ',
   h5: '##### ',
   h6: '###### ',
-  unorderedlist: '* ',
+  unorderedlist: '- ',
 }
 
 let inCodeBlock = false
@@ -45,7 +45,7 @@ function createMarkDownLine(line: string): MarkdownLine {
   }
 
   if (line.trim().length === 0) {
-    return { textSegments: [{ text: '', type: 'string' }], type: 'blank' }
+    return { textSegments: [], type: 'blank' }
   }
 
   if (inCodeBlock) {
@@ -62,11 +62,9 @@ export default function processMarkdownBody(rawLines: string): MarkdownBody {
   const processedLines: MarkdownLine[] = []
 
   lines.forEach((line: string) => {
-    if (line) {
-      const mdLine = createMarkDownLine(line)
-      if (mdLine) {
-        processedLines.push(mdLine)
-      }
+    const mdLine = createMarkDownLine(line)
+    if (mdLine) {
+      processedLines.push(mdLine)
     }
   })
   return {

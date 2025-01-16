@@ -6,9 +6,9 @@ import App from './components/App/App'
 import { lightTheme } from './theme'
 import './main.css'
 
-import '@fontsource/roboto-mono'
-import '@fontsource/roboto-mono/400.css'
-import '@fontsource/roboto-mono/400-italic.css'
+import '@fontsource/anonymous-pro'
+import '@fontsource/anonymous-pro/700.css'
+import '@fontsource/anonymous-pro/700-italic.css'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

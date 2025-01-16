@@ -1,5 +1,4 @@
-import Card from '@mui/material/Card'
-import CardContent from '@mui/material/CardContent'
+import Paper from '@mui/material/Paper'
 import React from 'react'
 
 import MarkdownLine from '../MarkdownLine/MarkdownLine'
@@ -10,13 +9,11 @@ function Note(props: NoteProps) {
     body: { lines },
   } = props
   return (
-    <Card variant="outlined">
-      <CardContent>
-        {lines.map((line, index) => (
-          <MarkdownLine key={index} line={line} />
-        ))}
-      </CardContent>
-    </Card>
+    <Paper elevation={0} square={true} sx={{ borderTop: '1px solid #f0f0f0' }}>
+      {lines.map((line, index) => (
+        <MarkdownLine key={index} line={line} />
+      ))}
+    </Paper>
   )
 }
 

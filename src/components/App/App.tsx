@@ -22,10 +22,7 @@ function App() {
   }, [])
 
   return (
-    <Container
-      maxWidth={false}
-      sx={{ backgroundColor: '#f0f0f0', height: '100%' }}
-    >
+    <Container maxWidth={false} sx={{ height: '100%' }}>
       <Box sx={{ height: '100%' }}>
         <Typography
           color="primary"

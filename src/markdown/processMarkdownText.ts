@@ -15,6 +15,15 @@ const patterns = {
   '``': (textArr: string[]) => mapping('code', textArr[0]),
 }
 
+const joinText = (textArr: string[]): string => {
+  const joined = textArr.join('')
+  return joined
+    .replaceAll('\\.', '.')
+    .replaceAll('\\!', '.')
+    .replaceAll('\\-', '-')
+    .replaceAll('\\#', '')
+}
+
 export default function processMarkdownText(lineArr: string[]): MarkdownText[] {
   // this is an array of the located text segments
   const segments: MarkdownText[] = []
@@ -28,7 +37,7 @@ export default function processMarkdownText(lineArr: string[]): MarkdownText[] {
   // push current text stack as a string into the specialText stack
   const pushSpecialText = () => {
     if (textStack.length > 0) {
-      specialText.push(textStack.join(''))
+      specialText.push(joinText(textStack))
       textStack = []
     }
   }
@@ -42,7 +51,7 @@ export default function processMarkdownText(lineArr: string[]): MarkdownText[] {
 
   const pushText = () => {
     if (textStack.length > 0) {
-      pushSegment(mapping('string', textStack.join('')))
+      pushSegment(mapping('string', joinText(textStack)))
     }
   }
 

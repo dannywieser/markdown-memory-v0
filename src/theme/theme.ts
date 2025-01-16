@@ -7,9 +7,7 @@ import * as components from './overrides'
 import { typography } from './typography'
 
 const commonThemeProperties: ThemeOptions = {
-  typography: {
-    ...typography,
-  },
+  typography,
 }
 
 export const lightTheme = createTheme({

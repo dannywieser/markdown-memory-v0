@@ -16,7 +16,7 @@ const convertDate = (bearDate: string) => {
 }
 
 export default function processNote(rawNote: BearRawNote): BearProcessedNote {
-  //info(`[${index}] ${rawNote.ZTITLE}`)
+  // info(`[${index}] ${rawNote.ZTITLE}`)
   return {
     body: processMarkdownBody(rawNote.ZTEXT),
     created: convertDate(rawNote.ZCREATIONDATE),
