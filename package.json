@@ -21,7 +21,7 @@
     "vite": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "clean": "rimraf db-backup/* && rimraf daily-extracts/*",
+    "clean": "rimraf db-backup/* && rimraf public/daily-extracts/*",
     "db": "cp ~/Library/Group\\ Containers/9K33E3U3T4.net.shinyfrog.bear/Application\\ Data/database.sqlite ."
   },
   "private": true,

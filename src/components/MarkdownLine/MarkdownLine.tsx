@@ -1,11 +1,10 @@
 import { Typography } from '@mui/material'
-import { Variant } from '@mui/material/styles/createTypography'
 import React from 'react'
 
 import type { MarkdownLine, MarkdownText } from '../../markdown/types'
 
 export interface MarkdownLineProps {
-  line: MarkdownLine
+  line: MarkdownLine | undefined
 }
 
 export interface TextSegmentProps {
@@ -68,12 +67,18 @@ const header6 = (textSegments: MarkdownText[]) => (
   <Typography variant="h6">{joinTextSegments(textSegments)}</Typography>
 )
 
+const listitem = (textSegments: MarkdownText[]) => (
+  <li>
+    <Typography>{joinTextSegments(textSegments)}</Typography>
+  </li>
+)
+
 const typeMap = {
   blank: () => <br />,
-  blockquote: () => 'blockquote',
-  codebody: () => 'codebody',
-  codeend: () => 'codeend',
-  codestart: () => 'codestart',
+  blockquote: () => ' blockquote',
+  codebody: () => ' codebody',
+  codeend: () => ' codeend',
+  codestart: () => ' codestart',
   h1: header1,
   h2: header2,
   h3: header3,
@@ -81,10 +86,15 @@ const typeMap = {
   h5: header5,
   h6: header6,
   p: normalText,
-  unorderedlist: () => 'unorderedlist',
+  todo: () => 'todo',
+  tododone: () => 'tododone',
+  ul: listitem,
 }
 
 function MarkdownLine({ line }: MarkdownLineProps) {
+  if (!line) {
+    return null
+  }
   const { textSegments, type } = line
   const typeHandler = typeMap[type]
   return typeHandler(textSegments)

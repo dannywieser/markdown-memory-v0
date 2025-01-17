@@ -24,17 +24,10 @@ function App() {
   return (
     <Container maxWidth={false} sx={{ height: '100%' }}>
       <Box sx={{ height: '100%' }}>
-        <Typography
-          color="primary"
-          component="h1"
-          fontWeight="bolder"
-          variant="h4"
-        >
+        <Typography color="primary" variant="h1">
           Bear|Insights
         </Typography>
-        <Typography component="h2" variant="h5">
-          {date}
-        </Typography>
+        <Typography variant="h2">{date}</Typography>
         <Box
           sx={{
             display: 'grid',

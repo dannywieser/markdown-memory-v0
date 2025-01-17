@@ -11,7 +11,7 @@ export type MarkdownLineType =
   | 'h5'
   | 'h6'
   | 'p'
-  | 'unorderedlist'
+  | 'ul'
 
 export type MarkdownTextType =
   | 'bold'

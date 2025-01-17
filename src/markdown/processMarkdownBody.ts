@@ -15,7 +15,9 @@ const types = {
   h4: '#### ',
   h5: '##### ',
   h6: '###### ',
-  unorderedlist: '- ',
+  todo: '- [ ]',
+  tododone: '- [x]',
+  ul: '* ',
 }
 
 let inCodeBlock = false

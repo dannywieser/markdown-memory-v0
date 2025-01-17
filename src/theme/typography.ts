@@ -12,27 +12,27 @@ export const typography: TypographyVariantsOptions = {
     '"Segoe UI Symbol"',
   ].join(','),
   h1: {
-    fontSize: '1.75em',
+    fontSize: '16px',
     fontWeight: 700,
   },
   h2: {
-    fontSize: '1.6em',
+    fontSize: '14px',
     fontWeight: 700,
   },
   h3: {
-    fontSize: '1.5em',
+    fontSize: '13px',
     fontWeight: 700,
   },
   h4: {
-    fontSize: '1.4em',
+    fontSize: '12px',
     fontWeight: 600,
   },
   h5: {
-    fontSize: '1.2em',
+    fontSize: '12px',
     fontWeight: 600,
   },
   h6: {
-    fontSize: '1em',
+    fontSize: '12px',
     fontWeight: 600,
   },
 }
