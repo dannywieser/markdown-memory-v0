@@ -15,6 +15,7 @@ const types = {
   h4: '#### ',
   h5: '##### ',
   h6: '###### ',
+  tag: '#',
   todo: '- [ ]',
   tododone: '- [x]',
   ul: '* ',

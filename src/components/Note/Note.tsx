@@ -38,11 +38,13 @@ function Note(props: NoteProps) {
   const [body, setBody] = useState<React.JSX.Element[]>([])
 
   useEffect(() => {
-    while (lines.length > 0) {
-      if (lines[0].type === 'ul') {
-        body.push(processSection(lines, 'ul'))
+    const forParsing = [...lines]
+    const body = []
+    while (forParsing.length > 0) {
+      if (forParsing[0].type === 'ul') {
+        body.push(processSection(forParsing, 'ul'))
       } else {
-        body.push(<MarkdownLine line={lines.shift()} />)
+        body.push(<MarkdownLine line={forParsing.shift()} />)
       }
     }
     setBody(body)

@@ -86,6 +86,7 @@ const typeMap = {
   h5: header5,
   h6: header6,
   p: normalText,
+  tag: () => 'tag',
   todo: () => 'todo',
   tododone: () => 'tododone',
   ul: listitem,
