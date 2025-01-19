@@ -46,14 +46,15 @@ const normalText = (textSegments: MarkdownText[]) => (
 )
 
 const header1 = (textSegments: MarkdownText[], id: string) => (
-  <Stack alignItems="center" direction="row">
+  <Stack alignItems="center" direction="row" sx={{ marginBottom: '4px' }}>
     <Typography variant="h1">{joinTextSegments(textSegments)}</Typography>
     <IconButton
       aria-label="Open Note in Bear"
-      color="secondary"
+      color="primary"
       href={`bear://x-callback-url/open-note?id=${id}`}
+      size="small"
     >
-      <OpenInNew />
+      <OpenInNew fontSize="inherit" />
     </IconButton>
   </Stack>
 )
@@ -96,7 +97,7 @@ const listitem = (textSegments: MarkdownText[]) => (
 
 const tag = (textSegments: MarkdownText[]) => (
   <Chip
-    color="secondary"
+    color="primary"
     label={joinTextSegments(textSegments)}
     size="small"
     variant="outlined"
@@ -105,7 +106,7 @@ const tag = (textSegments: MarkdownText[]) => (
 
 const done = (textSegments: MarkdownText[]) => (
   <Stack alignItems="center" direction="row" gap={1}>
-    <CheckCircleOutline color="primary" />
+    <CheckCircleOutline sx={{ fontSize: 14 }} />
     <Typography>{joinTextSegments(textSegments).trim()}</Typography>
   </Stack>
 )
