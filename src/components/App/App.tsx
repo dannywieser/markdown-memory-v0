@@ -36,9 +36,9 @@ function App() {
           }}
         >
           {data.map((data) => (
-            <Note body={data.body} key={data.id} />
+            <Note body={data.body} id={data.id} key={data.id} />
           ))}
-        </Box>{' '}
+        </Box>
       </Box>
     </Container>
   )

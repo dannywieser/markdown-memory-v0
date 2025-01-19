@@ -33,6 +33,7 @@ const processSection = (
 function Note(props: NoteProps) {
   const {
     body: { lines },
+    id,
   } = props
 
   const [body, setBody] = useState<React.JSX.Element[]>([])
@@ -44,7 +45,7 @@ function Note(props: NoteProps) {
       if (forParsing[0].type === 'ul') {
         body.push(processSection(forParsing, 'ul'))
       } else {
-        body.push(<MarkdownLine line={forParsing.shift()} />)
+        body.push(<MarkdownLine id={id} line={forParsing.shift()} />)
       }
     }
     setBody(body)

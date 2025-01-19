@@ -8,11 +8,6 @@ export async function getOnThisDayNotes(dbFile: string) {
   const targetDay = removeYear(date)
   return allNotes?.filter((record: BearProcessedNote) => {
     const createdDay = removeYear(record.created)
-    const modifiedDay = removeYear(record.modified)
-    return (
-      createdDay === targetDay ||
-      modifiedDay === targetDay ||
-      record.rawText.includes(targetDay)
-    )
+    return createdDay === targetDay || record.rawText.includes(targetDay)
   })
 }

@@ -15,6 +15,7 @@ const theme = createTheme({
       '"Segoe UI Emoji"',
       '"Segoe UI Symbol"',
     ].join(','),
+    fontSize: 18,
   },
 })
 
@@ -22,15 +23,15 @@ export const lightTheme = createTheme(theme, {
   typography: {
     h1: {
       color: theme.palette.primary.main,
-      fontSize: '22px',
+      fontSize: '24px',
       fontWeight: 700,
     },
     h2: {
-      fontSize: '20px',
+      fontSize: '22px',
       fontWeight: 700,
     },
     h3: {
-      fontSize: '19px',
+      fontSize: '20px',
       fontWeight: 700,
     },
     h4: {
@@ -38,11 +39,11 @@ export const lightTheme = createTheme(theme, {
       fontWeight: 600,
     },
     h5: {
-      fontSize: '17px',
+      fontSize: '18px',
       fontWeight: 600,
     },
     h6: {
-      fontSize: '16px',
+      fontSize: '18px',
       fontWeight: 600,
     },
   },
