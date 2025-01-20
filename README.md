@@ -7,7 +7,7 @@ Insights Web App for Bear
 - [ ] Switch tags to be text segments instead of lines
 - [x] incomplete todo handling
 - [ ] code block handling
-- [ ] block quotes
+- [x] block quotes
 - [ ] Images - basic display
 - [ ] processing for internal links
 - [ ] external links

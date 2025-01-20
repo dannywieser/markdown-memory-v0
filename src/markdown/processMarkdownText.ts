@@ -1,6 +1,6 @@
 import { MarkdownText, MarkdownTextType } from './types'
 
-const specialChars = '`[]()*'
+const specialChars = '`[]()*!'
 
 const mapping = (type: MarkdownTextType, text: string, href?: string) => ({
   href,
@@ -9,6 +9,7 @@ const mapping = (type: MarkdownTextType, text: string, href?: string) => ({
 })
 
 const patterns = {
+  '![]()': (textArr: string[]) => mapping('image', textArr[0], textArr[1]),
   '()': (textArr: string[]) => mapping('string', `(${textArr[0]})`), // normal brackets around text
   '**': (textArr: string[]) => mapping('italic', textArr[0]),
   '****': (textArr: string[]) => mapping('bold', textArr[0]),
@@ -24,6 +25,7 @@ const joinText = (textArr: string[]): string => {
     .replaceAll('\\-', '-')
     .replaceAll('\\#', '')
     .replaceAll('\\(', '(')
+    .replaceAll('\\+', '+')
 }
 
 export default function processMarkdownText(lineArr: string[]): MarkdownText[] {

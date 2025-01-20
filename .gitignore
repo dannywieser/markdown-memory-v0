@@ -133,5 +133,5 @@ dist
 # app specific
 db-backup
 daily-extracts
-src/public
+public
 .DS_Store
