@@ -1,5 +1,5 @@
 import { processMarkdownBody } from '../markdown'
-import { fmtDate, info } from '../utils'
+import { fmtDate } from '../utils'
 import { BearProcessedNote, BearRawNote } from './types'
 
 // times are from 2001 vs 1970

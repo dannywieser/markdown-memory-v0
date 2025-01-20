@@ -9,6 +9,7 @@ const mapping = (type: MarkdownTextType, text: string, href?: string) => ({
 })
 
 const patterns = {
+  '()': (textArr: string[]) => mapping('string', `(${textArr[0]})`), // normal brackets around text
   '**': (textArr: string[]) => mapping('italic', textArr[0]),
   '****': (textArr: string[]) => mapping('bold', textArr[0]),
   '[]()': (textArr: string[]) => mapping('link', textArr[0], textArr[1]),
@@ -22,6 +23,7 @@ const joinText = (textArr: string[]): string => {
     .replaceAll('\\!', '.')
     .replaceAll('\\-', '-')
     .replaceAll('\\#', '')
+    .replaceAll('\\(', '(')
 }
 
 export default function processMarkdownText(lineArr: string[]): MarkdownText[] {

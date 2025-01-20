@@ -1,5 +1,6 @@
-import { CheckCircleOutline, OpenInNew } from '@mui/icons-material'
+import { CheckBox, CheckBoxOutlineBlank, OpenInNew } from '@mui/icons-material'
 import { Chip, IconButton, Stack, Typography } from '@mui/material'
+import { palette, styled } from '@mui/system'
 import React from 'react'
 
 import type { MarkdownLine, MarkdownText } from '../../markdown/types'
@@ -29,7 +30,7 @@ export const Span = (props: SectionProps) => {
   return <Tag>{children}</Tag>
 }
 
-const normalText = (textSegments: MarkdownText[]) => (
+const p = (textSegments: MarkdownText[]) => (
   <Typography>
     {textSegments.map(({ text, type }, index) => {
       let tag: React.ElementType = 'span'
@@ -89,7 +90,7 @@ const header6 = (textSegments: MarkdownText[]) => (
   </Typography>
 )
 
-const listitem = (textSegments: MarkdownText[]) => (
+const ul = (textSegments: MarkdownText[]) => (
   <li>
     <Typography>{joinTextSegments(textSegments)}</Typography>
   </li>
@@ -104,16 +105,48 @@ const tag = (textSegments: MarkdownText[]) => (
   />
 )
 
-const done = (textSegments: MarkdownText[]) => (
-  <Stack alignItems="center" direction="row" gap={1}>
-    <CheckCircleOutline sx={{ fontSize: 14 }} />
+const todo = (textSegments: MarkdownText[]) => (
+  <Stack alignItems="top" direction="row" gap={1}>
+    <CheckBoxOutlineBlank fontSize="small" />
     <Typography>{joinTextSegments(textSegments).trim()}</Typography>
   </Stack>
 )
 
+const tododone = (textSegments: MarkdownText[]) => (
+  <Stack alignItems="top" direction="row" gap={1}>
+    <CheckBox fontSize="small" />
+    <Typography>{joinTextSegments(textSegments).trim()}</Typography>
+  </Stack>
+)
+
+const Blockquote = styled('blockquote')(({ theme }) => ({
+  backgroundColor: theme.palette.grey[50],
+  borderLeft: `8px solid ${theme.palette.primary.main}`,
+  margin: 0,
+  padding: '8px 40px 8px 40px',
+}))
+
+const blockquote = (textSegments: MarkdownText[]) => (
+  <Blockquote>
+    <Typography>
+      {textSegments.map(({ text, type }, index) => {
+        let tag: React.ElementType = 'span'
+        if (type === 'bold') {
+          tag = 'b'
+        }
+        return (
+          <Span as={tag} key={`segment-${index}`}>
+            {text}
+          </Span>
+        )
+      })}
+    </Typography>
+  </Blockquote>
+)
+
 const typeMap = {
   blank: () => <br />,
-  blockquote: () => ' blockquote',
+  blockquote,
   codebody: () => ' codebody',
   codeend: () => ' codeend',
   codestart: () => ' codestart',
@@ -123,11 +156,11 @@ const typeMap = {
   h4: header4,
   h5: header5,
   h6: header6,
-  p: normalText,
-  tag: tag,
-  todo: () => 'todo',
-  tododone: done,
-  ul: listitem,
+  p,
+  tag,
+  todo,
+  tododone,
+  ul,
 }
 
 function MarkdownLine({ id, line }: MarkdownLineProps) {
