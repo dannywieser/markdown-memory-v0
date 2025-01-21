@@ -37,6 +37,15 @@ const p = (textSegments: MarkdownText[]) => (
       if (type === 'bold') {
         tag = 'b'
       }
+      if (type === 'image') {
+        return (
+          <img
+            key={`segment-${index}`}
+            src={`./images/${text}`}
+            width="50%"
+          ></img>
+        )
+      }
       return (
         <Span as={tag} key={`segment-${index}`}>
           {text}

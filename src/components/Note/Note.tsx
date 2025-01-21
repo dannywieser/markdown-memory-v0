@@ -17,13 +17,15 @@ export const Section = (props: SectionProps) => {
 
 const processSection = (
   lines: MarkdownLine[],
+  id: string,
   sectionType: React.ElementType
 ) => {
   const sectionLines = []
   while (lines.length > 0) {
-    sectionLines.push(<MarkdownLine line={lines.shift()} />)
+    sectionLines.push(<MarkdownLine id={id} line={lines.shift()} />)
     // check if next line exits the current section
-    if (lines[0].type !== sectionType) {
+    console.log(lines[0])
+    if (!lines[0] || lines[0].type !== sectionType) {
       break
     }
   }
@@ -43,7 +45,7 @@ function Note(props: NoteProps) {
     const body = []
     while (forParsing.length > 0) {
       if (forParsing[0].type === 'ul') {
-        body.push(processSection(forParsing, 'ul'))
+        body.push(processSection(forParsing, id, 'ul'))
       } else {
         body.push(<MarkdownLine id={id} line={forParsing.shift()} />)
       }

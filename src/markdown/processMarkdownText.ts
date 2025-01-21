@@ -1,3 +1,6 @@
+import { BearNoteFile } from 'bear/types'
+import { text } from 'stream/consumers'
+
 import { MarkdownText, MarkdownTextType } from './types'
 
 const specialChars = '`[]()*!'
@@ -9,7 +12,16 @@ const mapping = (type: MarkdownTextType, text: string, href?: string) => ({
 })
 
 const patterns = {
-  '![]()': (textArr: string[]) => mapping('image', textArr[0], textArr[1]),
+  '![]()': (textArr: string[], files: BearNoteFile[]) => {
+    let filename = textArr[0]
+    if (files) {
+      const { folder = '' } =
+        files.find(({ filename }) => filename === textArr[0]) ?? {}
+      filename = `${folder}/${textArr[0]}`
+    }
+    console.log(`filename: ${filename}`)
+    return mapping('image', filename)
+  },
   '()': (textArr: string[]) => mapping('string', `(${textArr[0]})`), // normal brackets around text
   '**': (textArr: string[]) => mapping('italic', textArr[0]),
   '****': (textArr: string[]) => mapping('bold', textArr[0]),
@@ -28,7 +40,10 @@ const joinText = (textArr: string[]): string => {
     .replaceAll('\\+', '+')
 }
 
-export default function processMarkdownText(lineArr: string[]): MarkdownText[] {
+export default function processMarkdownText(
+  lineArr: string[],
+  files: BearNoteFile[]
+): MarkdownText[] {
   // this is an array of the located text segments
   const segments: MarkdownText[] = []
   // this stack holds current text
@@ -71,7 +86,7 @@ export default function processMarkdownText(lineArr: string[]): MarkdownText[] {
 
     for (const [pattern, mapper] of Object.entries(patterns)) {
       if (specialStack.join('') === pattern && specialText.length > 0) {
-        pushSegment(mapper(specialText))
+        pushSegment(mapper(specialText, files))
         return
       }
     }

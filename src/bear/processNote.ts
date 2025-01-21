@@ -1,5 +1,6 @@
 import { processMarkdownBody } from '../markdown'
 import { fmtDate } from '../utils'
+import { copyNoteImage } from './copy'
 import {
   BearNoteFile,
   BearProcessedFile,
@@ -29,6 +30,7 @@ export default function processNote(
   // Retrieve all files associated with the current note and map to the correct types to save with the record
   const pk = rawNote.Z_PK
   const notesFiles = allFiles.filter(({ noteId }) => noteId === pk)
+  notesFiles.forEach(({ fileId, filename }) => copyNoteImage(filename, fileId))
   const files: BearNoteFile[] = notesFiles.map(
     ({ fileId, filename }): BearNoteFile => ({
       filename,
@@ -37,7 +39,7 @@ export default function processNote(
   )
 
   return {
-    body: processMarkdownBody(rawNote.ZTEXT),
+    body: processMarkdownBody(rawNote.ZTEXT, files),
     created: convertDate(rawNote.ZCREATIONDATE),
     files,
     hasFiles: rawNote.ZHASFILES === 1,

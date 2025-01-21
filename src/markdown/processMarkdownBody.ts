@@ -1,3 +1,5 @@
+import { BearNoteFile } from 'bear/types'
+
 import processMarkdownText from './processMarkdownText'
 import {
   MarkdownBody,
@@ -37,7 +39,7 @@ const processType = (type: string): MarkdownLineType => {
   }
 }
 
-function createMarkDownLine(line: string): MarkdownLine {
+function createMarkDownLine(line: string, files: BearNoteFile[]): MarkdownLine {
   for (const [typeKey, typeValue] of Object.entries(types)) {
     if (line.startsWith(typeValue)) {
       const textArr = line.replace(typeValue, '').split('')
@@ -56,16 +58,19 @@ function createMarkDownLine(line: string): MarkdownLine {
     return { textSegments, type: 'codebody' }
   }
 
-  const textSegments = processMarkdownText(line.trim().split(''))
+  const textSegments = processMarkdownText(line.trim().split(''), files)
   return { textSegments, type: 'p' }
 }
 
-export default function processMarkdownBody(rawLines: string): MarkdownBody {
+export default function processMarkdownBody(
+  rawLines: string,
+  files: BearNoteFile[]
+): MarkdownBody {
   const lines = rawLines.split('\n')
   const processedLines: MarkdownLine[] = []
 
   lines.forEach((line: string) => {
-    const mdLine = createMarkDownLine(line)
+    const mdLine = createMarkDownLine(line, files)
     if (mdLine) {
       processedLines.push(mdLine)
     }
