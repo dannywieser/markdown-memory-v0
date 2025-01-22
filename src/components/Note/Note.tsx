@@ -1,3 +1,4 @@
+import { ImageList, ImageListItem } from '@mui/material'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import React, { useEffect, useState } from 'react'
@@ -24,12 +25,29 @@ const processSection = (
   while (lines.length > 0) {
     sectionLines.push(<MarkdownLine id={id} line={lines.shift()} />)
     // check if next line exits the current section
-    console.log(lines[0])
     if (!lines[0] || lines[0].type !== sectionType) {
       break
     }
   }
   return <Section as={sectionType}>{sectionLines}</Section>
+}
+
+const processImageList = (lines: MarkdownLine[], id: string) => {
+  const sectionLines = []
+  let imageCount = 0
+  while (lines.length > 0) {
+    sectionLines.push(<MarkdownLine id={id} line={lines.shift()} />)
+    imageCount += 1
+    // check if next line exits the current section
+    if (!lines[0] || lines[0].type !== 'img') {
+      break
+    }
+  }
+  return (
+    <ImageList cols={imageCount} sx={{ width: '50%' }}>
+      {sectionLines}
+    </ImageList>
+  )
 }
 
 function Note(props: NoteProps) {
@@ -46,6 +64,8 @@ function Note(props: NoteProps) {
     while (forParsing.length > 0) {
       if (forParsing[0].type === 'ul') {
         body.push(processSection(forParsing, id, 'ul'))
+      } else if (forParsing[0].type === 'img') {
+        body.push(processImageList(forParsing, id))
       } else {
         body.push(<MarkdownLine id={id} line={forParsing.shift()} />)
       }

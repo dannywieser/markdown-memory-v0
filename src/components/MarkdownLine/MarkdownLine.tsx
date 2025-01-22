@@ -1,6 +1,12 @@
 import { CheckBox, CheckBoxOutlineBlank, OpenInNew } from '@mui/icons-material'
-import { Chip, IconButton, Stack, Typography } from '@mui/material'
-import { palette, styled } from '@mui/system'
+import {
+  Chip,
+  IconButton,
+  ImageListItem,
+  Stack,
+  Typography,
+} from '@mui/material'
+import { styled } from '@mui/system'
 import React from 'react'
 
 import type { MarkdownLine, MarkdownText } from '../../markdown/types'
@@ -36,15 +42,6 @@ const p = (textSegments: MarkdownText[]) => (
       let tag: React.ElementType = 'span'
       if (type === 'bold') {
         tag = 'b'
-      }
-      if (type === 'image') {
-        return (
-          <img
-            key={`segment-${index}`}
-            src={`./images/${text}`}
-            width="50%"
-          ></img>
-        )
       }
       return (
         <Span as={tag} key={`segment-${index}`}>
@@ -105,14 +102,14 @@ const ul = (textSegments: MarkdownText[]) => (
   </li>
 )
 
-const tag = (textSegments: MarkdownText[]) => (
-  <Chip
-    color="primary"
-    label={joinTextSegments(textSegments)}
-    size="small"
-    variant="outlined"
-  />
-)
+const img = (textSegments: MarkdownText[]) => {
+  const src = joinTextSegments(textSegments)
+  return (
+    <ImageListItem key={src}>
+      <img src={`./images/${src}`} />
+    </ImageListItem>
+  )
+}
 
 const todo = (textSegments: MarkdownText[]) => (
   <Stack alignItems="top" direction="row" gap={1}>
@@ -153,6 +150,15 @@ const blockquote = (textSegments: MarkdownText[]) => (
   </Blockquote>
 )
 
+const tag = (textSegments: MarkdownText[]) => (
+  <Chip
+    color="primary"
+    label={joinTextSegments(textSegments)}
+    size="small"
+    variant="outlined"
+  />
+)
+
 const typeMap = {
   blank: () => <br />,
   blockquote,
@@ -165,6 +171,7 @@ const typeMap = {
   h4: header4,
   h5: header5,
   h6: header6,
+  img,
   p,
   tag,
   todo,

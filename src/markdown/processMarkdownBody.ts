@@ -17,6 +17,7 @@ const types = {
   h4: '#### ',
   h5: '##### ',
   h6: '###### ',
+  img: '![]',
   tag: '#',
   todo: '- [ ]',
   tododone: '- [x]',
@@ -43,8 +44,8 @@ function createMarkDownLine(line: string, files: BearNoteFile[]): MarkdownLine {
   for (const [typeKey, typeValue] of Object.entries(types)) {
     if (line.startsWith(typeValue)) {
       const textArr = line.replace(typeValue, '').split('')
-      const textSegments = processMarkdownText(textArr)
       const type = processType(typeKey)
+      const textSegments = processMarkdownText(textArr, files, type)
       return { textSegments, type }
     }
   }

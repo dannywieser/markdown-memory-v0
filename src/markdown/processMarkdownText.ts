@@ -1,9 +1,8 @@
 import { BearNoteFile } from 'bear/types'
-import { text } from 'stream/consumers'
 
-import { MarkdownText, MarkdownTextType } from './types'
+import { MarkdownLineType, MarkdownText, MarkdownTextType } from './types'
 
-const specialChars = '`[]()*!'
+const specialChars = '`[]()*'
 
 const mapping = (type: MarkdownTextType, text: string, href?: string) => ({
   href,
@@ -11,18 +10,27 @@ const mapping = (type: MarkdownTextType, text: string, href?: string) => ({
   type,
 })
 
+// normal brackets around text, or the path to an image
+const parensHandler = (
+  textArr: string[],
+  type: MarkdownLineType,
+  files: BearNoteFile[]
+) => {
+  const lineText = textArr[0]
+  let imagePath = ''
+  if (type === 'img' && files) {
+    const { folder = '' } =
+      files.find(({ filename }) => filename === textArr[0]) ?? {}
+    imagePath = `${folder}/${lineText}`
+  }
+  return mapping(
+    type === 'img' ? 'src' : 'string',
+    type === 'img' ? imagePath : `(${lineText})`
+  )
+}
+
 const patterns = {
-  '![]()': (textArr: string[], files: BearNoteFile[]) => {
-    let filename = textArr[0]
-    if (files) {
-      const { folder = '' } =
-        files.find(({ filename }) => filename === textArr[0]) ?? {}
-      filename = `${folder}/${textArr[0]}`
-    }
-    console.log(`filename: ${filename}`)
-    return mapping('image', filename)
-  },
-  '()': (textArr: string[]) => mapping('string', `(${textArr[0]})`), // normal brackets around text
+  '()': parensHandler,
   '**': (textArr: string[]) => mapping('italic', textArr[0]),
   '****': (textArr: string[]) => mapping('bold', textArr[0]),
   '[]()': (textArr: string[]) => mapping('link', textArr[0], textArr[1]),
@@ -42,7 +50,8 @@ const joinText = (textArr: string[]): string => {
 
 export default function processMarkdownText(
   lineArr: string[],
-  files: BearNoteFile[]
+  files: BearNoteFile[],
+  type: MarkdownLineType = 'p'
 ): MarkdownText[] {
   // this is an array of the located text segments
   const segments: MarkdownText[] = []
@@ -86,7 +95,7 @@ export default function processMarkdownText(
 
     for (const [pattern, mapper] of Object.entries(patterns)) {
       if (specialStack.join('') === pattern && specialText.length > 0) {
-        pushSegment(mapper(specialText, files))
+        pushSegment(mapper(specialText, type, files))
         return
       }
     }

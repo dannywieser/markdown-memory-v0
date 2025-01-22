@@ -10,15 +10,16 @@ export type MarkdownLineType =
   | 'h4'
   | 'h5'
   | 'h6'
+  | 'img'
   | 'p'
   | 'ul'
 
 export type MarkdownTextType =
   | 'bold'
   | 'code'
-  | 'image'
   | 'italic'
   | 'link'
+  | 'src'
   | 'string'
 
 export interface MarkdownText {
