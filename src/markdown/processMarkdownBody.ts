@@ -50,13 +50,13 @@ function createMarkDownLine(line: string, files: BearNoteFile[]): MarkdownLine {
     }
   }
 
-  if (line.trim().length === 0) {
-    return { textSegments: [], type: 'blank' }
-  }
-
   if (inCodeBlock) {
     const textSegments: MarkdownText[] = [{ text: line, type: 'code' }]
-    return { textSegments, type: 'codebody' }
+    return { textSegments, type: 'pre' }
+  }
+
+  if (line.trim().length === 0) {
+    return { textSegments: [], type: 'blank' }
   }
 
   const textSegments = processMarkdownText(line.trim().split(''), files)

@@ -3,6 +3,7 @@ import {
   Chip,
   IconButton,
   ImageListItem,
+  Link,
   Stack,
   Typography,
 } from '@mui/material'
@@ -38,10 +39,46 @@ export const Span = (props: SectionProps) => {
 
 const p = (textSegments: MarkdownText[]) => (
   <Typography>
-    {textSegments.map(({ text, type }, index) => {
+    {textSegments.map(({ href, text, type }, index) => {
       let tag: React.ElementType = 'span'
       if (type === 'bold') {
         tag = 'b'
+      }
+      if (type === 'link') {
+        return (
+          <Link
+            href={href}
+            key={`segment-${index}`}
+            target="_new"
+            underline="none"
+          >
+            {text}
+          </Link>
+        )
+      }
+      if (type === 'internallink') {
+        return (
+          <Stack
+            alignItems="center"
+            direction="row"
+            key={`segment-${index}`}
+            sx={{ display: 'inline-flex' }}
+          >
+            <Typography color="primary" variant="inherit">
+              {text}
+            </Typography>
+            <IconButton
+              aria-label="Open Note in Bear"
+              color="primary"
+              href={`bear://x-callback-url/open-note?title=${encodeURIComponent(
+                text
+              )}&show_window=yes`}
+              size="small"
+            >
+              <OpenInNew fontSize="inherit" />
+            </IconButton>
+          </Stack>
+        )
       }
       return (
         <Span as={tag} key={`segment-${index}`}>
@@ -121,7 +158,7 @@ const todo = (textSegments: MarkdownText[]) => (
 const tododone = (textSegments: MarkdownText[]) => (
   <Stack alignItems="top" direction="row" gap={1}>
     <CheckBox fontSize="small" />
-    <Typography>{joinTextSegments(textSegments).trim()}</Typography>
+    {p(textSegments)}
   </Stack>
 )
 
@@ -150,21 +187,26 @@ const blockquote = (textSegments: MarkdownText[]) => (
   </Blockquote>
 )
 
+const Tag = styled(Chip)(({ theme }) => ({
+  backgroundColor: theme.palette.grey[500],
+  border: 0,
+  borderRadius: '8px',
+  color: theme.palette.primary.contrastText,
+}))
+
 const tag = (textSegments: MarkdownText[]) => (
-  <Chip
-    color="primary"
-    label={joinTextSegments(textSegments)}
-    size="small"
-    variant="outlined"
-  />
+  <Tag label={joinTextSegments(textSegments)} size="small" variant="outlined" />
+)
+
+const pre = (textSegments: MarkdownText[]) => (
+  <>{`${joinTextSegments(textSegments)}\n`}</>
 )
 
 const typeMap = {
   blank: () => <br />,
   blockquote,
-  codebody: () => ' codebody',
-  codeend: () => ' codeend',
-  codestart: () => ' codestart',
+  codeend: () => null,
+  codestart: () => null,
   h1: header1,
   h2: header2,
   h3: header3,
@@ -173,6 +215,7 @@ const typeMap = {
   h6: header6,
   img,
   p,
+  pre,
   tag,
   todo,
   tododone,
@@ -184,6 +227,7 @@ function MarkdownLine({ id, line }: MarkdownLineProps) {
     return null
   }
   const { textSegments, type } = line
+  console.log(`type is ${type}`)
   const typeHandler = typeMap[type]
   return typeHandler(textSegments, id)
 }

@@ -1,3 +1,4 @@
+import styled from '@emotion/styled'
 import { ImageList, ImageListItem } from '@mui/material'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
@@ -50,6 +51,29 @@ const processImageList = (lines: MarkdownLine[], id: string) => {
   )
 }
 
+// TODO: how to theme this?
+const Pre = styled('pre')(({ theme }) => ({
+  backgroundColor: '#1b1b1b',
+  borderRadius: `4px`,
+  color: 'white',
+  fontFamily: theme.typography.fontFamily,
+  margin: 0,
+  padding: '16px',
+  whiteSpace: 'pre-wrap',
+}))
+
+const processCodeblock = (lines: MarkdownLine[], id: string) => {
+  const sectionLines = []
+  while (lines.length > 0) {
+    sectionLines.push(<MarkdownLine id={id} line={lines.shift()} />)
+    // check if next line exits the current section
+    if (!lines[0] || lines[0].type !== 'pre') {
+      break
+    }
+  }
+  return <Pre>{sectionLines}</Pre>
+}
+
 function Note(props: NoteProps) {
   const {
     body: { lines },
@@ -64,6 +88,8 @@ function Note(props: NoteProps) {
     while (forParsing.length > 0) {
       if (forParsing[0].type === 'ul') {
         body.push(processSection(forParsing, id, 'ul'))
+      } else if (forParsing[0].type === 'pre') {
+        body.push(processCodeblock(forParsing, id, 'pre'))
       } else if (forParsing[0].type === 'img') {
         body.push(processImageList(forParsing, id))
       } else {

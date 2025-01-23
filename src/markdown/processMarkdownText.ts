@@ -33,6 +33,7 @@ const patterns = {
   '()': parensHandler,
   '**': (textArr: string[]) => mapping('italic', textArr[0]),
   '****': (textArr: string[]) => mapping('bold', textArr[0]),
+  '[[]]': (textArr: string[]) => mapping('internallink', textArr[0]),
   '[]()': (textArr: string[]) => mapping('link', textArr[0], textArr[1]),
   '``': (textArr: string[]) => mapping('code', textArr[0]),
 }

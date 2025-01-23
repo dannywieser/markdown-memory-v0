@@ -1,7 +1,6 @@
 export type MarkdownLineType =
   | 'blank'
   | 'blockquote'
-  | 'codebody'
   | 'codeend'
   | 'codestart'
   | 'h1'
@@ -12,11 +11,13 @@ export type MarkdownLineType =
   | 'h6'
   | 'img'
   | 'p'
+  | 'pre'
   | 'ul'
 
 export type MarkdownTextType =
   | 'bold'
   | 'code'
+  | 'internallink'
   | 'italic'
   | 'link'
   | 'src'
