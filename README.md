@@ -17,6 +17,7 @@ Insights Web App for Bear
 - [ ] Special parsing for Key/Value Pairs
 - [ ] Image - improve layouts (for example, when inline in the text it should show as 50/50 split
 - [ ] notes collapse after I scroll through them, marking them read
+- [ ] Work vs Personal On This day
 
 ## On this day downtime
 
