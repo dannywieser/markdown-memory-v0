@@ -12,6 +12,8 @@ import React from 'react'
 
 import type { MarkdownLine, MarkdownText } from '../../markdown/types'
 
+import Header from '../Header/Header'
+
 export interface MarkdownLineProps {
   id: string
   line: MarkdownLine | undefined
@@ -99,50 +101,6 @@ const p = (textSegments: MarkdownText[]) => (
   </Typography>
 )
 
-const header1 = (textSegments: MarkdownText[], id: string) => (
-  <Stack alignItems="center" direction="row" sx={{ marginBottom: '4px' }}>
-    <Typography variant="h1">{joinTextSegments(textSegments)}</Typography>
-    <IconButton
-      aria-label="Open Note in Bear"
-      color="primary"
-      href={`bear://x-callback-url/open-note?id=${id}`}
-      size="small"
-    >
-      <OpenInNew fontSize="inherit" />
-    </IconButton>
-  </Stack>
-)
-
-const header2 = (textSegments: MarkdownText[]) => (
-  <Typography gutterBottom sx={{ marginTop: '7px' }} variant="h2">
-    {joinTextSegments(textSegments)}
-  </Typography>
-)
-
-const header3 = (textSegments: MarkdownText[]) => (
-  <Typography gutterBottom sx={{ marginTop: '7px' }} variant="h3">
-    {joinTextSegments(textSegments)}
-  </Typography>
-)
-
-const header4 = (textSegments: MarkdownText[]) => (
-  <Typography gutterBottom variant="h4">
-    {joinTextSegments(textSegments)}
-  </Typography>
-)
-
-const header5 = (textSegments: MarkdownText[]) => (
-  <Typography gutterBottom variant="h5">
-    {joinTextSegments(textSegments)}
-  </Typography>
-)
-
-const header6 = (textSegments: MarkdownText[]) => (
-  <Typography gutterBottom variant="h6">
-    {joinTextSegments(textSegments)}
-  </Typography>
-)
-
 const ul = (textSegments: MarkdownText[]) => (
   <li>
     <Typography>{joinTextSegments(textSegments)}</Typography>
@@ -213,12 +171,24 @@ const typeMap = {
   blockquote,
   codeend: () => null,
   codestart: () => null,
-  h1: header1,
-  h2: header2,
-  h3: header3,
-  h4: header4,
-  h5: header5,
-  h6: header6,
+  h1: (segments: MarkdownText[], id: string) => (
+    <Header noteId={id} text={joinTextSegments(segments)} variant="h1" />
+  ),
+  h2: (segments: MarkdownText[]) => (
+    <Header text={joinTextSegments(segments)} variant="h2" />
+  ),
+  h3: (segments: MarkdownText[]) => (
+    <Header text={joinTextSegments(segments)} variant="h3" />
+  ),
+  h4: (segments: MarkdownText[]) => (
+    <Header text={joinTextSegments(segments)} variant="h4" />
+  ),
+  h5: (segments: MarkdownText[]) => (
+    <Header text={joinTextSegments(segments)} variant="h5" />
+  ),
+  h6: (segments: MarkdownText[]) => (
+    <Header text={joinTextSegments(segments)} variant="h6" />
+  ),
   img,
   p,
   pre,

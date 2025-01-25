@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import { ImageList, ImageListItem } from '@mui/material'
+import { ImageList } from '@mui/material'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import React, { useEffect, useState } from 'react'
