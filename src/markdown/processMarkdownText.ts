@@ -2,7 +2,7 @@ import { BearNoteFile } from 'bear/types'
 
 import { MarkdownLineType, MarkdownText, MarkdownTextType } from './types'
 
-const specialChars = '`[]()*'
+const specialChars = '`[]()*#_'
 
 const mapping = (type: MarkdownTextType, text: string, href?: string) => ({
   href,
@@ -30,6 +30,8 @@ const parensHandler = (
 }
 
 const patterns = {
+  __: (textArr: string[]) => mapping('italic', textArr[0]),
+  '#': (textArr: string[]) => mapping('tag', textArr[0]),
   '()': parensHandler,
   '**': (textArr: string[]) => mapping('italic', textArr[0]),
   '****': (textArr: string[]) => mapping('bold', textArr[0]),
@@ -84,6 +86,27 @@ export default function processMarkdownText(
     }
   }
 
+  const checkSpecial = (curChar: string) => {
+    if (specialStack.length === 0) {
+      return
+    }
+    // special handling for tags
+    if (
+      curChar === ' ' ||
+      (curChar === '\n' && specialStack.join('') === '#')
+    ) {
+      pushSegment(mapping('tag', textStack.join('')))
+      return
+    }
+    for (const [pattern, mapper] of Object.entries(patterns)) {
+      if (specialStack.join('') === pattern && specialText.length > 0) {
+        // console.log(`pushing special: ${specialText.join('')}, |${pattern}<--`)
+        pushSegment(mapper(specialText, type, files))
+        return
+      }
+    }
+  }
+
   lineArr.forEach((curChar) => {
     if (specialChars.includes(curChar)) {
       if (specialStack.length > 0) {
@@ -94,19 +117,20 @@ export default function processMarkdownText(
       specialStack.push(curChar)
     }
 
-    for (const [pattern, mapper] of Object.entries(patterns)) {
-      if (specialStack.join('') === pattern && specialText.length > 0) {
-        pushSegment(mapper(specialText, type, files))
-        return
-      }
-    }
+    checkSpecial(curChar)
 
     // normal char, add to current text stack
     if (!specialChars.includes(curChar)) {
       textStack.push(curChar)
     }
   })
-  pushText()
+  // We have reached the end of the line and the special stack is not empty.
+  // This means we have a special string which has ended and needs to be closed
+  if (specialStack.join('').trim().length > 0) {
+    checkSpecial('\n')
+  } else {
+    pushText()
+  }
 
   return segments
 }

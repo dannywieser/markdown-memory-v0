@@ -22,6 +22,7 @@ export type MarkdownTextType =
   | 'link'
   | 'src'
   | 'string'
+  | 'tag'
 
 export interface MarkdownText {
   href?: string

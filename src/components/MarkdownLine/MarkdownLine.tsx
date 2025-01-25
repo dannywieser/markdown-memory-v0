@@ -44,6 +44,16 @@ const p = (textSegments: MarkdownText[]) => (
       if (type === 'bold') {
         tag = 'b'
       }
+      if (type === 'tag') {
+        return (
+          <Tag
+            key={`segment-${index}`}
+            label={text}
+            size="small"
+            variant="outlined"
+          />
+        )
+      }
       if (type === 'link') {
         return (
           <Link
@@ -194,10 +204,6 @@ const Tag = styled(Chip)(({ theme }) => ({
   color: theme.palette.primary.contrastText,
 }))
 
-const tag = (textSegments: MarkdownText[]) => (
-  <Tag label={joinTextSegments(textSegments)} size="small" variant="outlined" />
-)
-
 const pre = (textSegments: MarkdownText[]) => (
   <>{`${joinTextSegments(textSegments)}\n`}</>
 )
@@ -216,7 +222,6 @@ const typeMap = {
   img,
   p,
   pre,
-  tag,
   todo,
   tododone,
   ul,

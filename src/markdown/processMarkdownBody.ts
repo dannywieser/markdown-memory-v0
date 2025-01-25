@@ -18,7 +18,6 @@ const types = {
   h5: '##### ',
   h6: '###### ',
   img: '![]',
-  tag: '#',
   todo: '- [ ]',
   tododone: '- [x]',
   ul: '* ',
