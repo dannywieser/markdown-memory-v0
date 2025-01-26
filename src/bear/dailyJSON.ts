@@ -8,7 +8,7 @@ export function dailyJSON(contents: string) {
   const date = currentDate()
   const destFile = `${destDir}/${date}.json`
   try {
-    fs.writeFileSync(destFile, contents, 'utf8')
+    fs.writeFileSync(destFile, contents)
     info(`daily JSON created: ${destFile}`)
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (e) {

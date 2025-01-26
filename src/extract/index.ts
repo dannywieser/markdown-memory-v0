@@ -12,7 +12,8 @@ const runExtractor = async () => {
   info(`Run Complete`)
 }
 
-schedule.scheduleJob('00 4 * * *', runExtractor)
+// run the job every hour
+schedule.scheduleJob('00 * * * *', runExtractor)
 
 // always run once right away
 runExtractor()

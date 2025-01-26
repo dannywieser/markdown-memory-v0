@@ -15,11 +15,11 @@ export function copyBearDatabase(): string {
   const date = currentDate()
   const destFile = `${destDbDir}/${date}.sqllite`
   try {
-    fs.copyFileSync(sourceFile, destFile, fs.constants.COPYFILE_EXCL)
+    fs.copyFileSync(sourceFile, destFile)
     info(`db copied to: ${destFile}`)
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (e) {
-    error('copy failed, file already exists')
+    error('copy failed')
+    console.error(e)
   }
   return destFile
 }
@@ -44,6 +44,6 @@ const doCopy = (sourceDir: string, folder: string, filename: string) => {
     if (!fs.existsSync(destDir)) {
       fs.mkdirSync(destDir)
     }
-    fs.copyFileSync(source, destFile, fs.constants.COPYFILE_EXCL)
+    fs.copyFileSync(source, destFile)
   }
 }

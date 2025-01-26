@@ -92,8 +92,8 @@ export default function processMarkdownText(
     }
     // special handling for tags
     if (
-      curChar === ' ' ||
-      (curChar === '\n' && specialStack.join('') === '#')
+      (curChar === ' ' || curChar === '\n') &&
+      specialStack.join('') === '#'
     ) {
       pushSegment(mapping('tag', textStack.join('')))
       return
