@@ -1,32 +1,32 @@
 import { Box, Container, Typography } from '@mui/material'
-import { BearProcessedNote } from 'bear/types'
 import React, { useEffect, useState } from 'react'
 
 import { currentDate } from '../../utils'
 import Note from '../Note/Note'
 
-const dataPath = './daily-extracts/'
+const dailyPath = './daily/'
 export default function OnThisDay() {
   const date = currentDate()
-  const [data, setData] = useState<BearProcessedNote[]>([])
+  const [noteIds, setNoteIds] = useState<string[]>([])
 
-  const getData = async () => {
-    const filename = `${dataPath}${date}.json`
+  const loadNotes = async () => {
+    const filename = `${dailyPath}${date}.json`
     const res = await fetch(filename)
     const jsonData = await res.json()
-    setData(jsonData)
+    setNoteIds(jsonData)
   }
   useEffect(() => {
-    getData()
+    loadNotes()
   }, [])
 
   return (
     <Container maxWidth={false} sx={{ height: '100%' }}>
       <Box sx={{ height: '100%' }}>
-        <Typography color="primary" variant="h1">
-          Bear|Insights
-        </Typography>
-        <Typography variant="h2">{date}</Typography>
+        <Box sx={{ borderBottom: 1 }}>
+          <Typography color="primary" variant="h1">
+            markdown memory|{date}
+          </Typography>
+        </Box>
         <Box
           sx={{
             display: 'grid',
@@ -34,8 +34,8 @@ export default function OnThisDay() {
             gridTemplateColumns: 'repeat(1, 1fr)',
           }}
         >
-          {data.map((data) => (
-            <Note body={data.body} id={data.id} key={data.id} />
+          {noteIds.map((noteId) => (
+            <Note id={noteId} key={noteId} />
           ))}
         </Box>
       </Box>

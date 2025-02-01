@@ -134,4 +134,5 @@ dist
 db-backup
 daily-extracts
 public
+public/notes
 .DS_Store

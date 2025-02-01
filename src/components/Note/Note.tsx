@@ -2,6 +2,7 @@ import styled from '@emotion/styled'
 import { ImageList } from '@mui/material'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
+import { BearProcessedNote } from 'bear/types'
 import React, { useEffect, useState } from 'react'
 
 import MarkdownLine from '../MarkdownLine/MarkdownLine'
@@ -74,30 +75,41 @@ const processCodeblock = (lines: MarkdownLine[], id: string) => {
   return <Pre>{sectionLines}</Pre>
 }
 
-function Note(props: NoteProps) {
-  const {
-    body: { lines },
-    id,
-  } = props
+const notePath = './notes/'
 
+function Note(props: NoteProps) {
+  const { id } = props
   const [body, setBody] = useState<React.JSX.Element[]>([])
+  const [note, setNote] = useState<BearProcessedNote>(null)
+
+  const loadNote = async () => {
+    const filename = `${notePath}${id}.json`
+    const res = await fetch(filename)
+    const jsonData = await res.json()
+    setNote(jsonData)
+  }
+  useEffect(() => {
+    loadNote()
+  }, [])
 
   useEffect(() => {
-    const forParsing = [...lines]
-    const body = []
-    while (forParsing.length > 0) {
-      if (forParsing[0].type === 'ul') {
-        body.push(processSection(forParsing, id, 'ul'))
-      } else if (forParsing[0].type === 'pre') {
-        body.push(processCodeblock(forParsing, id, 'pre'))
-      } else if (forParsing[0].type === 'img') {
-        body.push(processImageList(forParsing, id))
-      } else {
-        body.push(<MarkdownLine id={id} line={forParsing.shift()} />)
+    if (note && note.body) {
+      const forParsing = [...note.body.lines]
+      const body = []
+      while (forParsing.length > 0) {
+        if (forParsing[0].type === 'ul') {
+          body.push(processSection(forParsing, id, 'ul'))
+        } else if (forParsing[0].type === 'pre') {
+          body.push(processCodeblock(forParsing, id, 'pre'))
+        } else if (forParsing[0].type === 'img') {
+          body.push(processImageList(forParsing, id))
+        } else {
+          body.push(<MarkdownLine id={id} line={forParsing.shift()} />)
+        }
       }
+      setBody(body)
     }
-    setBody(body)
-  }, [lines])
+  }, [note])
 
   return (
     <Card square={true} sx={{ borderTop: '1px solid #f0f0f0' }}>

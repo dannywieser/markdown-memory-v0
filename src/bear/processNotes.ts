@@ -4,7 +4,7 @@ import processFile from './processFile'
 import processNote from './processNote'
 import { BearProcessedNote } from './types'
 
-export async function getAllNotes(
+export async function processNotes(
   dbFile: string
 ): Promise<BearProcessedNote[] | undefined> {
   const allNotesSql = 'SELECT * FROM ZSFNOTE'
@@ -15,8 +15,6 @@ export async function getAllNotes(
     const notes = await db.all(allNotesSql)
     const files = await db.all(allFilesSql)
     const processedFiles = files.map(processFile)
-    // for debugging, this will process only the latest note created
-    //return [processNote(notes[notes.length - 1], processedFiles)]
     return notes.map((note) => processNote(note, processedFiles))
   } catch (e) {
     error('failed to read DB')

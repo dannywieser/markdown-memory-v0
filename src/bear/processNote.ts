@@ -1,3 +1,5 @@
+import { saveJSON } from 'utils/saveJSON'
+
 import { processMarkdownBody } from '../markdown'
 import { fmtDate } from '../utils'
 import { copyNoteImage } from './copy'
@@ -21,13 +23,15 @@ const convertDate = (bearDate: string) => {
   return fmtDate(new Date(epochMs))
 }
 
-export default function processNote(
+//const notesDir = './public/notes'
+
+export default function saveNote(
   rawNote: BearRawNote,
   allFiles: BearProcessedFile[]
 ): BearProcessedNote {
   // info(`[${index}] ${rawNote.ZTITLE}`)
 
-  // Retrieve all files associated with the current note and map to the correct types to save with the record
+  // 1. retrieve all files associated with the current note and map to the correct types to save with the record
   const pk = rawNote.Z_PK
   const notesFiles = allFiles.filter(({ noteId }) => noteId === pk)
   notesFiles.forEach(({ fileId, filename }) => copyNoteImage(filename, fileId))

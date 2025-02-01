@@ -202,7 +202,6 @@ function MarkdownLine({ id, line }: MarkdownLineProps) {
     return null
   }
   const { textSegments, type } = line
-  console.log(`type is ${type}`)
   const typeHandler = typeMap[type]
   return typeHandler(textSegments, id)
 }
