@@ -31,7 +31,13 @@ const processSection = (
       break
     }
   }
-  return <Section as={sectionType}>{sectionLines}</Section>
+
+  const key = `${id}-${lines.length}`
+  return (
+    <Section as={sectionType} key={key}>
+      {sectionLines}
+    </Section>
+  )
 }
 
 const processImageList = (lines: MarkdownLine[], id: string) => {
@@ -112,7 +118,7 @@ function Note(props: NoteProps) {
   }, [note])
 
   return (
-    <Card square={true} sx={{ borderTop: '1px solid #f0f0f0' }}>
+    <Card key={id} square={true} sx={{ borderTop: '1px solid #f0f0f0' }}>
       <CardContent>{body}</CardContent>
     </Card>
   )

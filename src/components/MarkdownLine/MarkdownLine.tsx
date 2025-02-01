@@ -1,18 +1,12 @@
-import { CheckBox, CheckBoxOutlineBlank, OpenInNew } from '@mui/icons-material'
-import {
-  Chip,
-  IconButton,
-  ImageListItem,
-  Link,
-  Stack,
-  Typography,
-} from '@mui/material'
+import { CheckBox, CheckBoxOutlineBlank } from '@mui/icons-material'
+import { ImageListItem, Stack, Typography } from '@mui/material'
 import { styled } from '@mui/system'
 import React from 'react'
 
 import type { MarkdownLine, MarkdownText } from '../../markdown/types'
 
 import Header from '../Header/Header'
+import { TextSegment } from '../TextSegment/TextSegment'
 
 export interface MarkdownLineProps {
   id: string
@@ -29,84 +23,6 @@ const joinTextSegments = (segments: MarkdownText[]) =>
     ''
   )
 
-type SectionProps = {
-  as?: React.ElementType
-  children: React.ReactNode
-}
-
-export const Span = (props: SectionProps) => {
-  const { as: Tag = 'div', children } = props
-  return <Tag>{children}</Tag>
-}
-
-const p = (textSegments: MarkdownText[]) => (
-  <Typography>
-    {textSegments.map(({ href, text, type }, index) => {
-      let tag: React.ElementType = 'span'
-      if (type === 'bold') {
-        tag = 'b'
-      }
-      if (type === 'tag') {
-        return (
-          <Tag
-            key={`segment-${index}`}
-            label={text}
-            size="small"
-            variant="outlined"
-          />
-        )
-      }
-      if (type === 'link') {
-        return (
-          <Link
-            href={href}
-            key={`segment-${index}`}
-            target="_new"
-            underline="none"
-          >
-            {text}
-          </Link>
-        )
-      }
-      if (type === 'internallink') {
-        return (
-          <Stack
-            alignItems="center"
-            direction="row"
-            key={`segment-${index}`}
-            sx={{ display: 'inline-flex' }}
-          >
-            <Typography color="primary" variant="inherit">
-              {text}
-            </Typography>
-            <IconButton
-              aria-label="Open Note in Bear"
-              color="primary"
-              href={`bear://x-callback-url/open-note?title=${encodeURIComponent(
-                text
-              )}&show_window=yes`}
-              size="small"
-            >
-              <OpenInNew fontSize="inherit" />
-            </IconButton>
-          </Stack>
-        )
-      }
-      return (
-        <Span as={tag} key={`segment-${index}`}>
-          {text}
-        </Span>
-      )
-    })}
-  </Typography>
-)
-
-const ul = (textSegments: MarkdownText[]) => (
-  <li>
-    <Typography>{joinTextSegments(textSegments)}</Typography>
-  </li>
-)
-
 const img = (textSegments: MarkdownText[]) => {
   const src = joinTextSegments(textSegments)
   return (
@@ -119,14 +35,18 @@ const img = (textSegments: MarkdownText[]) => {
 const todo = (textSegments: MarkdownText[]) => (
   <Stack alignItems="top" direction="row" gap={1}>
     <CheckBoxOutlineBlank fontSize="small" />
-    <Typography>{joinTextSegments(textSegments).trim()}</Typography>
+    {textSegments.map((segment, index) => (
+      <TextSegment key={`todo-index-${index}`} segment={segment} />
+    ))}
   </Stack>
 )
 
 const tododone = (textSegments: MarkdownText[]) => (
   <Stack alignItems="top" direction="row" gap={1}>
     <CheckBox fontSize="small" />
-    {p(textSegments)}
+    {textSegments.map((segment, index) => (
+      <TextSegment key={`tododone-index-${index}`} segment={segment} />
+    ))}
   </Stack>
 )
 
@@ -139,28 +59,17 @@ const Blockquote = styled('blockquote')(({ theme }) => ({
 
 const blockquote = (textSegments: MarkdownText[]) => (
   <Blockquote>
-    <Typography>
-      {textSegments.map(({ text, type }, index) => {
-        let tag: React.ElementType = 'span'
-        if (type === 'bold') {
-          tag = 'b'
-        }
-        return (
-          <Span as={tag} key={`segment-${index}`}>
-            {text}
-          </Span>
-        )
-      })}
-    </Typography>
+    {textSegments.map((segment, index) => (
+      <TextSegment key={`blockquote-index-${index}`} segment={segment} />
+    ))}
   </Blockquote>
 )
 
-const Tag = styled(Chip)(({ theme }) => ({
-  backgroundColor: theme.palette.grey[500],
-  border: 0,
-  borderRadius: '8px',
-  color: theme.palette.primary.contrastText,
-}))
+const ul = (textSegments: MarkdownText[]) => (
+  <li>
+    <Typography>{joinTextSegments(textSegments)}</Typography>
+  </li>
+)
 
 const pre = (textSegments: MarkdownText[]) => (
   <>{`${joinTextSegments(textSegments)}\n`}</>
@@ -190,7 +99,10 @@ const typeMap = {
     <Header text={joinTextSegments(segments)} variant="h6" />
   ),
   img,
-  p,
+  p: (segments: MarkdownText[]) =>
+    segments.map((segment, index) => (
+      <TextSegment key={`text-segment-${index}`} segment={segment} />
+    )),
   pre,
   todo,
   tododone,
@@ -203,7 +115,7 @@ function MarkdownLine({ id, line }: MarkdownLineProps) {
   }
   const { textSegments, type } = line
   const typeHandler = typeMap[type]
-  return typeHandler(textSegments, id)
+  return <div>{typeHandler(textSegments, id)}</div>
 }
 
 export default MarkdownLine

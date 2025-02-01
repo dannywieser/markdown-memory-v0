@@ -1,4 +1,11 @@
-import { Box, Container, Typography } from '@mui/material'
+import {
+  Box,
+  Card,
+  CardContent,
+  Container,
+  Paper,
+  Typography,
+} from '@mui/material'
 import React, { useEffect, useState } from 'react'
 
 import { currentDate } from '../../utils'
@@ -22,11 +29,6 @@ export default function OnThisDay() {
   return (
     <Container maxWidth={false} sx={{ height: '100%' }}>
       <Box sx={{ height: '100%' }}>
-        <Box sx={{ borderBottom: 1 }}>
-          <Typography color="primary" variant="h1">
-            markdown memory|{date}
-          </Typography>
-        </Box>
         <Box
           sx={{
             display: 'grid',
@@ -34,6 +36,13 @@ export default function OnThisDay() {
             gridTemplateColumns: 'repeat(1, 1fr)',
           }}
         >
+          <Card square={true} sx={{ borderTop: '1px solid #f0f0f0' }}>
+            <CardContent>
+              <Typography color="primary" variant="h1">
+                markdown memory|{date}
+              </Typography>
+            </CardContent>
+          </Card>
           {noteIds.map((noteId) => (
             <Note id={noteId} key={noteId} />
           ))}
