@@ -2,7 +2,7 @@ import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
 
 const port = 4200
-const host = 'localhost' //'bear-insights.local'
+const host = 'bear-insights.local'
 
 export default defineConfig({
   assetsInclude: ['**/*.json'],

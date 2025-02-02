@@ -1,4 +1,5 @@
-import { Link, styled, Typography } from '@mui/material'
+import { OpenInNew } from '@mui/icons-material'
+import { IconButton, Link, Stack, styled, Typography } from '@mui/material'
 import React, { ElementType } from 'react'
 
 import { MarkdownText } from '../../markdown/types'
@@ -32,30 +33,21 @@ const link = (text: string, href: string | undefined) => (
   </Link>
 )
 
-// if (type === 'internallink') {
-//     return (
-//       <Stack
-//         alignItems="center"
-//         direction="row"
-//         key={`segment-${index}`}
-//         sx={{ display: 'inline-flex' }}
-//       >
-//         <Typography color="primary" variant="inherit">
-//           {text}
-//         </Typography>
-//         <IconButton
-//           aria-label="Open Note in Bear"
-//           color="primary"
-//           href={`bear://x-callback-url/open-note?title=${encodeURIComponent(
-//             text
-//           )}&show_window=yes`}
-//           size="small"
-//         >
-//           <OpenInNew fontSize="inherit" />
-//         </IconButton>
-//       </Stack>
-//     )
-//   }
+const internallink = (text: string) => (
+  <Stack alignItems="center" direction="row" sx={{ display: 'inline-flex' }}>
+    <Typography color="primary">{text}</Typography>
+    <IconButton
+      aria-label="Open Note in Bear"
+      color="primary"
+      href={`bear://x-callback-url/open-note?title=${encodeURIComponent(
+        text
+      )}&show_window=yes`}
+      size="small"
+    >
+      <OpenInNew fontSize="inherit" />
+    </IconButton>
+  </Stack>
+)
 
 const Code = styled(Typography)(({ theme }) => ({
   backgroundColor: theme.palette.grey[200],
@@ -68,7 +60,7 @@ const typeMap = {
     </Typography>
   ),
   code: (text: string) => <Code display="inline">{text}</Code>,
-  internallink: () => 'internallink',
+  internallink,
   italic: (text: string) => segment('em')(text),
   link,
   src: () => 'src',
