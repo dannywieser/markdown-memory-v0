@@ -1,19 +1,12 @@
-import {
-  Box,
-  Card,
-  CardContent,
-  Container,
-  Paper,
-  Typography,
-} from '@mui/material'
+import { Box, Card, CardContent, Container, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
+import { useParams } from 'react-router'
 
-import { currentDate } from '../../utils'
 import Note from '../Note/Note'
 
-const dailyPath = './daily/'
+const dailyPath = '/daily/'
 export default function OnThisDay() {
-  const date = currentDate()
+  const { date } = useParams()
   const [noteIds, setNoteIds] = useState<string[]>([])
 
   const loadNotes = async () => {
@@ -27,7 +20,7 @@ export default function OnThisDay() {
   }, [])
 
   return (
-    <Container maxWidth={false} sx={{ height: '100%' }}>
+    <Container maxWidth={false} sx={{ height: '100%', p: 1 }}>
       <Box sx={{ height: '100%' }}>
         <Box
           sx={{

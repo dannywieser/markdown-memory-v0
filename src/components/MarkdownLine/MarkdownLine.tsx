@@ -27,7 +27,7 @@ const img = (textSegments: MarkdownText[]) => {
   const src = joinTextSegments(textSegments)
   return (
     <ImageListItem key={src}>
-      <img src={`./images/${src}`} />
+      <img src={`/images/${src}`} />
     </ImageListItem>
   )
 }

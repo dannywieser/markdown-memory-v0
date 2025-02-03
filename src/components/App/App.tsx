@@ -1,11 +1,18 @@
 import React from 'react'
+import { BrowserRouter, Route, Routes } from 'react-router'
 
+import Dashboard from '../Dashboard/Dashboard'
 import OnThisDay from '../OnThisDay/OnThisDay'
 
-// import ImageTiles from '../ImageTiles/ImageTiles'
-
 function App() {
-  return <OnThisDay />
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route element={<Dashboard />} path="/" />
+        <Route element={<OnThisDay />} path="/on-this-day/:type/:date" />
+      </Routes>
+    </BrowserRouter>
+  )
 }
 
 export default App

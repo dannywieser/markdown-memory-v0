@@ -81,7 +81,7 @@ const processCodeblock = (lines: MarkdownLine[], id: string) => {
   return <Pre>{sectionLines}</Pre>
 }
 
-const notePath = './notes/'
+const notePath = '/notes/'
 
 function Note(props: NoteProps) {
   const { id } = props
