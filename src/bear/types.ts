@@ -1,7 +1,7 @@
 import { MarkdownBody } from '../markdown/types'
 
 export interface BearRawNote {
-  Z_PK: string
+  Z_PK: number
   ZCREATIONDATE: string
   ZHASFILES: number
   ZHASIMAGES: number
@@ -31,6 +31,7 @@ export interface BearProcessedNote {
   id: string
   modified: string
   rawText: string
+  tags: string[]
   title: string
 }
 
@@ -43,5 +44,22 @@ export interface BearRawFile {
 export interface BearProcessedFile {
   fileId: string
   filename: string
-  noteId: string
+  noteId: number
+}
+
+export interface BearNoteTagRel {
+  Z_5NOTES: number
+  Z_13TAGS: number
+}
+
+export interface BearRawTag {
+  Z_PK: number
+  ZTAGCON: string
+  ZTITLE: string
+}
+
+export interface BearProcessedTag {
+  icon: string
+  noteIds: number[]
+  title: string
 }

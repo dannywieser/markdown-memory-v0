@@ -1,5 +1,3 @@
-import { saveJSON } from 'utils/saveJSON'
-
 import { processMarkdownBody } from '../markdown'
 import { fmtDate } from '../utils'
 import { copyNoteImage } from './copy'
@@ -7,6 +5,7 @@ import {
   BearNoteFile,
   BearProcessedFile,
   BearProcessedNote,
+  BearProcessedTag,
   BearRawNote,
 } from './types'
 
@@ -23,17 +22,16 @@ const convertDate = (bearDate: string) => {
   return fmtDate(new Date(epochMs))
 }
 
-//const notesDir = './public/notes'
-
 export default function saveNote(
   rawNote: BearRawNote,
-  allFiles: BearProcessedFile[]
+  allFiles: BearProcessedFile[],
+  allTags: BearProcessedTag[]
 ): BearProcessedNote {
-  // info(`[${index}] ${rawNote.ZTITLE}`)
-
   // 1. retrieve all files associated with the current note and map to the correct types to save with the record
-  const pk = rawNote.Z_PK
-  const notesFiles = allFiles.filter(({ noteId }) => noteId === pk)
+  const processingNoteId = rawNote.Z_PK
+  const notesFiles = allFiles.filter(
+    ({ noteId }) => noteId === processingNoteId
+  )
   notesFiles.forEach(({ fileId, filename }) => copyNoteImage(filename, fileId))
   const files: BearNoteFile[] = notesFiles.map(
     ({ fileId, filename }): BearNoteFile => ({
@@ -41,6 +39,18 @@ export default function saveNote(
       folder: fileId,
     })
   )
+
+  // 2. retrieve all tags associated with the current note
+  const tags = allTags
+    // first find tags that have been assigned to this current note ID
+    .filter(({ noteIds }) =>
+      noteIds.some((id: number) => id === processingNoteId)
+    )
+    // then reduce the result down to a string array only containing the tags title
+    .reduce(
+      (titles: string[], { title }: BearProcessedTag) => [...titles, title],
+      []
+    )
 
   return {
     body: processMarkdownBody(rawNote.ZTEXT, files),
@@ -51,6 +61,7 @@ export default function saveNote(
     id: rawNote.ZUNIQUEIDENTIFIER,
     modified: convertDate(rawNote.ZMODIFICATIONDATE),
     rawText: rawNote.ZTEXT,
+    tags,
     title: rawNote.ZTITLE,
   }
 }
