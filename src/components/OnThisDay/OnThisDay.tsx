@@ -2,6 +2,7 @@ import { Box, Card, CardContent, Container, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 
+import { noCacheUrl } from '../../utils/url'
 import Note from '../Note/Note'
 
 const dailyPath = '/daily/'
@@ -10,7 +11,7 @@ export default function OnThisDay() {
   const [noteIds, setNoteIds] = useState<string[]>([])
 
   const loadNotes = async () => {
-    const filename = `${dailyPath}${date}.json`
+    const filename = noCacheUrl(`${dailyPath}${date}.json`)
     const res = await fetch(filename)
     const jsonData = await res.json()
     setNoteIds(jsonData)

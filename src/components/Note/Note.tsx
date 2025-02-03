@@ -5,6 +5,7 @@ import CardContent from '@mui/material/CardContent'
 import { BearProcessedNote } from 'bear/types'
 import React, { useEffect, useState } from 'react'
 
+import { noCacheUrl } from '../../utils/url'
 import MarkdownLine from '../MarkdownLine/MarkdownLine'
 import { NoteProps } from './Note.types'
 
@@ -89,7 +90,7 @@ function Note(props: NoteProps) {
   const [note, setNote] = useState<BearProcessedNote>(null)
 
   const loadNote = async () => {
-    const filename = `${notePath}${id}.json`
+    const filename = noCacheUrl(`${notePath}${id}.json`)
     const res = await fetch(filename)
     const jsonData = await res.json()
     setNote(jsonData)
