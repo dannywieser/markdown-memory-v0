@@ -5,12 +5,85 @@ import { copyBearDatabase } from '../bear/copy'
 import { processNotes } from '../bear/processNotes'
 import { currentDate, error, info, removeYear, startup } from '../utils'
 import { saveJSON } from '../utils/saveJSON'
+import { TagGroup } from './types'
 
 const notesDir = './public/notes'
 const dailyDir = './public/daily'
 
+const groups: TagGroup[] = [
+  {
+    includeTags: ['daily@work', 'riverside'],
+    name: 'work',
+  },
+  {
+    excludeTags: ['daily@work', 'riverside'],
+    name: 'personal',
+  },
+]
+
+const countTags = (notes: BearProcessedNote[]) => {
+  const allTags: string[] = notes.reduce(
+    (tags: string[], { tags: noteTags }: BearProcessedNote) => [
+      ...tags,
+      ...noteTags,
+    ],
+    []
+  )
+
+  const tagCounts: { [key: string]: number } = {}
+  for (const tag of allTags) {
+    tagCounts[tag] = tagCounts[tag] ? tagCounts[tag] + 1 : 1
+  }
+  return tagCounts
+}
+
+const writeGroupDailyFile = (
+  groupName: string,
+  groupNotes: BearProcessedNote[]
+) => {
+  const date = currentDate()
+  const onThisDayIds: string[] = groupNotes.reduce(
+    (ids: string[], { id }: BearProcessedNote) => [...ids, id],
+    []
+  )
+
+  const tagCounts = countTags(groupNotes)
+
+  const dailyJSON = {
+    notes: onThisDayIds,
+    tagCounts,
+  }
+
+  const dailyFile = `${dailyDir}/${groupName}-${date}.json`
+  saveJSON(dailyFile, JSON.stringify(dailyJSON, null, 2))
+  info(`${groupName}|${date}: ${onThisDayIds.length} notes`)
+}
+
+const splitByGroup = (notes: BearProcessedNote[]) => {
+  groups.forEach(
+    ({
+      excludeTags: groupExcludeTags,
+      includeTags: groupIncludeTags,
+      name,
+    }) => {
+      // filter out the notes which include tags in the current tag group
+      const removeExcluded = groupExcludeTags
+        ? notes.filter(
+            ({ tags }) => !tags.some((tag) => groupExcludeTags.includes(tag))
+          )
+        : notes
+      const filterIncluded = groupIncludeTags
+        ? removeExcluded.filter(({ tags }) =>
+            tags.some((tag) => groupIncludeTags.includes(tag))
+          )
+        : removeExcluded
+      writeGroupDailyFile(name, filterIncluded)
+    }
+  )
+}
+
 const runExtractor = async () => {
-  startup('Bear DB Extractor')
+  startup('processing notes')
   const dbFile = await copyBearDatabase()
 
   // 1. retrieve all notes, mapped into BearProcessedNote[]
@@ -35,18 +108,13 @@ const runExtractor = async () => {
     return createdDay === targetDay || record.rawText.includes(targetDay)
   })
 
-  const onThisDayIds: string[] = onThisDay.reduce(
-    (ids: string[], { id }: BearProcessedNote) => [...ids, id],
-    []
-  )
-
-  const dailyFile = `${dailyDir}/${date}.json`
-  saveJSON(dailyFile, JSON.stringify(onThisDayIds, null, 2))
-  info(`${date}: ${onThisDayIds.length} notes`)
+  splitByGroup(onThisDay)
 }
 
-// run the job every hour
-schedule.scheduleJob('00 * * * *', runExtractor)
+//startup('Bear DB Extractor')
+
+// run the job every minute
+schedule.scheduleJob('* * * * *', runExtractor)
 
 // always run once right away
 runExtractor()

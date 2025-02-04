@@ -7,14 +7,15 @@ import Note from '../Note/Note'
 
 const dailyPath = '/daily/'
 export default function OnThisDay() {
-  const { date } = useParams()
+  const { date, group } = useParams()
   const [noteIds, setNoteIds] = useState<string[]>([])
 
   const loadNotes = async () => {
-    const filename = noCacheUrl(`${dailyPath}${date}.json`)
+    const filename = noCacheUrl(`${dailyPath}${group}-${date}.json`)
+    console.log(`loadNotes ${filename}`)
     const res = await fetch(filename)
     const jsonData = await res.json()
-    setNoteIds(jsonData)
+    setNoteIds(jsonData.notes)
   }
   useEffect(() => {
     loadNotes()

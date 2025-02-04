@@ -10,6 +10,9 @@ import React from 'react'
 
 import { currentDate } from '../../utils'
 
+// TODO: config
+const groups = ['work', 'personal']
+
 export default function Dashboard() {
   const date = currentDate()
   return (
@@ -29,13 +32,19 @@ export default function Dashboard() {
               </Typography>
             </CardContent>
           </Card>
-          <Card square={true} sx={{ borderTop: '1px solid #f0f0f0' }}>
-            <CardContent>
-              <Link color="primary" href={`/on-this-day/personal/${date}`}>
-                <Typography>On This Day</Typography>
-              </Link>
-            </CardContent>
-          </Card>
+          {groups.map((group: string) => (
+            <Card
+              key={group}
+              square={true}
+              sx={{ borderTop: '1px solid #f0f0f0' }}
+            >
+              <CardContent>
+                <Link color="primary" href={`/on-this-day/${group}/${date}`}>
+                  <Typography>On This Day: {group}</Typography>
+                </Link>
+              </CardContent>
+            </Card>
+          ))}
         </Box>
       </Box>
     </Container>

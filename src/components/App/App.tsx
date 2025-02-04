@@ -9,7 +9,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route element={<Dashboard />} path="/" />
-        <Route element={<OnThisDay />} path="/on-this-day/:type/:date" />
+        <Route element={<OnThisDay />} path="/on-this-day/:group/:date" />
       </Routes>
     </BrowserRouter>
   )
