@@ -1,0 +1,9 @@
+services:
+  web:
+    build: .
+    ports:
+      - '80:80'
+    volumes:
+      - ./public/daily:/usr/share/nginx/html/daily
+      - ./public/notes:/usr/share/nginx/html/notes
+      - ./public/images:/usr/share/nginx/html/images

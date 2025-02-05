@@ -5,11 +5,10 @@ const port = 4200
 const host = 'bear-insights.local'
 
 export default defineConfig({
-  assetsInclude: ['**/**/*.json'],
   base: '/',
   build: {
     emptyOutDir: true,
-    outDir: './dist/ui',
+    outDir: './dist',
     reportCompressedSize: true,
   },
   plugins: [react()],
