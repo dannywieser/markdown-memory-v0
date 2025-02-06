@@ -20,7 +20,7 @@
     "test": "vite-node ./src/markdown/testing.ts",
     "vite": "vite",
     "docker": "vite build && docker build -t markdown-memory . --no-cache",
-    "build": "vite build",
+    "build": "vite build && docker-compose up --force-recreate --build -d && docker image prune -f",
     "preview": "vite build && vite preview",
     "clean": "rimraf dist",
     "nginx": "docker compose up",
