@@ -1,19 +1,12 @@
-import {
-  Box,
-  Card,
-  CardContent,
-  Container,
-  Link,
-  Paper,
-  Typography,
-} from '@mui/material'
+import { Box, Container } from '@mui/material'
 import React from 'react'
 
 import { currentDate } from '../../utils'
 import AppBar from '../AppBar/AppBar'
+import DayCard from '../DayCard/DayCard'
 
 // TODO: config
-const groups = ['work', 'personal']
+const groups = ['personal', 'work']
 
 export default function Dashboard() {
   const date = currentDate()
@@ -34,17 +27,7 @@ export default function Dashboard() {
           }}
         >
           {groups.map((group: string) => (
-            <Card
-              key={group}
-              square={true}
-              sx={{ borderTop: '1px solid #f0f0f0' }}
-            >
-              <CardContent>
-                <Link color="primary" href={`/on-this-day/${group}/${date}`}>
-                  <Typography>On This Day: {group}</Typography>
-                </Link>
-              </CardContent>
-            </Card>
+            <DayCard date={date} group={group} key={group} />
           ))}
         </Box>
       </Box>

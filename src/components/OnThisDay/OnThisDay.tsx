@@ -1,8 +1,9 @@
-import { Box, Card, CardContent, Container, Typography } from '@mui/material'
+import { Box, Container } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 
 import { noCacheUrl } from '../../utils/url'
+import AppBar from '../AppBar/AppBar'
 import Note from '../Note/Note'
 
 const dailyPath = '/daily/'
@@ -22,22 +23,21 @@ export default function OnThisDay() {
   }, [])
 
   return (
-    <Container maxWidth={false} sx={{ height: '100%', p: 1 }}>
+    <Container
+      disableGutters={true}
+      maxWidth={false}
+      sx={{ height: '100%', p: 0 }}
+    >
+      <AppBar />
       <Box sx={{ height: '100%' }}>
         <Box
           sx={{
             display: 'grid',
             gap: 2,
             gridTemplateColumns: 'repeat(1, 1fr)',
+            p: 1,
           }}
         >
-          <Card square={true} sx={{ borderTop: '1px solid #f0f0f0' }}>
-            <CardContent>
-              <Typography color="primary" variant="h1">
-                markdown memory|{date}
-              </Typography>
-            </CardContent>
-          </Card>
           {noteIds.map((noteId) => (
             <Note id={noteId} key={noteId} />
           ))}
