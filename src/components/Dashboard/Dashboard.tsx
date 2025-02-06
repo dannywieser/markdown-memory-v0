@@ -4,11 +4,13 @@ import {
   CardContent,
   Container,
   Link,
+  Paper,
   Typography,
 } from '@mui/material'
 import React from 'react'
 
 import { currentDate } from '../../utils'
+import AppBar from '../AppBar/AppBar'
 
 // TODO: config
 const groups = ['work', 'personal']
@@ -16,22 +18,21 @@ const groups = ['work', 'personal']
 export default function Dashboard() {
   const date = currentDate()
   return (
-    <Container maxWidth={false} sx={{ height: '100%' }}>
+    <Container
+      disableGutters={true}
+      maxWidth={false}
+      sx={{ height: '100%', m: 0, p: 0 }}
+    >
       <Box sx={{ height: '100%' }}>
+        <AppBar />
         <Box
           sx={{
             display: 'grid',
             gap: 2,
-            gridTemplateColumns: 'repeat(1, 1fr)',
+            gridTemplateColumns: 'repeat(2, 1fr)',
+            p: 1,
           }}
         >
-          <Card square={true} sx={{ borderTop: '1px solid #f0f0f0' }}>
-            <CardContent>
-              <Typography color="primary" variant="h1">
-                markdown memory|{date}
-              </Typography>
-            </CardContent>
-          </Card>
           {groups.map((group: string) => (
             <Card
               key={group}
