@@ -8,7 +8,7 @@ import {
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router'
 
-import { noCacheUrl } from '../../utils/url'
+import useDailyNotes from '../../hooks/useDailyNotes/useDailyNotes'
 import { Tag } from '../Tag/Tag'
 
 export interface DayCardProps {
@@ -18,29 +18,23 @@ export interface DayCardProps {
 
 export default function DayCard({ date, group }: DayCardProps) {
   const targetUrl = `/on-this-day/${group}/${date}`
-
   const [noteCount, setNoteCount] = useState<number>(0)
   const [tagCounts, setTagCounts] = useState<[string, number][]>()
 
-  // TODO: resuable hook, react-query
-  const dailyPath = '/daily/'
-  const loadNotes = async () => {
-    const filename = noCacheUrl(`${dailyPath}${group}-${date}.json`)
-    console.log(`loadNotes ${filename}`)
-    const res = await fetch(filename)
-    const jsonData = await res.json()
-    setNoteCount(jsonData.notes.length)
-    setTagCounts(Object.entries(jsonData.tagCounts))
-  }
+  const { data, isPending } = useDailyNotes({ date, group })
+
   useEffect(() => {
-    loadNotes()
-  }, [])
+    if (data) {
+      setNoteCount(data.notes.length)
+      setTagCounts(Object.entries(data.tagCounts))
+    }
+  }, [data])
 
   if (tagCounts) {
     tagCounts.map((value) => console.log(value))
   }
 
-  return (
+  return isPending ? null : (
     <Card key={group} square={true}>
       <CardActionArea component={Link} to={targetUrl}>
         <CardContent>
