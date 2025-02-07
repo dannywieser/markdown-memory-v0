@@ -6,4 +6,5 @@ export const Tag = styled(Chip)(({ theme }) => ({
   border: 0,
   borderRadius: '8px',
   color: theme.palette.primary.contrastText,
+  justifyContent: 'left',
 }))

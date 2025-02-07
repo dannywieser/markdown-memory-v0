@@ -1,4 +1,4 @@
-import { Box, Container } from '@mui/material'
+import { Box, Container, styled } from '@mui/material'
 import React from 'react'
 
 import { currentDate } from '../../utils'
@@ -7,6 +7,19 @@ import DayCard from '../DayCard/DayCard'
 
 // TODO: config
 const groups = ['personal', 'work']
+
+export const Grid = styled(Box)(({ theme }) => ({
+  display: 'grid',
+  gap: theme.spacing(2),
+
+  padding: theme.spacing(1),
+  [theme.breakpoints.down('sm')]: {
+    gridTemplateColumns: 'repeat(1, 1fr)',
+  },
+  [theme.breakpoints.up('md')]: {
+    gridTemplateColumns: 'repeat(2, 1fr)',
+  },
+}))
 
 export default function Dashboard() {
   const date = currentDate()
@@ -18,18 +31,11 @@ export default function Dashboard() {
     >
       <Box sx={{ height: '100%' }}>
         <AppBar />
-        <Box
-          sx={{
-            display: 'grid',
-            gap: 2,
-            gridTemplateColumns: 'repeat(2, 1fr)',
-            p: 1,
-          }}
-        >
+        <Grid>
           {groups.map((group: string) => (
             <DayCard date={date} group={group} key={group} />
           ))}
-        </Box>
+        </Grid>
       </Box>
     </Container>
   )

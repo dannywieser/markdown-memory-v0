@@ -5,6 +5,7 @@ import {
   CardContent,
   Typography,
 } from '@mui/material'
+import { styled } from '@mui/system'
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router'
 
@@ -15,6 +16,19 @@ export interface DayCardProps {
   date: string
   group: string
 }
+
+export const Grid = styled(Box)(({ theme }) => ({
+  display: 'grid',
+  gap: theme.spacing(0.5),
+
+  padding: theme.spacing(1),
+  [theme.breakpoints.down('sm')]: {
+    gridTemplateColumns: 'repeat(1, 1fr)',
+  },
+  [theme.breakpoints.up('md')]: {
+    gridTemplateColumns: 'repeat(2, 1fr)',
+  },
+}))
 
 export default function DayCard({ date, group }: DayCardProps) {
   const targetUrl = `/on-this-day/${group}/${date}`
@@ -36,28 +50,21 @@ export default function DayCard({ date, group }: DayCardProps) {
 
   return isPending ? null : (
     <Card key={group} square={true}>
-      <CardActionArea component={Link} to={targetUrl}>
+      <CardActionArea component={Link} sx={{ height: '100%' }} to={targetUrl}>
         <CardContent>
           <Typography variant="h2">{group}</Typography>
           <Typography>{noteCount} notes</Typography>
-          <Box
-            sx={{
-              display: 'grid',
-              gap: 1,
-              gridTemplateColumns: 'repeat(4, 1fr)',
-              p: 1,
-            }}
-          >
+          <Grid>
             {tagCounts &&
               tagCounts.map((value: [string, number]) => (
                 <Tag
                   key={`tag-${value[0]}`}
-                  label={`${value[0]}: ${value[1]}`}
+                  label={`#${value[0]}: ${value[1]}`}
                   size="small"
                   variant="outlined"
                 />
               ))}
-          </Box>
+          </Grid>
         </CardContent>
       </CardActionArea>
     </Card>
