@@ -42,9 +42,12 @@ export default function ImageTiles() {
 
           // we only want the image to be at most 120% larger than current viewport
           // this avoids scrolling through really large images
-          const maxHeight = containerHeight * 1.2
+          const maxHeight = window.innerHeight * 1.2
 
           const displayWidth = containerWidth < width ? containerWidth : width
+          console.log(
+            `containerWidth ${containerWidth} displayWidth ${displayWidth}`
+          )
           const ratio = displayWidth / width
           const displayHeight = height * ratio
           if (displayHeight > maxHeight) {
@@ -75,9 +78,7 @@ export default function ImageTiles() {
       <Box
         sx={{
           display: 'flex',
-          height,
           justifyContent: 'center',
-          padding: '2px',
           width,
         }}
       >

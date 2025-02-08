@@ -6,6 +6,7 @@ import { BearProcessedNote } from 'bear/types'
 import React, { useEffect, useState } from 'react'
 
 import { noCacheUrl } from '../../utils/url'
+import ImageTiles from '../ImageTiles/ImageTiles'
 import MarkdownLine from '../MarkdownLine/MarkdownLine'
 import { NoteProps } from './Note.types'
 
@@ -120,7 +121,10 @@ function Note(props: NoteProps) {
 
   return (
     <Card key={id} square={true} sx={{ borderTop: '1px solid #f0f0f0' }}>
-      <CardContent>{body}</CardContent>
+      <CardContent>
+        {body}
+        {/* <ImageTiles /> */}
+      </CardContent>
     </Card>
   )
 }
