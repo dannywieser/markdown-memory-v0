@@ -1,16 +1,63 @@
 import { Box } from '@mui/material'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
+
+const sources = [
+  {
+    displayHeight: 0,
+    displayWidth: 0,
+    height: 1477,
+    name: 'portrait1',
+    width: 1000,
+  },
+]
+
+interface DisplayImage {
+  displayHeight: number
+  displayWidth: number
+  name: string
+}
+
+// how to calculate ratio?
+// 1000 / 1477 = 0.6777
 
 export default function ImageTiles() {
-  const [firstCol, setFirstCol] = useState(0)
-  const [secondCol, setSecondCol] = useState(0)
+  const [height, setHeight] = useState(0)
+  const [width, setWidth] = useState(0)
+  const [images, setImages] = useState<DisplayImage[]>([])
+  const myRef = useRef<HTMLElement>(null)
   useEffect(() => {
     function handleResize() {
-      const width = window.innerWidth - 32
-      const second = width < 550 ? width : Math.round(width * 0.7377)
-      const first = width < 550 ? width : width - second
-      setFirstCol(first)
-      setSecondCol(second)
+      if (myRef && myRef.current) {
+        const containerHeight =
+          myRef.current.getBoundingClientRect().height - 96
+        const containerWidth = myRef.current.getBoundingClientRect().width - 4
+        //const innerHeight = fullHeight / 2
+        setHeight(containerHeight)
+        setWidth(containerWidth)
+        const images: DisplayImage[] = []
+        console.log(`containerWidth ${containerWidth}`)
+
+        sources.forEach(({ height, name, width }) => {
+          // TODO: how to track current layout?
+
+          // we only want the image to be at most 120% larger than current viewport
+          // this avoids scrolling through really large images
+          const maxHeight = containerHeight * 1.2
+
+          const displayWidth = containerWidth < width ? containerWidth : width
+          const ratio = displayWidth / width
+          const displayHeight = height * ratio
+          if (displayHeight > maxHeight) {
+            const displayHeight = maxHeight
+            const ratio = displayHeight / height
+            const displayWidth = width * ratio
+            images.push({ displayHeight, displayWidth, name })
+            return
+          }
+          images.push({ displayHeight, displayWidth, name })
+        })
+        setImages(images)
+      }
     }
     window.addEventListener('resize', handleResize)
     handleResize()
@@ -19,47 +66,33 @@ export default function ImageTiles() {
 
   return (
     <Box
+      ref={myRef}
       sx={{
-        alignItems: 'start',
-        display: 'grid',
-        gap: 0,
-        gridAutoRows: 'auto',
-        gridTemplateColumns: 'repeat(auto-fit, 1px)',
-        margin: 1,
+        height: '100%',
+        width: '100%',
       }}
     >
-      <Box sx={{ gridColumn: `span ${firstCol}` }}>
-        <Box
-          component="img"
-          src="./examples/portrait.jpeg"
-          sx={{
-            height: '100%',
-            objectFit: 'contain',
-            width: '100%',
-          }}
-        />
-      </Box>
-      <Box sx={{ gridColumn: `span ${secondCol}` }}>
-        <Box
-          component="img"
-          src="./examples/landscape.jpeg"
-          sx={{
-            height: '100%',
-            objectFit: 'contain',
-            width: '100%',
-          }}
-        />
-      </Box>
-      <Box sx={{ gridColumn: `span ${firstCol + secondCol}` }}>
-        <Box
-          component="img"
-          src="./examples/landscape2.jpeg"
-          sx={{
-            height: '100%',
-            objectFit: 'contain',
-            width: '100%',
-          }}
-        />
+      <Box
+        sx={{
+          display: 'flex',
+          height,
+          justifyContent: 'center',
+          padding: '2px',
+          width,
+        }}
+      >
+        {images.map(({ displayHeight, displayWidth, name }) => (
+          <Box
+            key={name}
+            sx={{
+              border: '1px solid green',
+              height: displayHeight,
+              width: displayWidth,
+            }}
+          >
+            {`${name}: ${displayHeight}w${displayWidth}`}
+          </Box>
+        ))}
       </Box>
     </Box>
   )

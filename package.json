@@ -23,8 +23,7 @@
     "build": "vite build && docker-compose up --force-recreate --build -d && docker image prune -f",
     "preview": "vite build && vite preview",
     "clean": "rimraf dist",
-    "nginx": "docker compose up",
-    "update": "npm run docker && npm run nginx"
+    "nginx": "docker compose up"
   },
   "private": true,
   "devDependencies": {
