@@ -1,5 +1,8 @@
 import { Box } from '@mui/material'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import Draggable from 'react-draggable'
+
+import ImageTile from './ImageTile'
 
 interface ImageSource {
   height: number
@@ -40,9 +43,7 @@ export default function ImageTiles() {
     width: 0,
   })
 
-  //const [images, setImages] = useState<DisplayImage[]>([])
-  const myRef = useRef<HTMLElement>(null)
-
+  //const [images, setImages] = useState<Displ
   const containerDimensions = () => {
     const height = window.innerHeight * 0.6
     const width = window.innerWidth - 32
@@ -60,7 +61,6 @@ export default function ImageTiles() {
 
   return (
     <Box
-      ref={myRef}
       sx={{
         height: '100%',
         width: '100%',
@@ -70,7 +70,6 @@ export default function ImageTiles() {
         sx={{
           backgroundColor: 'black',
           height: container.height,
-          padding: '16px',
           width: container.width,
         }}
       >
@@ -81,18 +80,8 @@ export default function ImageTiles() {
             width: '100%',
           }}
         >
-          {/* {images.map(({ displayHeight, displayWidth, name }) => (
-          <Box
-            key={name}
-            sx={{
-              border: '1px solid green',
-              height: displayHeight,
-              width: displayWidth,
-            }}
-          >
-            {`${name}: ${displayHeight}w${displayWidth}`}
-          </Box>
-        ))} */}
+          <ImageTile backgroundColor="green" height={250} width={450} />
+          <ImageTile backgroundColor="pink" height={450} width={250} />
         </Box>
       </Box>
     </Box>
