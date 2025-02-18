@@ -36,5 +36,22 @@
       }
     }
   ],
-  "nxCloudId": "67b48f2dac038544655b1c1a"
+  "nxCloudId": "67b48f2dac038544655b1c1a",
+  "generators": {
+    "@nx/react": {
+      "application": {
+        "babel": true,
+        "style": "@emotion/styled",
+        "linter": "eslint",
+        "bundler": "vite"
+      },
+      "component": {
+        "style": "@emotion/styled"
+      },
+      "library": {
+        "style": "@emotion/styled",
+        "linter": "eslint"
+      }
+    }
+  }
 }
