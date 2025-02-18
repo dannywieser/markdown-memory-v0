@@ -16,6 +16,7 @@
     "baseUrl": "./src",
     "paths": {
       "@markdown-memory/components": ["packages/components/src/index.ts"],
+      "@markdown-memory/markdown": ["packages/markdown/src/index.ts"],
       "components": ["components/src/index.ts"]
     }
   },
