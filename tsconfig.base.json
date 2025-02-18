@@ -13,7 +13,11 @@
     "lib": ["es2021", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
-    "baseUrl": "./src"
+    "baseUrl": "./src",
+    "paths": {
+      "@markdown-memory/components": ["packages/components/src/index.ts"],
+      "components": ["components/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp", "public"]
 }
