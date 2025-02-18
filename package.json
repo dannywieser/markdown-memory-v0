@@ -7,6 +7,7 @@
     "url": "git+https://github.com/dannywieser/bear-insights.git"
   },
   "author": "Danny Wieser",
+  "type": "module",
   "license": "UNLICENSED",
   "bugs": {
     "url": "https://github.com/dannywieser/bear-insights/issues"
