@@ -1,1 +1,1 @@
-export * from './lib/markdown'
+export { default as processMarkdownBody } from './processMarkdownBody'
