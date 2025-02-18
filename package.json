@@ -14,17 +14,6 @@
     "url": "https://github.com/dannywieser/bear-insights/issues"
   },
   "homepage": "https://github.com/dannywieser/bear-insights#readme",
-  "scripts": {
-    "lint": "eslint .",
-    "extract": "vite-node ./src/extract/index.ts",
-    "test": "vite-node ./src/markdown/testing.ts",
-    "vite": "nx serve",
-    "docker": "nx vite:build && docker build -t markdown-memory . --no-cache",
-    "build": "nx vite:build && docker-compose up --force-recreate --build -d && docker image prune -f",
-    "preview": "nx vite:build && nx vite:preview",
-    "clean": "rimraf dist",
-    "nginx": "docker compose up"
-  },
   "private": true,
   "devDependencies": {
     "@babel/core": "7.14.5",
