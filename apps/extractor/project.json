@@ -12,11 +12,10 @@
       "options": {
         "platform": "node",
         "outputPath": "dist/apps/extractor",
-        "format": ["esm"],
+        "format": ["cjs"],
         "bundle": false,
         "main": "apps/extractor/src/main.ts",
         "tsConfig": "apps/extractor/tsconfig.app.json",
-        "assets": ["apps/extractor/src/assets"],
         "generatePackageJson": true,
         "esbuildOptions": {
           "sourcemap": true,

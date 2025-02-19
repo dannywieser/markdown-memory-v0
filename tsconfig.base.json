@@ -3,25 +3,27 @@
   "compilerOptions": {
     "rootDir": ".",
     "sourceMap": true,
-    "declaration": false,
+    "declaration": true,
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
     "target": "es2021",
-    "module": "esnext",
+    "module": "CommonJS",
     "lib": ["es2021", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
-    "baseUrl": "./src",
+    "baseUrl": ".",
     "paths": {
       "@markdown-memory/components": ["packages/components/src/index.ts"],
       "@markdown-memory/extractor-bear": [
         "packages/extractor-bear/src/index.ts"
       ],
+      "@markdown-memory/extractor-file": [
+        "packages/extractor-file/src/index.ts"
+      ],
       "@markdown-memory/markdown": ["packages/markdown/src/index.ts"],
-      "@markdown-memory/utilities": ["packages/utilities/src/index.ts"],
-      "components": ["components/src/index.ts"]
+      "@markdown-memory/utilities": ["packages/utilities/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp", "public"]

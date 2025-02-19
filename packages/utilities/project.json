@@ -11,8 +11,7 @@
       "options": {
         "outputPath": "dist/packages/utilities",
         "main": "packages/utilities/src/index.ts",
-        "tsConfig": "packages/utilities/tsconfig.lib.json",
-        "assets": ["packages/utilities/*.md"]
+        "tsConfig": "packages/utilities/tsconfig.lib.json"
       }
     }
   }

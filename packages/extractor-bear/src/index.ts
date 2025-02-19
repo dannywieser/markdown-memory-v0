@@ -1,1 +1,3 @@
-export * from './lib/extractor-bear'
+export default function bearExtractor() {
+  console.log('bear extract')
+}

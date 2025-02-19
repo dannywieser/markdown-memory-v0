@@ -1,6 +1,6 @@
 import * as fs from 'fs'
 
-import { error } from '../utils'
+import { error } from './log'
 
 export function saveJSON(destFile: string, contents: string) {
   try {

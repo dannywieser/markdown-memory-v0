@@ -143,3 +143,5 @@ public/notes
 vite.config.*.timestamp*
 vitest.config.*.timestamp*
 tmp
+
+mdm.json
