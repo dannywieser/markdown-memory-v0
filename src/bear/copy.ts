@@ -8,8 +8,8 @@ const sourceFile = `${bearDir}/database.sqlite`
 const imagesDir = `${bearDir}/Local Files/Note Images`
 const filesDir = `${bearDir}/Local Files/Note Files`
 
-const destDbDir = './db-backup'
-const destImagesDir = './public/images'
+const destDbDir = '/Users/dgw/markdown-memory-run/db-backup'
+const destImagesDir = '/Users/dgw/markdown-memory-run/images'
 
 export function copyBearDatabase(): string {
   const date = currentDate()

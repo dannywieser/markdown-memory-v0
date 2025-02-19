@@ -7,8 +7,8 @@ import { currentDate, error, info, removeYear, startup } from '../utils'
 import { saveJSON } from '../utils/saveJSON'
 import { TagGroup } from './types'
 
-const notesDir = './public/notes'
-const dailyDir = './public/daily'
+const notesDir = '/Users/dgw/markdown-memory-run/notes'
+const dailyDir = '/Users/dgw/markdown-memory-run/daily'
 
 const groups: TagGroup[] = [
   {
