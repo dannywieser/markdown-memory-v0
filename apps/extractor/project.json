@@ -36,6 +36,26 @@
         }
       }
     },
+    "container": {
+      "executor": "@nx-tools/nx-container:build",
+      "dependsOn": ["build"],
+      "defaultConfiguration": "local",
+      "options": {
+        "engine": "docker",
+        "context": "dist/apps/extractor",
+        "file": "apps/extractor/Dockerfile"
+      },
+      "configurations": {
+        "local": {
+          "tags": ["extractor:latest"],
+          "push": false
+        },
+        "production": {
+          "tags": ["@markdown-memory/extractor:latest"],
+          "push": true
+        }
+      }
+    },
     "serve": {
       "executor": "@nx/js:node",
       "defaultConfiguration": "development",
