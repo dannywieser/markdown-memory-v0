@@ -1,5 +1,5 @@
 import schedule from 'node-schedule'
-import { logserve, info } from '@markdown-memory/utilities'
+import { loadEnv, logserve, info } from '@markdown-memory/utilities'
 import bearExtractor from '@markdown-memory/extractor-bear'
 import fileExtractor from '@markdown-memory/extractor-file'
 export const extractorMap = {
@@ -10,11 +10,11 @@ export const extractorMap = {
 // default schedule if no config is provided: every 5 minutes
 const defaultSchedule = '*/5 * * * *'
 
-const startup = async () => {
+export const startup = async () => {
   const {
     EXTRACTOR_TYPE: extractorType = 'bear',
     EXTRACTOR_SCHEDULE: scheduleConfig = defaultSchedule,
-  } = process.env
+  } = loadEnv()
 
   const extractor = extractorMap[extractorType]
   // setup extractor for configured scheduled runs
