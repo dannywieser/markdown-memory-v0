@@ -7,5 +7,5 @@ import { AppEnv } from './env.types'
  * @returns AppEnv
  */
 export default function loadEnv(): AppEnv {
-  return process.env as unknown as AppEnv
+  return (process.env ?? {}) as unknown as AppEnv
 }

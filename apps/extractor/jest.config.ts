@@ -3,7 +3,8 @@ export default {
   preset: '../../jest.preset.js',
   testEnvironment: 'node',
   transform: {
-    '^.+\\.[tj]s$': ['ts-jest', { tsconfig: '<rootDir>/tsconfig.spec.json' }],
+    '^.+\\.(ts|tsx)?$': 'ts-jest',
+    '^.+\\.(js|jsx)$': 'babel-jest',
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
   coverageDirectory: '../../coverage/apps/extractor',
