@@ -1,6 +1,6 @@
 import schedule from 'node-schedule'
 import { loadEnv } from '@markdown-memory/utilities'
-import bearExtractor from '@markdown-memory/extractor-bear'
+import { bearExtractor } from '@markdown-memory/extractor-bear'
 import fileExtractor from '@markdown-memory/extractor-file'
 
 // extractor implementation map
