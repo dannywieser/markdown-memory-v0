@@ -1,13 +1,14 @@
-import { loadEnv, doCopy } from '@markdown-memory/utilities'
+import { loadEnv, doCopy, header2, activity } from '@markdown-memory/utilities'
 
 // the name of the Bear database file
 const sourceFile = 'database.sqlite'
 const targetFolder = 'extract-backup'
 
 export default async function extract() {
-  console.info('  --- Bear Extractor ---')
+  header2('running bear extractor')
   const { BEAR_APP_DATA_DIR: sourceRoot } = loadEnv()
-  console.info(`   - copying Bear database from:  ${sourceRoot}`)
+  activity('. copy db')
+  activity(`.. ${sourceRoot}`)
   doCopy({
     sourceRoot,
     sourceFile,
@@ -15,4 +16,5 @@ export default async function extract() {
     targetFolder,
     targetFile: 'bear-backup.sqlite',
   })
+  activity('. copy complete')
 }

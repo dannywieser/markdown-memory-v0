@@ -1,5 +1,5 @@
 import schedule from 'node-schedule'
-import { loadEnv } from '@markdown-memory/utilities'
+import { activity, header1, loadEnv } from '@markdown-memory/utilities'
 import { bearExtractor } from '@markdown-memory/extractor-bear'
 import fileExtractor from '@markdown-memory/extractor-file'
 
@@ -21,9 +21,9 @@ export const startup = async () => {
 
   // setup extractor for configured scheduled runs
   const extractor = extractorMap[extractorType]
-  console.log(` -- markdown memory: extractor --`)
-  console.log(`   > mode: ${extractorType}`)
-  console.log(`   >schedule: ${scheduleConfig}`)
+  header1('markdown memory: extractor')
+  activity(`> mode: ${extractorType}`, 2)
+  activity(`> schedule: ${scheduleConfig}`, 2)
 
   // schedule ongoing runs
   schedule.scheduleJob(scheduleConfig, extractor)
