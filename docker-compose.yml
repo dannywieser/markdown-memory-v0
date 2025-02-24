@@ -4,6 +4,6 @@ services:
     ports:
       - '80:80'
     volumes:
-      - ./public/daily:/usr/share/nginx/html/daily
-      - ./public/notes:/usr/share/nginx/html/notes
-      - ./public/images:/usr/share/nginx/html/images
+      - /Users/dgw/markdown-memory-run/daily:/usr/share/nginx/html/daily
+      - /Users/dgw/markdown-memory-run/notes:/usr/share/nginx/html/notes
+      - /Users/dgw/markdown-memory-run/images:/usr/share/nginx/html/images
