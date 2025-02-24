@@ -1,0 +1,19 @@
+{
+  "name": "@markdown-memory/testing-support",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/testing-support/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/testing-support",
+        "main": "packages/testing-support/src/index.ts",
+        "tsConfig": "packages/testing-support/tsconfig.lib.json",
+        "assets": ["packages/testing-support/*.md"]
+      }
+    }
+  }
+}

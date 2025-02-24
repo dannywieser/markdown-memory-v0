@@ -1,0 +1,79 @@
+{
+  "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "targetDefaults": {
+    "lint": {
+      "cache": true
+    },
+    "test": {
+      "cache": true
+    },
+    "@nx/js:tsc": {
+      "cache": true,
+      "dependsOn": ["^build"],
+      "inputs": ["default", "^default"]
+    },
+    "@nx/esbuild:esbuild": {
+      "cache": true,
+      "dependsOn": ["^build"],
+      "inputs": ["default", "^default"]
+    }
+  },
+  "plugins": [
+    {
+      "plugin": "@nx/eslint/plugin",
+      "options": {
+        "targetName": "eslint:lint"
+      }
+    },
+    {
+      "plugin": "@nx/vite/plugin",
+      "options": {
+        "buildTargetName": "vite:build",
+        "testTargetName": "test",
+        "serveTargetName": "serve",
+        "devTargetName": "dev",
+        "previewTargetName": "vite:preview",
+        "serveStaticTargetName": "serve-static",
+        "typecheckTargetName": "typecheck",
+        "buildDepsTargetName": "build-deps",
+        "watchDepsTargetName": "watch-deps"
+      }
+    },
+    {
+      "plugin": "@nx/jest/plugin",
+      "options": {
+        "targetName": "test"
+      }
+    },
+    {
+      "plugin": "@nx-tools/nx-container",
+      "options": {
+        "defaultEngine": "docker",
+        "defaultRegistry": "docker.io"
+      }
+    }
+  ],
+  "nxCloudId": "67b48f2dac038544655b1c1a",
+  "generators": {
+    "@nx/react": {
+      "application": {
+        "babel": true,
+        "style": "@emotion/styled",
+        "linter": "eslint",
+        "bundler": "vite"
+      },
+      "component": {
+        "style": "@emotion/styled"
+      },
+      "library": {
+        "style": "@emotion/styled",
+        "linter": "eslint",
+        "unitTestRunner": "vitest"
+      }
+    }
+  },
+  "namedInputs": {
+    "sharedGlobals": ["{workspaceRoot}/.github/workflows/ci.yml"],
+    "default": ["sharedGlobals"]
+  }
+}

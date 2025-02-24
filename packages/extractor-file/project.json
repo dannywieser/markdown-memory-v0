@@ -1,0 +1,19 @@
+{
+  "name": "@markdown-memory/extractor-file",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/extractor-file/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/extractor-file",
+        "main": "packages/extractor-file/src/index.ts",
+        "tsConfig": "packages/extractor-file/tsconfig.lib.json",
+        "assets": ["packages/extractor-file/*.md"]
+      }
+    }
+  }
+}
