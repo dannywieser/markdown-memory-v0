@@ -18,9 +18,9 @@ export function doCopy({
   if (!fs.existsSync(destDir)) {
     fs.mkdirSync(destDir)
   }
-  try {
-    fs.copyFileSync(source, destFile)
-  } catch (e) {
-    console.error(e)
-  }
+  //try {
+  fs.copyFileSync(source, destFile)
+  //} catch (e) {
+  //   console.error(e)
+  // }
 }
