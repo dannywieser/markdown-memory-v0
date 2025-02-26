@@ -1,27 +1,12 @@
-import {
-  BearNoteFile,
-  BearProcessedFile,
-  BearProcessedNote,
-  BearProcessedTag,
-  BearRawNote,
-} from './types'
+import { BearProcessedTag, BearRawNote } from './types'
+import { lexer, MarkdownNote } from '@markdown-memory/markdown'
 
 export default function processNote(
   rawNote: BearRawNote,
-  allFiles: BearProcessedFile[],
   allTags: BearProcessedTag[]
-): BearProcessedNote {
+): MarkdownNote {
   // 1. retrieve all files associated with the current note and map to the correct types to save with the record
   const processingNoteId = rawNote.Z_PK
-  const notesFiles = allFiles.filter(
-    ({ noteId }) => noteId === processingNoteId
-  )
-  const files: BearNoteFile[] = notesFiles.map(
-    ({ fileId, filename }): BearNoteFile => ({
-      filename,
-      folder: fileId,
-    })
-  )
 
   // 2. retrieve all tags associated with the current note
   const tags = allTags
@@ -36,14 +21,10 @@ export default function processNote(
     )
 
   return {
-    body: rawNote.ZTEXT, // TODO: process Markdown body
+    tokens: lexer(rawNote.ZTEXT),
     created: rawNote.ZCREATIONDATE,
-    files,
-    hasFiles: rawNote.ZHASFILES === 1,
-    hasImages: rawNote.ZHASIMAGES === 1,
     id: rawNote.ZUNIQUEIDENTIFIER,
     modified: rawNote.ZMODIFICATIONDATE,
-    rawText: rawNote.ZTEXT,
     tags,
     title: rawNote.ZTITLE,
   }

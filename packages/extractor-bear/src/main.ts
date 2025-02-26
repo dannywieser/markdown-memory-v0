@@ -38,12 +38,11 @@ async function processTags(db: Database) {
 
 async function processNotes(
   db: Database,
-  files: BearProcessedFile[],
   tags: BearProcessedTag[]
 ): Promise<BearProcessedNote[] | undefined> {
   const notes = await db.all('SELECT * FROM ZSFNOTE')
   activity(`notes: ${notes.length}`, 2)
-  return notes.map((note) => processNote(note, files, tags))
+  return notes.map((note) => processNote(note, tags))
 }
 
 export default async function extract() {
@@ -61,9 +60,9 @@ export default async function extract() {
   activity('copy complete', 1)
   const db = await sqliteOpen(`${targetFolder}/bear-backup.sqlite`)
   activity('starting note extraction', 1)
-  const files = await processFiles(db, sourceRoot, assetsDir)
+  await processFiles(db, sourceRoot, assetsDir)
   const tags = await processTags(db)
-  const notes = await processNotes(db, files, tags)
+  // TODO: do files need to be included in the note?
+  await processNotes(db, tags)
   activity('note extraction complete', 1)
-  return notes
 }
