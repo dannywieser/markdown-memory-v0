@@ -1,5 +1,5 @@
 export * from './date'
 export * from './env'
 export * from './fs'
-export * from './logs'
+export * from './logger'
 export * from './sqllite'

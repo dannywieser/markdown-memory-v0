@@ -22,8 +22,8 @@ export const startup = async () => {
   // setup extractor for configured scheduled runs
   const extractor = extractorMap[extractorType]
   header1('markdown memory: extractor')
-  activity(`> mode: ${extractorType}`, 2)
-  activity(`> schedule: ${scheduleConfig}`, 2)
+  activity(`mode: ${extractorType}`, 1)
+  activity(`schedule: ${scheduleConfig}`, 1)
 
   // schedule ongoing runs
   schedule.scheduleJob(scheduleConfig, extractor)
