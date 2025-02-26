@@ -20,7 +20,7 @@
     "@eslint/js": "9.15.0",
     "@nx-tools/nx-container": "6.2.0",
     "@nx/esbuild": "20.4.5",
-    "@nx/eslint": "20.4.5",
+    "@nx/eslint": "20.4.6",
     "@nx/eslint-plugin": "20.4.5",
     "@nx/jest": "20.4.5",
     "@nx/js": "20.4.5",
