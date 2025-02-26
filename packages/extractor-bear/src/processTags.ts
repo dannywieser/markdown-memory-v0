@@ -14,10 +14,10 @@ const processNoteTags = (
   )
 }
 
-export default function processTags(
+export const processTag = (
   tag: BearRawTag,
   noteTagRel: BearNoteTagRel[]
-): BearProcessedTag {
+): BearProcessedTag => {
   return {
     icon: tag.ZTAGCON,
     noteIds: processNoteTags(tag, noteTagRel),

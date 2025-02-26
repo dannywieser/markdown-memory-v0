@@ -5,8 +5,8 @@ import {
   activity,
   sqliteOpen,
 } from '@markdown-memory/utilities'
-import { BearProcessedFile, BearProcessedNote } from './types'
-import processTags from './processTags'
+import { BearProcessedFile, BearProcessedNote, BearProcessedTag } from './types'
+import { processTag } from './processTags'
 import processNote from './processNote'
 import { copyNoteFile, processFile } from './processFile'
 import { Database } from 'sqlite'
@@ -29,24 +29,21 @@ async function processFiles(
   return processedFiles
 }
 
+async function processTags(db: Database) {
+  const tags = await db.all('SELECT * FROM ZSFNOTETAG')
+  const noteTags = await db.all('SELECT * FROM Z_5TAGS')
+  activity(`tags: ${tags.length}`, 2)
+  return tags.map((tag) => processTag(tag, noteTags))
+}
+
 async function processNotes(
   db: Database,
-  files: BearProcessedFile[]
+  files: BearProcessedFile[],
+  tags: BearProcessedTag[]
 ): Promise<BearProcessedNote[] | undefined> {
-  try {
-    const notes = await db.all('SELECT * FROM ZSFNOTE')
-    const tags = await db.all('SELECT * FROM ZSFNOTETAG')
-    const noteTags = await db.all('SELECT * FROM Z_5TAGS')
-
-    activity(`tags:  ${tags.length}`, 2)
-    const processedTags = tags.map((tag) => processTags(tag, noteTags))
-
-    activity(`notes: ${notes.length}`, 2)
-    return notes.map((note) => processNote(note, files, processedTags))
-  } catch (e) {
-    console.error('failed to read DB', e)
-  }
-  return undefined
+  const notes = await db.all('SELECT * FROM ZSFNOTE')
+  activity(`notes: ${notes.length}`, 2)
+  return notes.map((note) => processNote(note, files, tags))
 }
 
 export default async function extract() {
@@ -65,7 +62,8 @@ export default async function extract() {
   const db = await sqliteOpen(`${targetFolder}/bear-backup.sqlite`)
   activity('starting note extraction', 1)
   const files = await processFiles(db, sourceRoot, assetsDir)
-  const notes = await processNotes(db, files)
+  const tags = await processTags(db)
+  const notes = await processNotes(db, files, tags)
   activity('note extraction complete', 1)
   return notes
 }
