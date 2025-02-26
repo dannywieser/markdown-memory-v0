@@ -1,9 +1,24 @@
+name: markdown-memory-new
 services:
-  web:
-    build: .
+  cache:
+    image: redis:7.4.2-alpine
+    restart: always
     ports:
-      - '80:80'
+      - '6379:6379'
+    command: redis-server --save 20 1 --loglevel warning --requirepass eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
     volumes:
-      - /Users/dgw/markdown-memory-run/daily:/usr/share/nginx/html/daily
-      - /Users/dgw/markdown-memory-run/notes:/usr/share/nginx/html/notes
-      - /Users/dgw/markdown-memory-run/images:/usr/share/nginx/html/images
+      - cache:/data
+  extractor:
+    build:
+      dockerfile: ../../../apps/extractor/Dockerfile
+      context: ./dist/apps/extractor
+    restart: always
+    volumes:
+      - /Users/dgw/Library/Group Containers/9K33E3U3T4.net.shinyfrog.bear/Application Data:/bearRoot
+    environment:
+      BEAR_APP_DATA_DIR: /bearRoot
+      EXTRACTOR_TYPE: bear
+      ASSETS_DIR: /Users/dgw/testing/images
+volumes:
+  cache:
+    driver: local
