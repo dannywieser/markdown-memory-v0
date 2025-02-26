@@ -5,11 +5,12 @@ import {
   activity,
   sqliteOpen,
 } from '@markdown-memory/utilities'
-import { BearProcessedFile, BearProcessedNote, BearProcessedTag } from './types'
+import { BearProcessedFile, BearProcessedTag } from './types'
 import { processTag } from './processTags'
 import processNote from './processNote'
 import { copyNoteFile, processFile } from './processFile'
 import { Database } from 'sqlite'
+import { MarkdownNote } from '@markdown-memory/markdown'
 
 // the name of the Bear database file
 const sourceFile = 'database.sqlite'
@@ -39,7 +40,7 @@ async function processTags(db: Database) {
 async function processNotes(
   db: Database,
   tags: BearProcessedTag[]
-): Promise<BearProcessedNote[] | undefined> {
+): Promise<MarkdownNote[] | undefined> {
   const notes = await db.all('SELECT * FROM ZSFNOTE')
   activity(`notes: ${notes.length}`, 2)
   return notes.map((note) => processNote(note, tags))
