@@ -5,20 +5,22 @@ services:
     restart: always
     ports:
       - '6379:6379'
-    command: redis-server --save 20 1 --loglevel warning --requirepass eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
+    command: redis-server
     volumes:
       - cache:/data
   extractor:
+    env_file: .env.docker
     build:
       dockerfile: ../../../apps/extractor/Dockerfile
       context: ./dist/apps/extractor
     restart: always
     volumes:
-      - /Users/dgw/Library/Group Containers/9K33E3U3T4.net.shinyfrog.bear/Application Data:/bearRoot
+      - ${BEAR_APP_DATA_DIR}:/bearData
+      - ${ASSETS_DIR}:/assets
     environment:
-      BEAR_APP_DATA_DIR: /bearRoot
-      EXTRACTOR_TYPE: bear
-      ASSETS_DIR: /Users/dgw/testing/images
+      BEAR_APP_DATA_DIR: /bearData
+      EXTRACTOR_TYPE: ${EXTRACTOR_TYPE}
+      ASSETS_DIR: /assets
 volumes:
   cache:
     driver: local
