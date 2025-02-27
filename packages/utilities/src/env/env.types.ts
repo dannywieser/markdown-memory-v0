@@ -3,4 +3,5 @@ export interface AppEnv {
   EXTRACTOR_TYPE: 'bear' | 'file'
   EXTRACTOR_SCHEDULE: string
   ASSETS_DIR: string
+  REDIS_HOST: string
 }

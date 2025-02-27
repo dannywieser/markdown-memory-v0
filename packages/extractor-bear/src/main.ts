@@ -11,7 +11,7 @@ import processNote from './processNote'
 import { copyNoteFile, processFile } from './processFile'
 import { Database } from 'sqlite'
 import { MarkdownNote } from '@markdown-memory/markdown'
-import { createClient } from 'redis'
+import { formatISO } from 'date-fns'
 
 // the name of the Bear database file
 const sourceFile = 'database.sqlite'
@@ -48,7 +48,7 @@ async function processNotes(
 }
 
 export default async function extract(): Promise<MarkdownNote[] | undefined> {
-  header2('running bear extractor')
+  header2(`running bear extractor | ${formatISO(new Date())}`)
   const { BEAR_APP_DATA_DIR: sourceRoot, ASSETS_DIR: assetsDir } = loadEnv()
   activity('copy db', 1)
   activity(`${sourceRoot}`, 2)
