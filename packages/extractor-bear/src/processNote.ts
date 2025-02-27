@@ -1,3 +1,4 @@
+import { convertDate } from '@markdown-memory/utilities'
 import { BearProcessedTag, BearRawNote } from './types'
 import { lexer, MarkdownNote } from '@markdown-memory/markdown'
 
@@ -22,9 +23,9 @@ export default function processNote(
 
   return {
     tokens: lexer(rawNote.ZTEXT),
-    created: rawNote.ZCREATIONDATE,
+    created: convertDate(rawNote.ZCREATIONDATE),
     id: rawNote.ZUNIQUEIDENTIFIER,
-    modified: rawNote.ZMODIFICATIONDATE,
+    modified: convertDate(rawNote.ZMODIFICATIONDATE),
     tags,
     title: rawNote.ZTITLE,
   }

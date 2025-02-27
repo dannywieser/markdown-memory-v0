@@ -11,6 +11,7 @@ import processNote from './processNote'
 import { copyNoteFile, processFile } from './processFile'
 import { Database } from 'sqlite'
 import { MarkdownNote } from '@markdown-memory/markdown'
+import { createClient } from 'redis'
 
 // the name of the Bear database file
 const sourceFile = 'database.sqlite'
@@ -46,7 +47,7 @@ async function processNotes(
   return notes.map((note) => processNote(note, tags))
 }
 
-export default async function extract() {
+export default async function extract(): Promise<MarkdownNote[] | undefined> {
   header2('running bear extractor')
   const { BEAR_APP_DATA_DIR: sourceRoot, ASSETS_DIR: assetsDir } = loadEnv()
   activity('copy db', 1)
@@ -64,6 +65,7 @@ export default async function extract() {
   await processFiles(db, sourceRoot, assetsDir)
   const tags = await processTags(db)
   // TODO: do files need to be included in the note?
-  await processNotes(db, tags)
+  const notes = await processNotes(db, tags)
   activity('note extraction complete', 1)
+  return notes
 }

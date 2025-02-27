@@ -5,9 +5,9 @@ export interface CustomTokensList extends TokensList {
 }
 export interface MarkdownNote {
   tokens: CustomTokensList
-  created: string
+  created: Date
   id: string
-  modified: string
+  modified: Date
   tags: string[]
   title: string
 }

@@ -1,11 +1,11 @@
 name: markdown-memory-new
 services:
   cache:
-    image: redis:7.4.2-alpine
+    image: redis/redis-stack:6.2.6-v19
     restart: always
     ports:
       - '6379:6379'
-    command: redis-server
+      - '8001:8001'
     volumes:
       - cache:/data
   extractor:
