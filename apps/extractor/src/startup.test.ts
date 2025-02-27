@@ -17,16 +17,8 @@ describe('the startup function', () => {
     startup()
     expect(schedule.scheduleJob).toHaveBeenCalledWith(
       defaultSchedule,
-      extractorMap.bear
+      expect.any(Function)
     )
-  })
-
-  test('uses values from env if present', () => {
-    asMock(loadEnv).mockReturnValue({})
-    startup()
-    expect(schedule.scheduleJob).toHaveBeenCalledWith(
-      defaultSchedule,
-      extractorMap.bear
-    )
+    expect(extractorMap.bear).toHaveBeenCalledTimes(1)
   })
 })
