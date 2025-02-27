@@ -1,9 +1,28 @@
+name: markdown-memory-new
 services:
-  web:
-    build: .
+  redis:
+    image: redis/redis-stack:6.2.6-v19
+    hostname: redis
+    restart: always
     ports:
-      - '80:80'
+      - '6379:6379'
+      - '8001:8001'
     volumes:
-      - /Users/dgw/markdown-memory-run/daily:/usr/share/nginx/html/daily
-      - /Users/dgw/markdown-memory-run/notes:/usr/share/nginx/html/notes
-      - /Users/dgw/markdown-memory-run/images:/usr/share/nginx/html/images
+      - cache:/data
+  extractor:
+    env_file: .env.docker
+    build:
+      dockerfile: ../../../apps/extractor/Dockerfile
+      context: ./dist/apps/extractor
+    restart: always
+    volumes:
+      - ${BEAR_APP_DATA_DIR}:/bearData
+      - ${ASSETS_DIR}:/assets
+    environment:
+      BEAR_APP_DATA_DIR: /bearData
+      EXTRACTOR_TYPE: ${EXTRACTOR_TYPE}
+      ASSETS_DIR: /assets
+      REDIS_HOST: redis
+volumes:
+  cache:
+    driver: local

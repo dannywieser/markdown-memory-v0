@@ -3,6 +3,7 @@ import { loadEnv } from '@markdown-memory/utilities'
 import { asMock } from '@markdown-memory/testing-support'
 import { startup, defaultSchedule, extractorMap } from './startup'
 
+jest.mock('@markdown-memory/extractor-bear')
 jest.mock('@markdown-memory/utilities')
 jest.mock('node-schedule')
 
@@ -16,16 +17,8 @@ describe('the startup function', () => {
     startup()
     expect(schedule.scheduleJob).toHaveBeenCalledWith(
       defaultSchedule,
-      extractorMap.bear
+      expect.any(Function)
     )
-  })
-
-  test('uses values from env if present', () => {
-    asMock(loadEnv).mockReturnValue({})
-    startup()
-    expect(schedule.scheduleJob).toHaveBeenCalledWith(
-      defaultSchedule,
-      extractorMap.bear
-    )
+    expect(extractorMap.bear).toHaveBeenCalledTimes(1)
   })
 })

@@ -1,3 +1,1 @@
-export default function bearExtractor() {
-  console.log('bear extract')
-}
+export { default as bearExtractor } from './main'

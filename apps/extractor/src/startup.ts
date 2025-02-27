@@ -1,7 +1,8 @@
 import schedule from 'node-schedule'
-import { loadEnv } from '@markdown-memory/utilities'
-import bearExtractor from '@markdown-memory/extractor-bear'
+import { activity, header1, loadEnv } from '@markdown-memory/utilities'
+import { bearExtractor } from '@markdown-memory/extractor-bear'
 import fileExtractor from '@markdown-memory/extractor-file'
+import writeToCache from './cache'
 
 // extractor implementation map
 export const extractorMap = {
@@ -12,6 +13,15 @@ export const extractorMap = {
 // default schedule if no config is provided: every 5 minutes
 export const defaultSchedule = '*/5 * * * *'
 
+const runExtractor = async () => {
+  const { EXTRACTOR_TYPE: extractorType = 'bear' } = loadEnv()
+  const extractor = extractorMap[extractorType]
+  const notes = await extractor()
+  if (notes) {
+    writeToCache(notes)
+  }
+}
+
 export const startup = async () => {
   // load environment config if present
   const {
@@ -20,14 +30,14 @@ export const startup = async () => {
   } = loadEnv()
 
   // setup extractor for configured scheduled runs
-  const extractor = extractorMap[extractorType]
-  console.log(` -- markdown memory: extractor --`)
-  console.log(`   > mode: ${extractorType}`)
-  console.log(`   >schedule: ${scheduleConfig}`)
+
+  header1('markdown memory: extractor')
+  activity(`mode: ${extractorType}`, 1)
+  activity(`schedule: ${scheduleConfig}`, 1)
 
   // schedule ongoing runs
-  schedule.scheduleJob(scheduleConfig, extractor)
+  schedule.scheduleJob(scheduleConfig, runExtractor)
 
   // always run once on startup
-  extractor()
+  runExtractor()
 }

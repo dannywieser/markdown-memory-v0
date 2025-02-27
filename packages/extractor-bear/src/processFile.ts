@@ -1,9 +1,48 @@
-// import { BearProcessedFile, BearRawFile } from './types'
+import { doCopy } from '@markdown-memory/utilities'
+import { BearProcessedFile, BearRawFile } from './types'
 
-// export default function processFile(rawFile: BearRawFile): BearProcessedFile {
-//   return {
-//     fileId: rawFile.ZUNIQUEIDENTIFIER,
-//     filename: rawFile.ZFILENAME,
-//     noteId: rawFile.ZNOTE,
-//   }
-// }
+export function processFile(rawFile: BearRawFile): BearProcessedFile {
+  return {
+    fileId: rawFile.ZUNIQUEIDENTIFIER,
+    filename: rawFile.ZFILENAME,
+    noteId: rawFile.ZNOTE,
+  }
+}
+
+const bearImagesDir = `Local Files/Note Images`
+const bearFilesDir = `Local Files/Note Files`
+
+export function copyNoteFile(
+  { fileId, filename }: BearProcessedFile,
+  bearRoot: string,
+  assetDir: string
+) {
+  const imagesDir = `${bearRoot}/${bearImagesDir}/${fileId}`
+  const filesDir = `${bearRoot}/${bearFilesDir}/${fileId}`
+
+  const copyConfig = {
+    sourceRoot: imagesDir,
+    sourceFile: filename,
+    targetRoot: assetDir,
+    targetFolder: fileId,
+    targetFile: filename,
+  }
+
+  try {
+    // first we try to copy from the images folder
+    doCopy(copyConfig)
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  } catch (e) {
+    // first failure, try to copy from the files folder
+    try {
+      doCopy({
+        ...copyConfig,
+        sourceRoot: filesDir,
+      })
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (e) {
+      // console.error(`failed to copy file ${fileId}/${filename}`)
+      // TODO: what are these errors?
+    }
+  }
+}
