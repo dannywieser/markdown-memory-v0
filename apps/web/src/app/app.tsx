@@ -3,9 +3,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import React from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router'
 
-import Dashboard from '../Dashboard/Dashboard'
-import ImageTiles from '../ImageTiles/ImageTiles'
-import OnThisDay from '../OnThisDay/OnThisDay'
+import Dashboard from '../pages/Dashboard/Dashboard'
 
 const queryClient = new QueryClient()
 
@@ -15,8 +13,6 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route element={<Dashboard />} path="/" />
-          <Route element={<OnThisDay />} path="/on-this-day/:group/:date" />
-          <Route element={<ImageTiles />} path="/images" />
         </Routes>
       </BrowserRouter>
       <ReactQueryDevtools initialIsOpen={false} />

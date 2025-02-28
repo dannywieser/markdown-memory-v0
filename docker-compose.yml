@@ -28,6 +28,13 @@ services:
     build:
       dockerfile: ../../../apps/api/Dockerfile
       context: ./dist/apps/api
+  web:
+    ports:
+      - '80:81'
+    env_file: .env.docker
+    build:
+      dockerfile: ../../../apps/web/Dockerfile
+      context: ./dist/apps/web
 volumes:
   cache:
     driver: local
