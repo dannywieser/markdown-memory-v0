@@ -12,7 +12,7 @@ services:
   extractor:
     env_file: .env.docker
     build:
-      dockerfile: ../../../apps/extractor/Dockerfile
+      dockerfile: ../../../Dockerfile.node
       context: ./dist/apps/extractor
     restart: always
     volumes:
@@ -26,15 +26,14 @@ services:
   api:
     env_file: .env.docker
     build:
-      dockerfile: ../../../apps/api/Dockerfile
+      dockerfile: ../../../Dockerfile.node
       context: ./dist/apps/api
   web:
     ports:
-      - '80:81'
+      - '80:80'
     env_file: .env.docker
     build:
-      dockerfile: ../../../apps/web/Dockerfile
-      context: ./dist/apps/web
+      dockerfile: Dockerfile.web
 volumes:
   cache:
     driver: local
