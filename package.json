@@ -22,6 +22,7 @@
     "@nx/esbuild": "20.4.5",
     "@nx/eslint": "20.4.6",
     "@nx/eslint-plugin": "20.4.5",
+    "@nx/express": "^20.4.5",
     "@nx/jest": "20.4.5",
     "@nx/js": "20.4.5",
     "@nx/node": "20.4.5",
