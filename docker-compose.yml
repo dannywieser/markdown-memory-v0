@@ -23,6 +23,11 @@ services:
       EXTRACTOR_TYPE: ${EXTRACTOR_TYPE}
       ASSETS_DIR: /assets
       REDIS_HOST: redis
+  api:
+    env_file: .env.docker
+    build:
+      dockerfile: ../../../apps/api/Dockerfile
+      context: ./dist/apps/api
 volumes:
   cache:
     driver: local
