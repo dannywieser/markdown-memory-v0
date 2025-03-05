@@ -1,4 +1,10 @@
-import { redisConnect, NOTE_KEY_PREFIX } from '@markdown-memory/utilities'
+import {
+  redisConnect,
+  NOTE_KEY_PREFIX,
+  header1,
+  activity,
+  NOTETAG_KEY_PREFIX,
+} from '@markdown-memory/utilities'
 import express from 'express'
 
 const app = express()
@@ -7,6 +13,8 @@ let redis
 redisConnect().then((redisClient) => {
   redis = redisClient
 })
+
+//TODO: cleanup, splitup, test
 
 const getNote = async (id: string) => {
   const noteId = `${NOTE_KEY_PREFIX}${id}`
@@ -21,6 +29,12 @@ const getNote = async (id: string) => {
   }
 }
 
+const getTags = async (noteId: string) => {
+  const setKey = `${NOTETAG_KEY_PREFIX}${noteId}`
+  const tags = await redis.sMembers(setKey)
+  return tags
+}
+
 app.get('/api/notes/:noteId', async (req, res) => {
   const noteId = req.params.noteId
   const note = await getNote(noteId)
@@ -28,7 +42,19 @@ app.get('/api/notes/:noteId', async (req, res) => {
     res.status(404).send('<div>404 Not Found</div>')
   }
 
+  activity(`/api/notes/${noteId} 200`, 2)
   res.send(note)
+})
+
+app.get('/api/notes/:noteId/tags', async (req, res) => {
+  const noteId = req.params.noteId
+  const tags = await getTags(noteId)
+  if (!tags) {
+    res.status(404).send('<div>404 Not Found</div>')
+  }
+
+  activity(`/api/notes/${noteId}/tags | results: ${tags.length}`, 2)
+  res.send(tags)
 })
 
 app.get('/api/notes', async (req, res) => {
@@ -37,6 +63,7 @@ app.get('/api/notes', async (req, res) => {
   if (day) {
     const daySet = await redis.sMembers(day as string)
     const notes = await Promise.all(daySet.map(async (id) => await getNote(id)))
+    activity(`/api/notes?day=${day} | results: ${notes.length}`, 2)
     res.send(notes)
   }
 
@@ -46,8 +73,9 @@ app.get('/api/notes', async (req, res) => {
   res.send(notes)
 })
 
-const port = process.env.PORT || 3333
+const port = process.env.API_PORT || 3333
 const server = app.listen(port, () => {
-  console.log(`Listening at http://localhost:${port}/api`)
+  header1('markdown memory: extractor')
+  activity(`http://localhost:${port}/api`, 1)
 })
 server.on('error', console.error)
