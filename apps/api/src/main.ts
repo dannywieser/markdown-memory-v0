@@ -1,13 +1,81 @@
+import {
+  redisConnect,
+  NOTE_KEY_PREFIX,
+  header1,
+  activity,
+  NOTETAG_KEY_PREFIX,
+} from '@markdown-memory/utilities'
 import express from 'express'
 
 const app = express()
 
-app.get('/api', (req, res) => {
-  res.send({ message: 'Welcome to api!' })
+let redis
+redisConnect().then((redisClient) => {
+  redis = redisClient
 })
 
-const port = process.env.PORT || 3333
+//TODO: cleanup, splitup, test
+
+const getNote = async (id: string) => {
+  const noteId = `${NOTE_KEY_PREFIX}${id}`
+  const { created, modified, title, tokens, identifier } =
+    await redis.hGetAll(noteId)
+  return {
+    id: identifier,
+    created: Number(created),
+    modified: Number(modified),
+    title,
+    tokens: JSON.parse(tokens),
+  }
+}
+
+const getTags = async (noteId: string) => {
+  const setKey = `${NOTETAG_KEY_PREFIX}${noteId}`
+  const tags = await redis.sMembers(setKey)
+  return tags
+}
+
+app.get('/api/notes/:noteId', async (req, res) => {
+  const noteId = req.params.noteId
+  const note = await getNote(noteId)
+  if (!note) {
+    res.status(404).send('<div>404 Not Found</div>')
+  }
+
+  activity(`/api/notes/${noteId} 200`, 2)
+  res.send(note)
+})
+
+app.get('/api/notes/:noteId/tags', async (req, res) => {
+  const noteId = req.params.noteId
+  const tags = await getTags(noteId)
+  if (!tags) {
+    res.status(404).send('<div>404 Not Found</div>')
+  }
+
+  activity(`/api/notes/${noteId}/tags | results: ${tags.length}`, 2)
+  res.send(tags)
+})
+
+app.get('/api/notes', async (req, res) => {
+  const day = req.query.day
+
+  if (day) {
+    const daySet = await redis.sMembers(day as string)
+    const notes = await Promise.all(daySet.map(async (id) => await getNote(id)))
+    activity(`/api/notes?day=${day} | results: ${notes.length}`, 2)
+    res.send(notes)
+  }
+
+  const allKeys = await redis.keys('note:*')
+  const notes = await Promise.all(allKeys.map(async (id) => await getNote(id)))
+  // TODO: pagination!
+  res.send(notes)
+})
+
+const port = process.env.API_PORT || 3333
 const server = app.listen(port, () => {
-  console.log(`Listening at http://localhost:${port}/api`)
+  header1('markdown memory: extractor')
+  activity(`http://localhost:${port}/api`, 1)
 })
 server.on('error', console.error)
