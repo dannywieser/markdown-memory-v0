@@ -1,4 +1,5 @@
 import nx from '@nx/eslint-plugin'
+import perfectionist from 'eslint-plugin-perfectionist'
 
 export default [
   ...nx.configs['flat/base'],
@@ -9,6 +10,9 @@ export default [
   },
   {
     files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
+    plugins: {
+      perfectionist,
+    },
     rules: {
       '@nx/enforce-module-boundaries': [
         'error',
@@ -23,6 +27,7 @@ export default [
           ],
         },
       ],
+      'perfectionist/sort-imports': 'error',
     },
   },
   {

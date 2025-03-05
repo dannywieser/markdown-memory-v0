@@ -1,4 +1,5 @@
 import { doCopy } from '@markdown-memory/utilities'
+
 import { BearProcessedFile, BearRawFile } from './types'
 
 export function processFile(rawFile: BearRawFile): BearProcessedFile {

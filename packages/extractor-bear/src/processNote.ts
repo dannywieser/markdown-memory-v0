@@ -1,6 +1,7 @@
-import { convertDate } from '@markdown-memory/utilities'
-import { BearProcessedTag, BearRawNote } from './types'
 import { lexer, MarkdownNote } from '@markdown-memory/markdown'
+import { convertDate } from '@markdown-memory/utilities'
+
+import { BearProcessedTag, BearRawNote } from './types'
 
 export default function processNote(
   rawNote: BearRawNote,

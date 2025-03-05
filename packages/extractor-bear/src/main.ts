@@ -1,3 +1,4 @@
+import { MarkdownNote } from '@markdown-memory/markdown'
 import {
   loadEnv,
   doCopy,
@@ -5,13 +6,13 @@ import {
   activity,
   sqliteOpen,
 } from '@markdown-memory/utilities'
-import { BearProcessedFile, BearProcessedTag } from './types'
-import { processTag } from './processTags'
-import processNote from './processNote'
-import { copyNoteFile, processFile } from './processFile'
-import { Database } from 'sqlite'
-import { MarkdownNote } from '@markdown-memory/markdown'
 import { formatISO } from 'date-fns'
+import { Database } from 'sqlite'
+
+import { copyNoteFile, processFile } from './processFile'
+import processNote from './processNote'
+import { processTag } from './processTags'
+import { BearProcessedFile, BearProcessedTag } from './types'
 
 // the name of the Bear database file
 const sourceFile = 'database.sqlite'

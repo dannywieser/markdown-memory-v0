@@ -1,7 +1,8 @@
-import schedule from 'node-schedule'
-import { activity, header1, loadEnv } from '@markdown-memory/utilities'
 import { bearExtractor } from '@markdown-memory/extractor-bear'
 import fileExtractor from '@markdown-memory/extractor-file'
+import { activity, header1, loadEnv } from '@markdown-memory/utilities'
+import schedule from 'node-schedule'
+
 import writeToCache from './cache'
 
 // extractor implementation map

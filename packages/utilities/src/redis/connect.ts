@@ -1,4 +1,5 @@
 import { createClient } from 'redis'
+
 import { loadEnv } from '../env'
 
 export async function redisConnect() {
