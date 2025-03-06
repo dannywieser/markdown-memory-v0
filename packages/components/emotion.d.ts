@@ -1,0 +1,11 @@
+declare module '@emotion/react' {
+  export interface Theme {
+    colors: {
+      primary: string
+      secondary: string
+    }
+    fonts: {
+      primary: string
+    }
+  }
+}
