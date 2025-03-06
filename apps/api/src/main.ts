@@ -1,18 +1,19 @@
 import {
-  redisConnect,
   NOTE_KEY_PREFIX,
   header1,
   activity,
   NOTETAG_KEY_PREFIX,
+  loadEnv,
 } from '@markdown-memory/utilities'
 import express from 'express'
+import { createClient } from 'redis'
 
 const app = express()
 
-let redis
-redisConnect().then((redisClient) => {
-  redis = redisClient
-})
+const { REDIS_HOST: redisHost = '127.0.0.1' } = loadEnv()
+const redisUrl = `redis://${redisHost}:6379`
+const redis = createClient({ url: redisUrl })
+redis.on('error', (err) => console.log('Redis Client Error', err))
 
 //TODO: cleanup, splitup, test
 
@@ -73,9 +74,12 @@ app.get('/api/notes', async (req, res) => {
   res.send(notes)
 })
 
-const port = process.env.API_PORT || 3333
-const server = app.listen(port, () => {
-  header1('markdown memory: extractor')
-  activity(`http://localhost:${port}/api`, 1)
+redis.connect().then(() => {
+  const port = process.env.API_PORT || 3333
+  const server = app.listen(port, () => {
+    header1('markdown memory: extractor')
+    activity(`API ready | http://localhost:${port}/api`, 1)
+    activity(`redis | ${redisUrl}`, 2)
+  })
+  server.on('error', console.error)
 })
-server.on('error', console.error)
