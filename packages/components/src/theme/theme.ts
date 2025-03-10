@@ -3,7 +3,7 @@ import { Theme } from '@emotion/react'
 export const theme: Theme = {
   grid: 4,
   colors: {
-    primary: '#222121',
+    primary: '#2f72c1',
     secondary: 'blue',
   },
   fonts: {
