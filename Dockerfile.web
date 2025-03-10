@@ -1,6 +1,7 @@
 FROM nginx
 RUN rm -drf /usr/share/nginx/html/50x.html
 RUN rm -drf /etc/nginx/conf.d/default.conf
+COPY dist/apps/web/favicon.png /usr/share/nginx/html
 COPY dist/apps/web/favicon.ico /usr/share/nginx/html
 COPY dist/apps/web/index.html /usr/share/nginx/html
 COPY dist/apps/web/assets /usr/share/nginx/html/assets
