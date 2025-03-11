@@ -1,6 +1,10 @@
-import { ReactNode } from 'react'
+import { Tokens } from 'marked'
 
 export interface ListProps {
   ordered?: boolean
-  children: ReactNode | ReactNode[]
+  items: Tokens.ListItem[]
+}
+
+export interface ListItemProps {
+  item: Tokens.ListItem
 }

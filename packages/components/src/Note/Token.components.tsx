@@ -4,7 +4,6 @@ import Blockquote from '../Blockquote/Blockquote'
 import Code from '../Code/Code'
 import Link from '../Link/Link'
 import List from '../List/List'
-import ListItem from '../List/ListItem'
 import Text from '../Text/Text'
 import { mapTokenDepthToHeading } from './Token.utilities'
 
@@ -18,11 +17,7 @@ const heading = ({ depth, text }: Tokens.Heading) => (
 const image = ({ href, text }: Tokens.Image) => 'image'
 const link = ({ href, text }: Tokens.Link) => <Link href={href}>{text}</Link>
 const list = ({ items, ordered }: Tokens.List) => (
-  <List ordered={ordered}>
-    {items.map(({ text }) => (
-      <ListItem>{text}</ListItem>
-    ))}
-  </List>
+  <List ordered={ordered} items={items} />
 )
 const space = () => (
   <>

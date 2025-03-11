@@ -1,11 +1,26 @@
-import Text from '../Text/Text'
-import { ListProps } from './List.types'
+import styled from '@emotion/styled'
+import { SquareCheck, SquareDashed, CircleSmallIcon } from 'lucide-react'
 
-// TODO: styling
-export default function ListItem({ children }: ListProps) {
+import Text from '../Text/Text'
+import { ListItemProps } from './List.types'
+
+const IconSize = 20
+
+const Bullet = styled.li`
+  display: grid;
+  grid-template-columns: ${IconSize}px 1fr;
+  gap: ${(props) => props.theme.grid}px;
+`
+
+export default function ListItem({ item }: ListItemProps) {
+  const { checked, task, text } = item
+  const TaskIcon = checked ? SquareCheck : SquareDashed
+  const Icon = task ? TaskIcon : CircleSmallIcon
+
   return (
-    <li>
-      <Text variant="body">{children}</Text>
-    </li>
+    <Bullet>
+      <Icon size={IconSize} />
+      <Text>{text}</Text>
+    </Bullet>
   )
 }
