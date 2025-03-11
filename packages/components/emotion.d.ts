@@ -8,6 +8,7 @@ declare module '@emotion/react' {
     colors: {
       primary: string
       secondary: string
+      grey: string
     }
     fonts: {
       primary: string
@@ -20,6 +21,7 @@ declare module '@emotion/react' {
       h5: TextTheme
       h6: TextTheme
       body: TextTheme
+      code: TextTheme
     }
   }
 }

@@ -1,15 +1,18 @@
-import Prism from 'prismjs'
-import { useEffect } from 'react'
+import styled from '@emotion/styled'
 
+import Text from '../Text/Text'
 import { CodeProps } from './Code.types'
 
+const Pre = styled.pre`
+  background-color: ${(props) => props.theme.colors.grey};
+  padding: ${(props) => props.theme.grid}px;
+  margin: 0;
+`
+
 export default function Code({ code, language }: CodeProps) {
-  useEffect(() => {
-    Prism.highlightAll()
-  }, [])
   return (
-    <pre>
-      <code className={`language-${language}`}>{code}</code>
-    </pre>
+    <Pre>
+      <Text variant="code">{code}</Text>
+    </Pre>
   )
 }
