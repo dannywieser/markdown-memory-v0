@@ -1,7 +1,7 @@
 import styled from '@emotion/styled'
-import { SquareCheck, SquareDashed, CircleSmallIcon } from 'lucide-react'
+import { SquareCheck, SquareDashed, DotIcon } from 'lucide-react'
 
-import Text from '../Text/Text'
+import Token from '../Note/Token'
 import { ListItemProps } from './List.types'
 
 const IconSize = 20
@@ -10,17 +10,25 @@ const Bullet = styled.li`
   display: grid;
   grid-template-columns: ${IconSize}px 1fr;
   gap: ${(props) => props.theme.grid}px;
+  align-items: center;
 `
 
-export default function ListItem({ item }: ListItemProps) {
-  const { checked, task, text } = item
-  const TaskIcon = checked ? SquareCheck : SquareDashed
-  const Icon = task ? TaskIcon : CircleSmallIcon
+const BulletText = styled.span``
 
+export default function ListItem({ item }: ListItemProps) {
+  const { checked, task, tokens } = item
+  const TaskIcon = checked ? SquareCheck : SquareDashed
+  const Icon = task ? TaskIcon : DotIcon
+
+  console.log(item)
   return (
     <Bullet>
       <Icon size={IconSize} />
-      <Text>{text}</Text>
+      <BulletText>
+        {tokens.map((token) => (
+          <Token token={token} />
+        ))}
+      </BulletText>
     </Bullet>
   )
 }

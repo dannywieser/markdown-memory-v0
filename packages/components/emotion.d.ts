@@ -14,6 +14,7 @@ declare module '@emotion/react' {
       primary: string
     }
     text: {
+      lineHeight: number
       h1: TextTheme
       h2: TextTheme
       h3: TextTheme

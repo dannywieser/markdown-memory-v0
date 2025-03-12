@@ -11,6 +11,7 @@ export const theme: Theme = {
     primary: 'Anonymous Pro',
   },
   text: {
+    lineHeight: 1.4,
     h1: {
       fontSize: '26px',
       fontWeight: 700,

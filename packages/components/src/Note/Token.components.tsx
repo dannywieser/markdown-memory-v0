@@ -1,4 +1,4 @@
-import { MarkedToken, Tokens } from 'marked'
+import { MarkedToken, Token, Tokens } from 'marked'
 
 import Blockquote from '../Blockquote/Blockquote'
 import Code from '../Code/Code'
@@ -25,14 +25,18 @@ const space = () => (
     <br />
   </>
 )
-const text = ({ text }: Tokens.Text) => <Text variant="body">{text}</Text>
-const paragraph = ({ tokens }: Tokens.Paragraph) =>
+
+const mapTokens = (tokens: Token[]) =>
   tokens.map((token) => {
     const typeComponent = components[token.type]
     return typeComponent
       ? typeComponent(token as MarkedToken)
       : `unmatched token ${token.type}`
   })
+
+const text = ({ text, tokens }: Tokens.Text) =>
+  tokens ? mapTokens(tokens) : <Text variant="body">{text}</Text>
+const paragraph = ({ tokens }: Tokens.Paragraph) => mapTokens(tokens)
 
 // TODO: figure out this typing
 const components = {
