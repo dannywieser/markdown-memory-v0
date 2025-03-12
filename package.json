@@ -13,7 +13,7 @@
   },
   "homepage": "https://github.com/dannywieser/bear-insights#readme",
   "scripts": {
-    "docker": "nx run web:vite:build && nx run-many --target=build --all=true --skip-nx-cache=true && docker-compose build && docker-compose up --detach"
+    "docker": "nx run web:vite:build --skip-nx-cache && nx run-many --target=build --all=true --skip-nx-cache=true && docker-compose build && docker-compose up --detach"
   },
   "private": true,
   "devDependencies": {
