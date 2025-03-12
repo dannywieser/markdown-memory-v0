@@ -6,6 +6,7 @@ export const theme: Theme = {
     primary: '#2f72c1',
     secondary: 'blue',
     grey: '#f8f8f8',
+    contrastText: '#fff',
   },
   fonts: {
     primary: 'Anonymous Pro',

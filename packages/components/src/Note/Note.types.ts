@@ -3,8 +3,10 @@ import { Token } from 'marked'
 
 export interface NoteProps {
   note: MarkdownNote
+  suppressHeader?: boolean
 }
 
 export interface TokenProps {
   token: Token
+  suppressHeader?: boolean
 }

@@ -19,8 +19,6 @@ export default function ListItem({ item }: ListItemProps) {
   const { checked, task, tokens } = item
   const TaskIcon = checked ? SquareCheck : SquareDashed
   const Icon = task ? TaskIcon : DotIcon
-
-  console.log(item)
   return (
     <Bullet>
       <Icon size={IconSize} />

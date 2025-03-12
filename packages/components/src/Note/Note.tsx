@@ -1,13 +1,26 @@
+import { Token as MarkedToken } from 'marked'
+
 import Box from '../Box/Box'
 import { NoteProps } from './Note.types'
 import Token from './Token'
 
-export default function Note({ note }: NoteProps) {
+const filterHeader = (tokens: MarkedToken[]): MarkedToken[] => {
+  const firstHeadingIndex = tokens.findIndex(({ type }) => type === 'heading')
+  if (firstHeadingIndex !== -1) {
+    tokens.splice(firstHeadingIndex, 1)
+  }
+  return tokens
+}
+
+export default function Note({ note, suppressHeader = false }: NoteProps) {
   const { tokens, id } = note
   const key = (index: number) => `${id}-${index}`
+
+  const filteredTokens = suppressHeader ? filterHeader(tokens) : tokens
+
   return (
-    <Box p={2}>
-      {tokens.map((token, index) => (
+    <Box p={4}>
+      {filteredTokens.map((token, index) => (
         <Token token={token} key={key(index)} />
       ))}
     </Box>
