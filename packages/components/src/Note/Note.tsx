@@ -5,17 +5,15 @@ import { NoteProps } from './Note.types'
 import Token from './Token'
 
 const filterHeader = (tokens: MarkedToken[]): MarkedToken[] => {
-  const firstHeadingIndex = tokens.findIndex(({ type }) => type === 'heading')
-  if (firstHeadingIndex !== -1) {
-    tokens.splice(firstHeadingIndex, 1)
-  }
-  return tokens
+  const firstHeadingIndex = tokens.findIndex(
+    ({ type }: MarkedToken) => type === 'heading'
+  )
+  return tokens.filter((_token, i) => firstHeadingIndex !== i)
 }
 
 export default function Note({ note, suppressHeader = false }: NoteProps) {
   const { tokens, id } = note
   const key = (index: number) => `${id}-${index}`
-
   const filteredTokens = suppressHeader ? filterHeader(tokens) : tokens
 
   return (
