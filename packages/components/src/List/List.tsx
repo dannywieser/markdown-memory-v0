@@ -8,7 +8,7 @@ export default function List({ ordered = false, items }: ListProps) {
   const tag = ordered ? 'ol' : 'ul'
   const ListTag = styled[tag]`
     list-style-type: none;
-    padding-inline-start: ${(props) => props.theme.grid}px;
+    padding-inline-start: 0;
     margin: 0;
   `
 
