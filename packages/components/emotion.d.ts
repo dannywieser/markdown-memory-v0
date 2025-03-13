@@ -22,6 +22,7 @@ declare module '@emotion/react' {
       h5: TextTheme
       h6: TextTheme
       body: TextTheme
+      strong: TextTheme
       code: TextTheme
     }
   }

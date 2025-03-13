@@ -18,7 +18,7 @@ export const theme: Theme = {
     lineHeight: 1.4,
     h1: {
       fontSize: '26px',
-      fontWeight: 700,
+      fontWeight: 800,
     },
     h2: {
       fontSize: '24px',
@@ -47,6 +47,10 @@ export const theme: Theme = {
     code: {
       fontSize: '18px',
       fontWeight: 500,
+    },
+    strong: {
+      fontSize: '20px',
+      fontWeight: 900,
     },
   },
 }

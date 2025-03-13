@@ -34,6 +34,11 @@ const mapTokens = (tokens: Token[]) =>
       : `unmatched token ${token.type}`
   })
 
+const strong = ({ text, tokens }: Tokens.Text) => {
+  // TODO: how to carry strong token parent into children
+  return tokens ? mapTokens(tokens) : <Text variant="strong">{text}</Text>
+}
+
 const text = ({ text, tokens }: Tokens.Text) =>
   tokens ? mapTokens(tokens) : <Text variant="body">{text}</Text>
 const paragraph = ({ tokens }: Tokens.Paragraph) => mapTokens(tokens)
@@ -47,6 +52,7 @@ const components = {
   link,
   list,
   paragraph,
+  strong,
   space,
   text,
 } as unknown as {
