@@ -26,7 +26,8 @@
       "@markdown-memory/testing-support": [
         "packages/testing-support/src/index.ts"
       ],
-      "@markdown-memory/utilities": ["packages/utilities/src/index.ts"]
+      "@markdown-memory/utilities": ["packages/utilities/src/index.ts"],
+      "@markdown-memory/utilities/date": ["packages/utilities/src/date.ts"]
     }
   },
   "exclude": ["node_modules", "tmp", "public"]
