@@ -3,6 +3,7 @@ import { format } from 'date-fns'
 export const fmtDate = (date: Date) => format(date, 'yyyy.MM.dd')
 export const fmtDateNoYear = (date: Date) => format(date, 'MM.dd')
 export const currentDate = () => fmtDate(new Date())
+export const currentDateNoYear = () => fmtDateNoYear(new Date())
 export const removeYear = (date: string) => date.substring('yyyy.'.length)
 
 const COCOA_CORE_DATE_OFFSET = 978_307_200_000

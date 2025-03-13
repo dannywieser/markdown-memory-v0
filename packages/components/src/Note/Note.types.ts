@@ -4,6 +4,7 @@ import { Token } from 'marked'
 export interface NoteProps {
   note: MarkdownNote
   suppressHeader?: boolean
+  showLink?: boolean
 }
 
 export interface TokenProps {

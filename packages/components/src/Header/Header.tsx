@@ -11,10 +11,16 @@ const Tag = styled['h1']`
   color: ${(props) => props.theme.colors.contrastText};
   margin: 0;
   position: sticky;
-  padding-left: ${(props) => props.theme.grid * 2}px;
   padding-top: ${(props) => props.theme.grid * 1}px;
   padding-bottom: ${(props) => props.theme.grid * 1}px;
   top: 0;
+
+  padding-left: 3%;
+  padding-right: 3%;
+  @media (min-width: 900px) {
+    padding-left: 8%;
+    padding-right: 8%;
+  }
 `
 
 export default function Header({ title }: HeaderProps) {

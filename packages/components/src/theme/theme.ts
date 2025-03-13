@@ -1,11 +1,14 @@
 import { Theme } from '@emotion/react'
 
+// TODO: figure out rgb
+const zinc900 = '#172439'
+const slate100 = '#F1F5F9'
+
 export const theme: Theme = {
   grid: 4,
   colors: {
-    primary: '#2f72c1',
-    secondary: 'blue',
-    grey: '#f8f8f8',
+    primary: zinc900,
+    grey: slate100,
     contrastText: '#fff',
   },
   fonts: {
@@ -15,7 +18,7 @@ export const theme: Theme = {
     lineHeight: 1.4,
     h1: {
       fontSize: '26px',
-      fontWeight: 700,
+      fontWeight: 800,
     },
     h2: {
       fontSize: '24px',
@@ -44,6 +47,10 @@ export const theme: Theme = {
     code: {
       fontSize: '18px',
       fontWeight: 500,
+    },
+    strong: {
+      fontSize: '20px',
+      fontWeight: 900,
     },
   },
 }

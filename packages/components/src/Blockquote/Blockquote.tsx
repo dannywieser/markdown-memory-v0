@@ -5,7 +5,7 @@ import { BlockquoteProps } from './Blockquote.types'
 
 const BlockquoteStyled = styled.blockquote`
   white-space: pre-line;
-  background-color: #f8f8f8;
+  background-color: ${(props) => props.theme.colors.grey};
   border-left-style: solid;
   border-left-width: ${(props) => props.theme.grid * 2}px;
   border-left-color: ${(props) => props.theme.colors.primary};

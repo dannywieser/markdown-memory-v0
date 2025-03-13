@@ -7,7 +7,6 @@ declare module '@emotion/react' {
     grid: number
     colors: {
       primary: string
-      secondary: string
       grey: string
       contrastText: string
     }
@@ -23,6 +22,7 @@ declare module '@emotion/react' {
       h5: TextTheme
       h6: TextTheme
       body: TextTheme
+      strong: TextTheme
       code: TextTheme
     }
   }

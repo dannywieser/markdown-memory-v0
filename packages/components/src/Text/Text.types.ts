@@ -8,6 +8,7 @@ export type TextVariant =
   | 'h5'
   | 'h6'
   | 'body'
+  | 'strong'
   | 'code'
 export interface TextProps {
   variant?: TextVariant
