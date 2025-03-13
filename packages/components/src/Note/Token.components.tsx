@@ -47,6 +47,7 @@ const paragraph = ({ tokens }: Tokens.Paragraph) => mapTokens(tokens)
 const components = {
   blockquote,
   code,
+  escape: text,
   heading,
   image,
   link,
