@@ -32,6 +32,7 @@ export default function Text(props: TextProps) {
     line-height: ${(props) => props.theme.text.lineHeight}em;
     background-color: ${(props) => props.theme.colors.primary};
     color: ${(props) => props.theme.colors.contrastText};
+    padding-left: ${(props) => props.theme.grid * 2}px;
   `
 
   const Tag = variant === 'h1' ? header : other
