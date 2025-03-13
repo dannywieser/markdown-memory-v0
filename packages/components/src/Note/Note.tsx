@@ -1,7 +1,6 @@
 import styled from '@emotion/styled'
 import { Token as MarkedToken } from 'marked'
 
-import Box from '../Box/Box'
 import { NoteProps } from './Note.types'
 import Token from './Token'
 
@@ -21,13 +20,20 @@ const NoteContainer = styled.div`
   }
 `
 
-export default function Note({ note, suppressHeader = false }: NoteProps) {
+export default function Note({
+  note,
+  suppressHeader = false,
+  showLink = false,
+}: NoteProps) {
   const { tokens, id } = note
   const key = (index: number) => `${id}-${index}`
   const filteredTokens = suppressHeader ? filterHeader(tokens) : tokens
 
+  const noteUrl = `/note/${id}`
+
   return (
     <NoteContainer>
+      {showLink && <a href={noteUrl}>open</a>}
       {filteredTokens.map((token, index) => (
         <Token token={token} key={key(index)} />
       ))}

@@ -6,5 +6,5 @@ export default function Today() {
   const day = currentDateNoYear()
   const { data: notes } = useNotesForDay({ day })
 
-  return notes && notes.map((note) => <Note note={note} />)
+  return notes && notes.map((note) => <Note note={note} showLink={true} />)
 }
