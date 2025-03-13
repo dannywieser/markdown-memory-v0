@@ -18,9 +18,10 @@ redis.on('error', (err) => console.log('Redis Client Error', err))
 //TODO: cleanup, splitup, test
 
 const getNote = async (id: string) => {
-  const noteId = `${NOTE_KEY_PREFIX}${id}`
+  const noteId = id.includes(NOTE_KEY_PREFIX) ? id : `${NOTE_KEY_PREFIX}${id}`
   const { created, modified, title, tokens, identifier } =
     await redis.hGetAll(noteId)
+
   return {
     id: identifier,
     created: Number(created),
@@ -66,6 +67,7 @@ app.get('/api/notes', async (req, res) => {
     const notes = await Promise.all(daySet.map(async (id) => await getNote(id)))
     activity(`/api/notes?day=${day} | results: ${notes.length}`, 2)
     res.send(notes)
+    return
   }
 
   const allKeys = await redis.keys('note:*')
