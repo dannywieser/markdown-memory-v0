@@ -1,11 +1,14 @@
 import { Theme } from '@emotion/react'
 
+// TODO: figure out rgb
+const zinc900 = '#172439'
+const slate100 = '#F1F5F9'
+
 export const theme: Theme = {
   grid: 4,
   colors: {
-    primary: '#2f72c1',
-    secondary: 'blue',
-    grey: '#f8f8f8',
+    primary: zinc900,
+    grey: slate100,
     contrastText: '#fff',
   },
   fonts: {
