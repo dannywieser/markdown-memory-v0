@@ -3,17 +3,14 @@ import {
   NOTETAG_KEY_PREFIX,
   NOTE_KEY_PREFIX,
   TAGSET_PREFIX,
-  KEY_SEPARATOR,
   fmtDate,
   fmtDateNoYear,
   findDatesInText,
+  buildKey,
 } from '@markdown-memory/utilities'
 import { createClient } from 'redis'
 
 export type RedisClient = ReturnType<typeof createClient>
-
-const buildKey = (prefix: string, id: string) =>
-  `${prefix}${KEY_SEPARATOR}${id}`
 
 /**
  * This function will cache the primary note to a key of`<NOTE_KEY_PREFIX><Note ID>`.

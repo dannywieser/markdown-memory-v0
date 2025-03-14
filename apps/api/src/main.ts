@@ -4,6 +4,7 @@ import {
   activity,
   NOTETAG_KEY_PREFIX,
   loadEnv,
+  buildKey,
 } from '@markdown-memory/utilities'
 import express from 'express'
 import { createClient } from 'redis'
@@ -18,7 +19,9 @@ redis.on('error', (err) => console.log('Redis Client Error', err))
 //TODO: cleanup, splitup, test
 
 const getNote = async (id: string) => {
-  const noteId = id.includes(NOTE_KEY_PREFIX) ? id : `${NOTE_KEY_PREFIX}${id}`
+  const noteId = id.includes(NOTE_KEY_PREFIX)
+    ? id
+    : buildKey(NOTE_KEY_PREFIX, id)
   const { created, modified, title, tokens, identifier } =
     await redis.hGetAll(noteId)
 
@@ -32,7 +35,7 @@ const getNote = async (id: string) => {
 }
 
 const getTags = async (noteId: string) => {
-  const setKey = `${NOTETAG_KEY_PREFIX}${noteId}`
+  const setKey = buildKey(NOTETAG_KEY_PREFIX, noteId)
   const tags = await redis.sMembers(setKey)
   return tags
 }
