@@ -8,9 +8,9 @@ import Text from '../Text/Text'
 import { mapTokenDepthToHeading } from './Token.utilities'
 
 const blockquote = ({ text }: Tokens.Blockquote) => <Blockquote text={text} />
-const code = ({ text, lang }: Tokens.Code) => {
-  return <Code code={text} language={lang} />
-}
+const code = ({ text, lang }: Tokens.Code) => (
+  <Code code={text} language={lang} />
+)
 const heading = ({ depth, text }: Tokens.Heading) => (
   <Text variant={mapTokenDepthToHeading(depth)}>{text}</Text>
 )
@@ -19,6 +19,8 @@ const link = ({ href, text }: Tokens.Link) => <Link href={href}>{text}</Link>
 const list = ({ items, ordered }: Tokens.List) => (
   <List ordered={ordered} items={items} />
 )
+const br = () => <br />
+
 const space = () => (
   <>
     <br />
@@ -34,6 +36,10 @@ const mapTokens = (tokens: Token[]) =>
       : `unmatched token ${token.type}`
   })
 
+const em = ({ text, tokens }: Tokens.Text) => {
+  // TODO: how to carry em token parent into children
+  return tokens ? mapTokens(tokens) : <Text variant="strong">{text}</Text>
+}
 const strong = ({ text, tokens }: Tokens.Text) => {
   // TODO: how to carry strong token parent into children
   return tokens ? mapTokens(tokens) : <Text variant="strong">{text}</Text>
@@ -46,7 +52,9 @@ const paragraph = ({ tokens }: Tokens.Paragraph) => mapTokens(tokens)
 // TODO: figure out this typing
 const components = {
   blockquote,
+  br,
   code,
+  em,
   escape: text,
   heading,
   image,
