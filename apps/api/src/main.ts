@@ -5,6 +5,7 @@ import {
   NOTETAG_KEY_PREFIX,
   loadEnv,
   cacheKey,
+  GROUP_KEY_PREFIX,
 } from '@markdown-memory/utilities'
 import express from 'express'
 import { createClient } from 'redis'
@@ -76,6 +77,16 @@ app.get('/api/notes', async (req, res) => {
   const allKeys = await redis.keys('note:*')
   const notes = await Promise.all(allKeys.map(async (id) => await getNote(id)))
   // TODO: pagination!
+  res.send(notes)
+})
+
+app.get('/api/notes/groups/:groupName', async (req, res) => {
+  const groupName = req.params.groupName
+  const day = req.query.day as string
+  const groupKey = cacheKey([GROUP_KEY_PREFIX, groupName], day)
+  const groupSet = await redis.sMembers(groupKey)
+  const notes = await Promise.all(groupSet.map(async (id) => await getNote(id)))
+  activity(`/api/notes/groups/${groupName} 200`, 2)
   res.send(notes)
 })
 
