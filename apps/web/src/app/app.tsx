@@ -20,6 +20,7 @@ function App() {
             <Route element={<Dashboard />} path="/" />
             <Route element={<Note />} path="/note/:noteId" />
             <Route element={<Today />} path="/today" />
+            <Route element={<Today />} path="/today/:groupName" />
           </Routes>
         </BrowserRouter>
       </ThemeProvider>
