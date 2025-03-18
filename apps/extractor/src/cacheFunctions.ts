@@ -6,7 +6,7 @@ import {
   fmtDate,
   fmtDateNoYear,
   findDatesInText,
-  buildKey,
+  cacheKey,
 } from '@markdown-memory/utilities'
 import { createClient } from 'redis'
 
@@ -18,7 +18,7 @@ export type RedisClient = ReturnType<typeof createClient>
  */
 const cacheNote = async (client: RedisClient, note: MarkdownNote) => {
   const { created, modified, title, id, tokens } = note
-  const noteId = buildKey(NOTE_KEY_PREFIX, id)
+  const noteId = cacheKey(NOTE_KEY_PREFIX, id)
   await client.hSet(noteId, 'created', created.valueOf())
   await client.hSet(noteId, 'modified', modified.valueOf())
   await client.hSet(noteId, 'title', title)
@@ -34,7 +34,7 @@ const cacheNote = async (client: RedisClient, note: MarkdownNote) => {
 const addNoteToTagSet = async (client: RedisClient, note: MarkdownNote) => {
   const { tags, id } = note
   tags.map(async (tag: string) => {
-    const tagId = buildKey(TAGSET_PREFIX, tag)
+    const tagId = cacheKey(TAGSET_PREFIX, tag)
     await client.sAdd(tagId, id)
   })
 }
@@ -48,7 +48,7 @@ const addTagsToNoteSet = async (client: RedisClient, note: MarkdownNote) => {
   const { tags, id } = note
   // create a set of tags for the given note
   tags.map(async (tag: string) => {
-    const noteTagId = buildKey(NOTETAG_KEY_PREFIX, id)
+    const noteTagId = cacheKey(NOTETAG_KEY_PREFIX, id)
     await client.sAdd(noteTagId, tag)
   })
 }
