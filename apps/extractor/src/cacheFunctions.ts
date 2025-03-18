@@ -1,4 +1,5 @@
 import { getRawNoteText, MarkdownNote } from '@markdown-memory/markdown'
+import { isNoteInGroup, loadGroups } from '@markdown-memory/profile'
 import {
   NOTETAG_KEY_PREFIX,
   NOTE_KEY_PREFIX,
@@ -7,6 +8,8 @@ import {
   fmtDateNoYear,
   findDatesInText,
   cacheKey,
+  activity,
+  GROUP_KEY_PREFIX,
 } from '@markdown-memory/utilities'
 import { createClient } from 'redis'
 
@@ -73,23 +76,47 @@ const getDatesForNote = (note: MarkdownNote): Date[] => {
  *  - create date for the note
  *  - a full text search for string patterns matching the defined date format
  */
-const addNoteToDateSets = async (client: RedisClient, note: MarkdownNote) => {
+const addNoteToDateSets = async (
+  client: RedisClient,
+  note: MarkdownNote,
+  keyPrefix = ''
+) => {
   const { id } = note
   const dates = getDatesForNote(note)
   for (const date of dates) {
     // // add note to a set for the current date in yyyy.MM.dd format
-    const wholeDateSet = fmtDate(date)
-    await client.sAdd(wholeDateSet, id)
+    const wholeDate = fmtDate(date)
+    const wholeDateSetKey = keyPrefix
+      ? cacheKey(keyPrefix, wholeDate)
+      : wholeDate
+    await client.sAdd(wholeDateSetKey, id)
 
     // add note to a set with the date in MM.dd format
-    const partDateSet = fmtDateNoYear(date)
-    await client.sAdd(partDateSet, id)
+    const partDate = fmtDateNoYear(date)
+    const partDateSetKey = keyPrefix ? cacheKey(keyPrefix, partDate) : wholeDate
+    await client.sAdd(partDateSetKey, id)
   }
+}
+
+const addNoteToGroups = async (client: RedisClient, note: MarkdownNote) => {
+  const groups = loadGroups()
+  const { id } = note
+  groups.map(async (group) => {
+    const { name } = group
+    const noteInGroup = isNoteInGroup(note, group)
+    // first add note to global group set
+    const groupKey = cacheKey(GROUP_KEY_PREFIX, name)
+    if (noteInGroup) {
+      await client.sAdd(groupKey, id)
+      addNoteToDateSets(client, note, groupKey)
+    }
+  })
 }
 
 export default {
   addNoteToDateSets,
   cacheNote,
+  addNoteToGroups,
   addNoteToTagSet,
   addTagsToNoteSet,
 }
