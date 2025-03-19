@@ -83,7 +83,7 @@
     "node-schedule": "2.1.1",
     "react": "19.0.0",
     "react-dom": "19.0.0",
-    "react-router": "7.1.5",
+    "react-router": "7.3.0",
     "react-router-dom": "6.11.2",
     "redis": "4.7.0",
     "sqlite": "5.1.1",
