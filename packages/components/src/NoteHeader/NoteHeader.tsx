@@ -8,10 +8,11 @@ export const mapTokenDepthToHeading = (depth: number): TextVariant =>
 export default function NoteHeader(props: NoteHeaderProps) {
   const { token, note } = props
   const { depth, text } = token
+  const showExternalLink = depth === 1 && note.externalUrl
   return (
     <>
       <Text variant={mapTokenDepthToHeading(depth)}>{text}</Text>
-      {note.externalUrl && <a href={note.externalUrl}>open in bear</a>}
+      {showExternalLink && <a href={note.externalUrl}>open in bear</a>}
     </>
   )
 }
