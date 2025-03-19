@@ -1,5 +1,9 @@
 import { getRawNoteText, MarkdownNote } from '@markdown-memory/markdown'
-import { isNoteInGroup, loadGroups } from '@markdown-memory/profile'
+import {
+  isNoteInGroup,
+  loadGroups,
+  loadProfile,
+} from '@markdown-memory/profile'
 import {
   NOTETAG_KEY_PREFIX,
   NOTE_KEY_PREFIX,
@@ -64,8 +68,12 @@ const addTagsToNoteSet = async (client: RedisClient, note: MarkdownNote) => {
  */
 const getDatesForNote = (note: MarkdownNote): Date[] => {
   const { created } = note
+  const { timezone: timeZone } = loadProfile()
   const fullText = getRawNoteText(note)
-  return [new Date(created.toLocaleDateString()), ...findDatesInText(fullText)]
+  return [
+    new Date(created.toLocaleDateString('en-US', { timeZone })),
+    ...findDatesInText(fullText),
+  ]
 }
 /**
  * The ID of each note will be added to two date sets:
