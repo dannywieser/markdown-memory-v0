@@ -1,18 +1,19 @@
+import { MarkdownNote } from '@markdown-memory/markdown'
 import { MarkedToken, Token, Tokens } from 'marked'
 
 import Blockquote from '../Blockquote/Blockquote'
 import Code from '../Code/Code'
 import Link from '../Link/Link'
 import List from '../List/List'
+import NoteHeader from '../NoteHeader/NoteHeader'
 import Text from '../Text/Text'
-import { mapTokenDepthToHeading } from './Token.utilities'
 
 const blockquote = ({ text }: Tokens.Blockquote) => <Blockquote text={text} />
 const code = ({ text, lang }: Tokens.Code) => (
   <Code code={text} language={lang} />
 )
-const heading = ({ depth, text }: Tokens.Heading) => (
-  <Text variant={mapTokenDepthToHeading(depth)}>{text}</Text>
+const heading = (token: Tokens.Heading, note: MarkdownNote) => (
+  <NoteHeader token={token} note={note} />
 )
 const image = ({ href, text }: Tokens.Image) => 'image'
 const link = ({ href, text }: Tokens.Link) => <Link href={href}>{text}</Link>
@@ -28,26 +29,27 @@ const space = () => (
   </>
 )
 
-const mapTokens = (tokens: Token[]) =>
+const mapTokens = (tokens: Token[], note: MarkdownNote) =>
   tokens.map((token) => {
     const typeComponent = components[token.type]
     return typeComponent
-      ? typeComponent(token as MarkedToken)
+      ? typeComponent(token as MarkedToken, note)
       : `unmatched token ${token.type}`
   })
 
-const em = ({ text, tokens }: Tokens.Text) => {
+const em = ({ text, tokens }: Tokens.Text, note: MarkdownNote) => {
   // TODO: how to carry em token parent into children
-  return tokens ? mapTokens(tokens) : <Text variant="strong">{text}</Text>
+  return tokens ? mapTokens(tokens, note) : <Text variant="strong">{text}</Text>
 }
-const strong = ({ text, tokens }: Tokens.Text) => {
+const strong = ({ text, tokens }: Tokens.Text, note: MarkdownNote) => {
   // TODO: how to carry strong token parent into children
-  return tokens ? mapTokens(tokens) : <Text variant="strong">{text}</Text>
+  return tokens ? mapTokens(tokens, note) : <Text variant="strong">{text}</Text>
 }
 
-const text = ({ text, tokens }: Tokens.Text) =>
-  tokens ? mapTokens(tokens) : <Text variant="body">{text}</Text>
-const paragraph = ({ tokens }: Tokens.Paragraph) => mapTokens(tokens)
+const text = ({ text, tokens }: Tokens.Text, note: MarkdownNote) =>
+  tokens ? mapTokens(tokens, note) : <Text variant="body">{text}</Text>
+const paragraph = ({ tokens }: Tokens.Paragraph, note: MarkdownNote) =>
+  mapTokens(tokens, note)
 
 // TODO: figure out this typing
 const components = {
@@ -65,6 +67,6 @@ const components = {
   space,
   text,
 } as unknown as {
-  [key: string]: (token: MarkedToken) => unknown
+  [key: string]: (token: MarkedToken, note?: MarkdownNote) => unknown
 }
 export default components
