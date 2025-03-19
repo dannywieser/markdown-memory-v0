@@ -2,6 +2,7 @@ import { lexer, MarkdownNote } from '@markdown-memory/markdown'
 import { convertDate } from '@markdown-memory/utilities'
 
 import { BearProcessedTag, BearRawNote } from './types'
+import { generateExternalUrl } from './util'
 
 export default function processNote(
   rawNote: BearRawNote,
@@ -29,5 +30,7 @@ export default function processNote(
     modified: convertDate(rawNote.ZMODIFICATIONDATE),
     tags,
     title: rawNote.ZTITLE,
+    source: 'bear',
+    externalUrl: generateExternalUrl(rawNote.ZUNIQUEIDENTIFIER),
   }
 }

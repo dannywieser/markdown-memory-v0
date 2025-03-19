@@ -10,4 +10,6 @@ export interface MarkdownNote {
   modified: Date
   tags: string[]
   title: string
+  source: 'bear' | 'file'
+  externalUrl: string
 }
