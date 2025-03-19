@@ -29,7 +29,9 @@ const getNote = async (id: string) => {
   return {
     id: identifier,
     created: Number(created),
+    externalUrl,
     modified: Number(modified),
+    source,
     title,
     tokens: JSON.parse(tokens),
   }
