@@ -20,22 +20,15 @@ const NoteContainer = styled.div`
   }
 `
 
-export default function Note({
-  note,
-  suppressHeader = false,
-  showLink = false,
-}: NoteProps) {
+export default function Note({ note, suppressHeader = false }: NoteProps) {
   const { tokens, id } = note
   const key = (index: number) => `${id}-${index}`
   const filteredTokens = suppressHeader ? filterHeader(tokens) : tokens
 
-  const noteUrl = `/note/${id}`
-
   return (
     <NoteContainer>
-      {showLink && <a href={noteUrl}>open</a>}
       {filteredTokens.map((token, index) => (
-        <Token token={token} key={key(index)} />
+        <Token token={token} key={key(index)} note={note} />
       ))}
     </NoteContainer>
   )

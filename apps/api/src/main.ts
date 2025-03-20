@@ -23,13 +23,15 @@ const getNote = async (id: string) => {
   const noteId = id.includes(NOTE_KEY_PREFIX)
     ? id
     : cacheKey(NOTE_KEY_PREFIX, id)
-  const { created, modified, title, tokens, identifier } =
+  const { created, modified, title, tokens, identifier, source, externalUrl } =
     await redis.hGetAll(noteId)
 
   return {
     id: identifier,
     created: Number(created),
+    externalUrl,
     modified: Number(modified),
+    source,
     title,
     tokens: JSON.parse(tokens),
   }

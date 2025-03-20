@@ -12,7 +12,6 @@ import {
   fmtDateNoYear,
   findDatesInText,
   cacheKey,
-  activity,
   GROUP_KEY_PREFIX,
 } from '@markdown-memory/utilities'
 import { createClient } from 'redis'
@@ -24,10 +23,12 @@ export type RedisClient = ReturnType<typeof createClient>
  * The primary note data is stored as a hash set.
  */
 const cacheNote = async (client: RedisClient, note: MarkdownNote) => {
-  const { created, modified, title, id, tokens } = note
+  const { created, modified, title, id, tokens, source, externalUrl } = note
   const noteId = cacheKey(NOTE_KEY_PREFIX, id)
   await client.hSet(noteId, 'created', created.valueOf())
+  await client.hSet(noteId, 'externalUrl', externalUrl)
   await client.hSet(noteId, 'modified', modified.valueOf())
+  await client.hSet(noteId, 'source', source)
   await client.hSet(noteId, 'title', title)
   await client.hSet(noteId, 'identifier', id)
   await client.hSet(noteId, 'tokens', JSON.stringify(tokens))

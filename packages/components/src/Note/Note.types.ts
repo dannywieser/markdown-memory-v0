@@ -10,4 +10,5 @@ export interface NoteProps {
 export interface TokenProps {
   token: Token
   suppressHeader?: boolean
+  note: MarkdownNote
 }
