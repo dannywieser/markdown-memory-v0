@@ -32,14 +32,16 @@ const SecondaryHeader = styled['div']``
 export default function NoteHeader(props: NoteHeaderProps) {
   const { token, note } = props
   const { depth, text } = token
-  const { externalUrl, source } = note
+  const { externalUrl, source, id } = note
   const showExternalLink = depth === 1 && note.externalUrl
   const Container = depth === 1 ? MainHeader : SecondaryHeader
   return (
     <Container>
       <Text variant={mapTokenDepthToHeading(depth)}>{text}</Text>
       <NoteTools>
-        {showExternalLink && <OpenExternal url={externalUrl} source={source} />}
+        {showExternalLink && (
+          <OpenExternal url={externalUrl} source={source} noteId={id} />
+        )}
       </NoteTools>
     </Container>
   )

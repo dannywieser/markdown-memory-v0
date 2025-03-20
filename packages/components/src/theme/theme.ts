@@ -1,8 +1,8 @@
 import { Theme } from '@emotion/react'
 
 // TODO: figure out rgb
-const zinc900 = '#172439'
-const slate100 = '#F1F5F9'
+export const zinc900 = '#172439'
+export const slate100 = '#F1F5F9'
 
 export const theme: Theme = {
   grid: 4,
