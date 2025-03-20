@@ -10,7 +10,7 @@ const Bullet = styled.li`
   display: grid;
   grid-template-columns: ${IconSize}px 1fr;
   gap: ${(props) => props.theme.grid}px;
-  align-items: center;
+  align-items: top;
 `
 
 const BulletText = styled.span``
