@@ -14,4 +14,5 @@ export interface TextProps {
   variant?: TextVariant
   children: ReactNode | ReactNode[]
   container?: string
+  className: string
 }

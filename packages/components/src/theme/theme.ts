@@ -1,11 +1,13 @@
-import { Theme } from '@emotion/react'
+import { MarkdownMemoryTheme } from './theme.types'
 
 // TODO: figure out rgb
 export const zinc900 = '#172439'
 export const slate100 = '#F1F5F9'
 
-export const theme: Theme = {
-  grid: 4,
+export const spacing = (px: number) => `${px}px`
+
+export const theme: MarkdownMemoryTheme = {
+  spacing: 4,
   colors: {
     primary: zinc900,
     grey: slate100,
