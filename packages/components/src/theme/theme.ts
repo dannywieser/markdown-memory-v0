@@ -6,6 +6,10 @@ export const slate100 = '#F1F5F9'
 
 export const spacing = (px: number) => `${px}px`
 
+const bodyText = {
+  fontSize: '20px',
+}
+
 export const theme: MarkdownMemoryTheme = {
   spacing: 4,
   colors: {
@@ -50,9 +54,12 @@ export const theme: MarkdownMemoryTheme = {
       fontSize: '18px',
       fontWeight: 500,
     },
+    em: bodyText,
+    del: bodyText,
     strong: {
       fontSize: '20px',
       fontWeight: 900,
     },
+    text: bodyText,
   },
 }

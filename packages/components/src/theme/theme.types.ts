@@ -19,11 +19,14 @@ export interface ThemeText {
   body: ThemeTextVariant
   strong: ThemeTextVariant
   code: ThemeTextVariant
+  del: ThemeTextVariant
+  em: ThemeTextVariant
+  text: ThemeTextVariant
 }
 
 export interface ThemeTextVariant {
   fontSize: string
-  fontWeight: number
+  fontWeight?: number
 }
 
 export interface MarkdownMemoryTheme {
