@@ -1,8 +1,8 @@
 import { MarkedToken } from 'marked'
 import { ReactNode } from 'react'
 
-import { TokenProps } from './Note.types'
 import components from './Token.components'
+import { TokenProps } from './Token.types'
 
 export default function Token({ token, note }: TokenProps) {
   const { type } = token

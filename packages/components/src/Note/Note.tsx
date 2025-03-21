@@ -1,8 +1,8 @@
 import styled from '@emotion/styled'
 import { Token as MarkedToken } from 'marked'
 
+import Token from '../Token/Token'
 import { NoteProps } from './Note.types'
-import Token from './Token'
 
 const filterHeader = (tokens: MarkedToken[]): MarkedToken[] => {
   const firstHeadingIndex = tokens.findIndex(

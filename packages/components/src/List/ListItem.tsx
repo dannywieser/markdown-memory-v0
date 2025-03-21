@@ -1,7 +1,7 @@
 import styled from '@emotion/styled'
 import { SquareCheck, SquareDashed, DotIcon } from 'lucide-react'
 
-import Token from '../Note/Token'
+import Tokens from '../Token/Tokens'
 import { ListItemProps } from './List.types'
 
 const IconSize = 20
@@ -23,9 +23,7 @@ export default function ListItem({ item }: ListItemProps) {
     <Bullet>
       <Icon size={IconSize} />
       <BulletText>
-        {tokens.map((token) => (
-          <Token token={token} />
-        ))}
+        <Tokens tokens={tokens} />
       </BulletText>
     </Bullet>
   )
