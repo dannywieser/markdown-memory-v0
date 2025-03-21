@@ -59,6 +59,7 @@ const components = {
   blockquote,
   br,
   code,
+  del: text,
   em: text,
   escape: text,
   heading,
