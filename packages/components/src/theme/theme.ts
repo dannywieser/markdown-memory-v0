@@ -47,10 +47,6 @@ export const theme: MarkdownMemoryTheme = {
       fontSize: '20px',
       fontWeight: 600,
     },
-    body: {
-      fontSize: '20px',
-      fontWeight: 500,
-    },
     code: {
       fontSize: '18px',
       fontWeight: 500,

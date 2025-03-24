@@ -16,7 +16,7 @@ export interface ThemeText {
   h4: ThemeTextVariant
   h5: ThemeTextVariant
   h6: ThemeTextVariant
-  body: ThemeTextVariant
+  span: ThemeTextVariant
   strong: ThemeTextVariant
   code: ThemeTextVariant
   del: ThemeTextVariant

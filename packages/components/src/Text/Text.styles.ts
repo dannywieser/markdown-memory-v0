@@ -13,21 +13,25 @@ const styles = createUseStyles<string, TextProps, MarkdownMemoryTheme>(
       margin: 0,
     }
 
-    const variantStyle = (variant: TextVariant) => ({
+    const headingStyle = (variant: TextVariant) => ({
       marginTop: spacing(theme, 1.5),
       marginBottom: spacing(theme, 1.5),
+      ...variantStyle(variant),
+    })
+
+    const variantStyle = (variant: TextVariant) => ({
       fontSize: theme.text[variant].fontSize,
       fontWeight: theme.text[variant].fontWeight,
     })
 
     return {
       base,
-      h1: variantStyle('h1'),
-      h2: variantStyle('h2'),
-      h3: variantStyle('h3'),
-      h4: variantStyle('h4'),
-      h5: variantStyle('h5'),
-      h6: variantStyle('h6'),
+      h1: headingStyle('h1'),
+      h2: headingStyle('h2'),
+      h3: headingStyle('h3'),
+      h4: headingStyle('h4'),
+      h5: headingStyle('h5'),
+      h6: headingStyle('h6'),
       em: variantStyle('em'),
       del: variantStyle('em'),
       strong: variantStyle('em'),

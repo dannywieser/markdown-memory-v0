@@ -7,7 +7,6 @@ export type TextVariant =
   | 'h4'
   | 'h5'
   | 'h6'
-  | 'body'
   | 'strong'
   | 'del'
   | 'em'
