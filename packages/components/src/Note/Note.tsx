@@ -1,6 +1,7 @@
 import { Token as MarkedToken } from 'marked'
 
 import Token from '../Token/Token'
+import useStyles from './Note.styles'
 import { NoteProps } from './Note.types'
 
 const filterHeader = (tokens: MarkedToken[]): MarkedToken[] => {
@@ -10,22 +11,14 @@ const filterHeader = (tokens: MarkedToken[]): MarkedToken[] => {
   return tokens.filter((_token, i) => firstHeadingIndex !== i)
 }
 
-// const NoteContainer = styled.div`
-//   padding-left: 3%;
-//   padding-right: 3%;
-//   @media (min-width: 900px) {
-//     padding-left: 8%;
-//     padding-right: 8%;
-//   }
-// `
-
 export default function Note({ note, suppressHeader = false }: NoteProps) {
   const { tokens, id } = note
+  const { root } = useStyles()
   const key = (index: number) => `${id}-${index}`
   const filteredTokens = suppressHeader ? filterHeader(tokens) : tokens
 
   return (
-    <div>
+    <div className={root}>
       {filteredTokens.map((token, index) => (
         <Token token={token} key={key(index)} note={note} />
       ))}
