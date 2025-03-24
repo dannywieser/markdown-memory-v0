@@ -1,15 +1,11 @@
 import Text from '../Text/Text'
+import useStyles from './Code.styles'
 import { CodeProps } from './Code.types'
 
-// const Pre = styled.pre`
-//   background-color: ${(props) => props.theme.colors.grey};
-//   padding: ${(props) => props.theme.grid}px;
-//   margin: 0;
-// `
-
-export default function Code({ code, language }: CodeProps) {
+export default function Code({ code }: CodeProps) {
+  const { pre } = useStyles()
   return (
-    <pre>
+    <pre className={pre}>
       <Text variant="code">{code}</Text>
     </pre>
   )

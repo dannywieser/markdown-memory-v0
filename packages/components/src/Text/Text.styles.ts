@@ -26,6 +26,7 @@ const styles = createUseStyles<string, TextProps, MarkdownMemoryTheme>(
 
     return {
       base,
+      code: variantStyle('code'),
       h1: headingStyle('h1'),
       h2: headingStyle('h2'),
       h3: headingStyle('h3'),

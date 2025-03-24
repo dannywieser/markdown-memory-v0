@@ -47,14 +47,11 @@ export const theme: MarkdownMemoryTheme = {
       fontSize: '20px',
       fontWeight: 600,
     },
-    code: {
-      fontSize: '18px',
-      fontWeight: 500,
-    },
+    code: bodyText,
     em: bodyText,
     del: bodyText,
     strong: {
-      fontSize: '20px',
+      ...bodyText,
       fontWeight: 900,
     },
     text: bodyText,
