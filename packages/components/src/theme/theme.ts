@@ -4,7 +4,8 @@ import { MarkdownMemoryTheme } from './theme.types'
 export const zinc900 = '#172439'
 export const slate100 = '#F1F5F9'
 
-export const spacing = (px: number) => `${px}px`
+export const spacing = (theme: MarkdownMemoryTheme, units: number) =>
+  `${theme.spacing * units}px`
 
 const bodyText = {
   fontSize: '20px',

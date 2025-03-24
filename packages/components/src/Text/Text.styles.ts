@@ -14,8 +14,8 @@ const styles = createUseStyles<string, TextProps, MarkdownMemoryTheme>(
     }
 
     const variantStyle = (variant: TextVariant) => ({
-      marginTop: spacing(theme.spacing * 1.5),
-      marginBottom: spacing(theme.spacing * 1.5),
+      marginTop: spacing(theme, 1.5),
+      marginBottom: spacing(theme, 1.5),
       fontSize: theme.text[variant].fontSize,
       fontWeight: theme.text[variant].fontWeight,
     })

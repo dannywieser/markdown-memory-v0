@@ -6,7 +6,7 @@ import { MarkdownMemoryTheme } from '../theme/theme.types'
 
 const styles = createUseStyles<string, undefined, MarkdownMemoryTheme>(
   (theme) => {
-    const padding = spacing(theme.spacing * 2)
+    const padding = spacing(theme, 2)
     return {
       root: {
         backgroundColor: theme.colors.primary,
