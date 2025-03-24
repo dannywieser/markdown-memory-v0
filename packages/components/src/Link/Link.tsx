@@ -1,16 +1,11 @@
 import Text from '../Text/Text'
+import useStyles from './Link.styles'
 import { LinkProps } from './Link.types'
 
-// const StyledLink = styled.a`
-//   color: ${(props) => props.theme.colors.primary};
-//   :visited: {
-//     color: ${(props) => props.theme.colors.primary};
-//   }
-// `
-
 export default function Link({ href, children }: LinkProps) {
+  const { root } = useStyles()
   return (
-    <a href={href}>
+    <a href={href} className={root}>
       <Text>{children}</Text>
     </a>
   )
