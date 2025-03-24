@@ -45,13 +45,11 @@ const text = (
   note: MarkdownNote
 ) =>
   tokens ? (
-    <Text container={type}>
+    <Text variant={type}>
       <Tokens tokens={tokens} note={note} />
     </Text>
   ) : (
-    <Text container={type} variant="body">
-      {text}
-    </Text>
+    <Text variant={type}>{text}</Text>
   )
 
 // TODO: figure out this typing

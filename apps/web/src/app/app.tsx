@@ -1,8 +1,8 @@
-import { ThemeProvider } from '@emotion/react'
 import { theme } from '@markdown-memory/components'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import React from 'react'
+import { ThemeProvider } from 'react-jss'
 import { BrowserRouter, Route, Routes } from 'react-router'
 
 import Dashboard from '../pages/Dashboard/Dashboard'

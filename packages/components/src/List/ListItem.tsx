@@ -1,30 +1,37 @@
-import styled from '@emotion/styled'
-import { SquareCheck, SquareDashed, DotIcon } from 'lucide-react'
+import { SquareCheck, SquareDashed, ChevronRight } from 'lucide-react'
 
+import Text from '../Text/Text'
 import Tokens from '../Token/Tokens'
+import useStyles, { IconSize } from './List.styles'
 import { ListItemProps } from './List.types'
 
-const IconSize = 20
-
-const Bullet = styled.li`
-  display: grid;
-  grid-template-columns: ${IconSize}px 1fr;
-  gap: ${(props) => props.theme.grid}px;
-  align-items: top;
-`
-
-const BulletText = styled.span``
-
-export default function ListItem({ item }: ListItemProps) {
+export default function ListItem(props: ListItemProps) {
+  const { item, ordered, index } = props
+  const { bulletOrdered, bulletUnordered, listitem } = useStyles()
   const { checked, task, tokens } = item
+
+  // The bullet will either be:
+  // 1. A completed or uncompleted task
   const TaskIcon = checked ? SquareCheck : SquareDashed
-  const Icon = task ? TaskIcon : DotIcon
+  // 2. A normal bullet
+  const Icon = task ? TaskIcon : ChevronRight
+  // 3. Numerical Text for ordered lists
+  const indexText = `${index + 1}.`
+
+  const bulletClass = ordered ? bulletOrdered : bulletUnordered
+
   return (
-    <Bullet>
-      <Icon size={IconSize} />
-      <BulletText>
+    <li className={listitem}>
+      <span className={bulletClass}>
+        {ordered ? (
+          <Text variant="text">{indexText}</Text>
+        ) : (
+          <Icon size={IconSize} />
+        )}
+      </span>
+      <span>
         <Tokens tokens={tokens} />
-      </BulletText>
-    </Bullet>
+      </span>
+    </li>
   )
 }

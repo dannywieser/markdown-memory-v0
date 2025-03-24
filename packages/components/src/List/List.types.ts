@@ -7,4 +7,6 @@ export interface ListProps {
 
 export interface ListItemProps {
   item: Tokens.ListItem
+  ordered?: boolean
+  index: number
 }

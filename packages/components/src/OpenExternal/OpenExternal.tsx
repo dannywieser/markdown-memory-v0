@@ -1,30 +1,21 @@
-import styled from '@emotion/styled'
 import { ExternalLink } from 'lucide-react'
 import { Tooltip } from 'react-tooltip'
 
 import { theme } from '../theme/theme'
+import useStyles from './OpenExternal.styles'
 import { OpenExternalProps } from './OpenExternal.types'
-
-const IconHeight = 24
-
-const StyledLink = styled.a`
-  color: ${(props) => props.theme.colors.contrastText};
-  :visited: {
-    color: ${(props) => props.theme.colors.contrastText};
-  }
-  height: ${IconHeight}px;
-  width: ${IconHeight}px;
-`
-// TODO: ability to use theme colors for tooltip!
 
 export default function OpenExternal(props: OpenExternalProps) {
   const { source, url, noteId } = props
+  const { root } = useStyles()
   const tooltipId = `open-external-${noteId}`
   const tooltipText =
     source === 'bear' ? 'Open in Bear' : 'Open in External Editor'
 
+  // TODO: how to use useStyles for the tooltip component?
   return (
-    <StyledLink
+    <a
+      className={root}
       href={url}
       data-tooltip-id={tooltipId}
       data-tooltip-content={tooltipText}
@@ -38,6 +29,6 @@ export default function OpenExternal(props: OpenExternalProps) {
           fontFamily: theme.fonts.primary,
         }}
       />
-    </StyledLink>
+    </a>
   )
 }

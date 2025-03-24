@@ -1,5 +1,5 @@
 import { Note } from '@markdown-memory/components'
-import { Box, Header } from '@markdown-memory/components'
+import { Header } from '@markdown-memory/components'
 import React from 'react'
 import { useParams } from 'react-router'
 
@@ -13,9 +13,9 @@ export default function NotePage() {
   }
 
   return (
-    <Box>
+    <>
       <Header title={noteData.title} />
       <Note note={noteData} suppressHeader={true} />
-    </Box>
+    </>
   )
 }

@@ -7,11 +7,14 @@ export type TextVariant =
   | 'h4'
   | 'h5'
   | 'h6'
-  | 'body'
   | 'strong'
+  | 'del'
+  | 'em'
   | 'code'
+  | 'text'
 export interface TextProps {
   variant?: TextVariant
   children: ReactNode | ReactNode[]
   container?: string
+  className?: string
 }
