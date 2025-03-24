@@ -35,7 +35,7 @@ const styles = createUseStyles<string, TextProps, MarkdownMemoryTheme>(
       h6: headingStyle('h6'),
       em: variantStyle('em'),
       del: variantStyle('em'),
-      strong: variantStyle('em'),
+      strong: variantStyle('strong'),
       text: variantStyle('text'),
     }
   }
