@@ -1,3 +1,4 @@
+import { MarkdownNoteSource } from '@markdown-memory/markdown'
 import {
   NOTE_KEY_PREFIX,
   header1,
@@ -7,8 +8,11 @@ import {
   cacheKey,
   GROUP_KEY_PREFIX,
 } from '@markdown-memory/utilities'
+import { compareAsc, toDate } from 'date-fns'
 import express from 'express'
 import { createClient } from 'redis'
+
+import { NoteResponse } from './types'
 
 const app = express()
 
@@ -19,7 +23,13 @@ redis.on('error', (err) => console.log('Redis Client Error', err))
 
 //TODO: cleanup, splitup, test
 
-const getNote = async (id: string) => {
+export const sortNotesByDate = (notes: NoteResponse[]) => {
+  return notes.sort(({ created: createdA }, { created: createdB }) =>
+    compareAsc(toDate(createdA), toDate(createdB))
+  )
+}
+
+const getNote = async (id: string): Promise<NoteResponse> => {
   const noteId = id.includes(NOTE_KEY_PREFIX)
     ? id
     : cacheKey(NOTE_KEY_PREFIX, id)
@@ -31,7 +41,7 @@ const getNote = async (id: string) => {
     created: Number(created),
     externalUrl,
     modified: Number(modified),
-    source,
+    source: source as MarkdownNoteSource,
     title,
     tokens: JSON.parse(tokens),
   }
@@ -65,21 +75,23 @@ app.get('/api/notes/:noteId/tags', async (req, res) => {
   res.send(tags)
 })
 
-app.get('/api/notes', async (req, res) => {
-  const day = req.query.day
+const getNotesForDay = async (day: string) => {
+  const daySet = await redis.sMembers(day as string)
+  const notes = await Promise.all(daySet.map(async (id) => await getNote(id)))
+  activity(`/api/notes?day=${day} | results: ${notes.length}`, 2)
+  return notes
+}
 
-  if (day) {
-    const daySet = await redis.sMembers(day as string)
-    const notes = await Promise.all(daySet.map(async (id) => await getNote(id)))
-    activity(`/api/notes?day=${day} | results: ${notes.length}`, 2)
-    res.send(notes)
-    return
-  }
-
+// TODO: paginate
+const getAllNotes = async () => {
   const allKeys = await redis.keys('note:*')
-  const notes = await Promise.all(allKeys.map(async (id) => await getNote(id)))
-  // TODO: pagination!
-  res.send(notes)
+  return await Promise.all(allKeys.map(async (id) => await getNote(id)))
+}
+
+app.get('/api/notes', async (req, res) => {
+  const day = req.query.day as string
+  const notes = day ? await getNotesForDay(day) : await getAllNotes()
+  res.send(sortNotesByDate(notes))
 })
 
 app.get('/api/notes/groups/:groupName', async (req, res) => {
@@ -89,7 +101,7 @@ app.get('/api/notes/groups/:groupName', async (req, res) => {
   const groupSet = await redis.sMembers(groupKey)
   const notes = await Promise.all(groupSet.map(async (id) => await getNote(id)))
   activity(`/api/notes/groups/${groupName} 200`, 2)
-  res.send(notes)
+  res.send(sortNotesByDate(notes))
 })
 
 redis.connect().then(() => {
