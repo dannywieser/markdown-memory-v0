@@ -13,6 +13,7 @@ const styles = createUseStyles<string, undefined, MarkdownMemoryTheme>(
       display: 'grid',
       gridTemplateColumns: '1fr 10%',
       gap: spacing(theme, 1),
+      marginBottom: spacing(theme, 1),
     },
     headingTools: {
       display: 'flex',
