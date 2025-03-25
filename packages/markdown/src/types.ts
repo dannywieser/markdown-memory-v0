@@ -3,6 +3,8 @@ import { TokensList } from 'marked'
 export interface CustomTokensList extends TokensList {
   foo?: string
 }
+
+export type MarkdownNoteSource = 'bear' | 'file'
 export interface MarkdownNote {
   tokens: CustomTokensList
   created: Date
@@ -10,6 +12,6 @@ export interface MarkdownNote {
   modified: Date
   tags: string[]
   title: string
-  source: 'bear' | 'file'
+  source: MarkdownNoteSource
   externalUrl: string
 }
