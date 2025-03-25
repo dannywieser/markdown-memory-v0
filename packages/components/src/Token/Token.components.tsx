@@ -3,6 +3,7 @@ import { MarkedToken, Tokens as MarkedTokens } from 'marked'
 
 import Blockquote from '../Blockquote/Blockquote'
 import Code from '../Code/Code'
+import Hr from '../Hr/Hr'
 import Link from '../Link/Link'
 import List from '../List/List'
 import NoteHeader from '../NoteHeader/NoteHeader'
@@ -19,6 +20,7 @@ const code = ({ text, lang }: MarkedTokens.Code) => (
 const heading = (token: MarkedTokens.Heading, note: MarkdownNote) => (
   <NoteHeader token={token} note={note} />
 )
+const hr = () => <Hr />
 const image = ({ href, text }: MarkedTokens.Image) => 'image'
 const link = ({ href, text }: MarkedTokens.Link) => (
   <Link href={href}>{text}</Link>
@@ -57,10 +59,12 @@ const components = {
   blockquote,
   br,
   code,
+  codespan: text,
   del: text,
   em: text,
   escape: text,
   heading,
+  hr,
   image,
   link,
   list,

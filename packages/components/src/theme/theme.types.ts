@@ -18,6 +18,7 @@ export interface ThemeText {
   h6: ThemeTextVariant
   strong: ThemeTextVariant
   code: ThemeTextVariant
+  codespan: ThemeTextVariant
   del: ThemeTextVariant
   em: ThemeTextVariant
   text: ThemeTextVariant

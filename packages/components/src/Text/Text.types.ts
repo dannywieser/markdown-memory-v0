@@ -11,6 +11,7 @@ export type TextVariant =
   | 'del'
   | 'em'
   | 'code'
+  | 'codespan'
   | 'text'
 export interface TextProps {
   variant?: TextVariant
