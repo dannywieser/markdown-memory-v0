@@ -13,5 +13,13 @@ module.exports = {
     '!src/**/types/**',
     '!src/**/*.styles.ts',
   ],
-  coverageReporters: ['cobertura', 'html', 'json', 'text', 'text-summary'],
+  outputDirectory: './coverage',
+  coverageReporters: [
+    'cobertura',
+    'html',
+    'json',
+    'jest-junit',
+    'text',
+    'text-summary',
+  ],
 }
