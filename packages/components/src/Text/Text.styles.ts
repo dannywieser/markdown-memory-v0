@@ -20,6 +20,13 @@ const styles = createUseStyles<string, TextProps, MarkdownMemoryTheme>(
       ...variantStyle('codespan'),
     })
 
+    const hashtag = () => ({
+      backgroundColor: theme.colors.slate[300],
+      padding: spacing(theme, 1),
+      borderRadius: theme.spacing,
+      color: theme.colors.primary,
+    })
+
     const headingStyle = (variant: TextVariant) => ({
       marginTop: spacing(theme, 1.5),
       marginBottom: spacing(theme, 1.5),
@@ -35,6 +42,7 @@ const styles = createUseStyles<string, TextProps, MarkdownMemoryTheme>(
       base,
       code: variantStyle('code'),
       codespan: codespan(),
+      hashtag,
       h1: headingStyle('h1'),
       h2: headingStyle('h2'),
       h3: headingStyle('h3'),
