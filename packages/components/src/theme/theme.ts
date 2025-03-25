@@ -48,6 +48,7 @@ export const theme: MarkdownMemoryTheme = {
       fontWeight: 600,
     },
     code: bodyText,
+    codespan: bodyText,
     em: bodyText,
     del: bodyText,
     strong: {
