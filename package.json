@@ -19,7 +19,6 @@
   "devDependencies": {
     "@babel/core": "7.26.9",
     "@babel/preset-react": "7.26.3",
-    "@emotion/babel-plugin": "11.11.0",
     "@eslint/js": "9.15.0",
     "@nx-tools/nx-container": "6.2.0",
     "@nx/esbuild": "20.5.0",
