@@ -1,4 +1,5 @@
 import { JSX } from 'react'
+import { v4 as uuidv4 } from 'uuid'
 
 import useStyles from './Text.styles'
 import { TextProps } from './Text.types'
@@ -22,5 +23,9 @@ export default function Text(props: TextProps) {
   // if the child text has hashtags, those are extracted and rendered components
   const text = processChildForSpecialTokens(children)
 
-  return <Tag className={classnames}>{text}</Tag>
+  return (
+    <Tag className={classnames} key={uuidv4()}>
+      {text}
+    </Tag>
+  )
 }

@@ -1,5 +1,6 @@
 import { MarkdownNote } from '@markdown-memory/markdown'
 import { MarkedToken, Tokens as MarkedTokens } from 'marked'
+import { v4 as uuidv4 } from 'uuid'
 
 import Blockquote from '../Blockquote/Blockquote'
 import Code from '../Code/Code'
@@ -9,6 +10,8 @@ import List from '../List/List'
 import NoteHeader from '../NoteHeader/NoteHeader'
 import Text from '../Text/Text'
 import Tokens from './Tokens'
+
+const tokenKey = uuidv4
 
 const blockquote = ({ text }: MarkedTokens.Blockquote) => (
   <Blockquote text={text} />
@@ -23,10 +26,12 @@ const heading = (token: MarkedTokens.Heading, note: MarkdownNote) => (
 const hr = () => <Hr />
 const image = ({ href, text }: MarkedTokens.Image) => 'image'
 const link = ({ href, text }: MarkedTokens.Link) => (
-  <Link href={href}>{text}</Link>
+  <Link href={href} key={tokenKey()}>
+    {text}
+  </Link>
 )
 const list = ({ items, ordered }: MarkedTokens.List) => (
-  <List ordered={ordered} items={items} />
+  <List ordered={ordered} items={items} key={tokenKey()} />
 )
 const space = () => (
   <>
@@ -47,11 +52,13 @@ const text = (
   note: MarkdownNote
 ) =>
   tokens ? (
-    <Text variant={type}>
+    <Text variant={type} key={tokenKey()}>
       <Tokens tokens={tokens} note={note} />
     </Text>
   ) : (
-    <Text variant={type}>{text}</Text>
+    <Text variant={type} key={tokenKey()}>
+      {text}
+    </Text>
   )
 
 // TODO: figure out this typing

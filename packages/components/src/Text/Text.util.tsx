@@ -1,4 +1,5 @@
 import { JSX, ReactNode } from 'react'
+import { v4 as uuidv4 } from 'uuid'
 
 import HashTag from '../HashTag/HashTag'
 
@@ -27,7 +28,7 @@ export function processChildForSpecialTokens(
     const fullMatch = match[0]
     const tagText = match[2]
     updatedChildren.push(childString.substring(lastIndex, match.index))
-    updatedChildren.push(<HashTag text={tagText} />)
+    updatedChildren.push(<HashTag text={tagText} key={uuidv4()} />)
     lastIndex = match.index + fullMatch.length
   }
 
