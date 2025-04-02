@@ -10,6 +10,7 @@ export type TextVariant =
   | 'strong'
   | 'del'
   | 'em'
+  | 'escape'
   | 'code'
   | 'codespan'
   | 'text'
