@@ -27,7 +27,9 @@ export function processChildForSpecialTokens(
   for (const match of matches) {
     const fullMatch = match[0]
     const tagText = match[2]
-    updatedChildren.push(childString.substring(lastIndex, match.index))
+    if (lastIndex !== match.index) {
+      updatedChildren.push(childString.substring(lastIndex, match.index))
+    }
     updatedChildren.push(<HashTag text={tagText} key={uuidv4()} />)
     lastIndex = match.index + fullMatch.length
   }
