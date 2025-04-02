@@ -7,7 +7,7 @@ import { BrowserRouter, Route, Routes } from 'react-router'
 
 import Dashboard from '../pages/Dashboard/Dashboard'
 import Note from '../pages/Note/Note'
-import Today from '../pages/Today/Today'
+import OnThisDay from '../pages/OnThisDay/OnThisDay'
 
 const queryClient = new QueryClient()
 
@@ -19,8 +19,8 @@ function App() {
           <Routes>
             <Route element={<Dashboard />} path="/" />
             <Route element={<Note />} path="/note/:noteId" />
-            <Route element={<Today />} path="/today" />
-            <Route element={<Today />} path="/today/:groupName" />
+            <Route element={<OnThisDay />} path="/on-this-day" />
+            <Route element={<OnThisDay />} path="/on-this-day/:groupName" />
           </Routes>
         </BrowserRouter>
       </ThemeProvider>
