@@ -7,21 +7,26 @@ export default function NoteSummaryCard(props: NoteSummaryCardProps) {
   const { cardName, notes, href } = props
   const styles = useStyles()
 
-  // TODO: handle no notes more gracefully
-  if (!notes) {
-    return null
-  }
-
-  return (
-    <Card href={href} title={cardName}>
-      <Text variant="em">{notes.length} notes</Text>
+  const ListNoteTitles = () =>
+    notes && (
       <ul className={styles.list}>
         {notes.map(({ title, id }) => (
-          <li>
-            <Text key={id}>{title}</Text>
+          <li key={id}>
+            <Text>{title}</Text>
           </li>
         ))}
       </ul>
+    )
+
+  const heading =
+    notes && notes.length
+      ? `${notes.length} notes on this day`
+      : 'No notes on this day!'
+
+  return (
+    <Card href={href} title={cardName}>
+      <Text variant="em">{heading}</Text>
+      <ListNoteTitles />
     </Card>
   )
 }
