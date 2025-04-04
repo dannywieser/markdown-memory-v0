@@ -6,11 +6,16 @@ import useNotesForDay from '../../hooks/useNotesOnDay/useNotesOnDay'
 
 export default function Dashboard() {
   const day = currentDateNoYear()
+  const groupName = 'personal'
   // TODO: this would be setup via configuration of cards
-  const { data: notes } = useNotesForDay({ day, groupName: 'personal' })
+  const { data: personalNotes } = useNotesForDay({ day, groupName })
   return (
     <div>
-      <NoteSummaryCard notes={notes} cardName="personal" />
+      <NoteSummaryCard
+        notes={personalNotes}
+        cardName={`on this day|${groupName}`}
+        href={`on-this-day/${groupName}`}
+      />
     </div>
   )
 }
