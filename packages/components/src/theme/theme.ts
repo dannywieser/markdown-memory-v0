@@ -64,6 +64,7 @@ export const theme: MarkdownMemoryTheme = {
     code: bodyText,
     codespan: bodyText,
     em: bodyText,
+    escape: bodyText,
     del: bodyText,
     strong: {
       ...bodyText,
