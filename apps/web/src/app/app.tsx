@@ -8,6 +8,7 @@ import { BrowserRouter, Route, Routes } from 'react-router'
 import Dashboard from '../pages/Dashboard/Dashboard'
 import Note from '../pages/Note/Note'
 import OnThisDay from '../pages/OnThisDay/OnThisDay'
+import '../../main.css'
 
 const queryClient = new QueryClient()
 

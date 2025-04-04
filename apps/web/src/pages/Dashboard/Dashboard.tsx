@@ -3,18 +3,31 @@ import { currentDateNoYear } from '@markdown-memory/utilities/date'
 import React from 'react'
 
 import useNotesForDay from '../../hooks/useNotesOnDay/useNotesOnDay'
+import useStyles from './Dashboard.styles'
 
 export default function Dashboard() {
+  const styles = useStyles()
   const day = currentDateNoYear()
-  const groupName = 'personal'
+  const personalGroup = 'personal'
+  const workGroup = 'work'
   // TODO: this would be setup via configuration of cards
-  const { data: personalNotes } = useNotesForDay({ day, groupName })
+  // TODO: this should be able to return multiple groups so we don't need two calls?
+  const { data: personalNotes } = useNotesForDay({
+    day,
+    groupName: personalGroup,
+  })
+  const { data: workNotes } = useNotesForDay({ day, groupName: workGroup })
   return (
-    <div>
+    <div className={styles.layout}>
       <NoteSummaryCard
         notes={personalNotes}
-        cardName={`on this day|${groupName}`}
-        href={`on-this-day/${groupName}`}
+        cardName={`on this day|${personalGroup}`}
+        href={`on-this-day/${personalGroup}`}
+      />
+      <NoteSummaryCard
+        notes={workNotes}
+        cardName={`on this day|${workGroup}`}
+        href={`on-this-day/${workGroup}`}
       />
     </div>
   )
