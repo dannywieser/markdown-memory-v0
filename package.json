@@ -75,7 +75,7 @@
     "@tanstack/react-query-devtools": "5.69.0",
     "date-fns": "4.1.0",
     "dotenv": "16.4.5",
-    "express": "4.21.2",
+    "express": "5.1.0",
     "lucide-react": "0.485.0",
     "marked": "15.0.7",
     "node-schedule": "2.1.1",
