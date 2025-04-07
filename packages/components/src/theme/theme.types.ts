@@ -33,6 +33,7 @@ export interface ThemeText {
   code: ThemeTextVariant
   codespan: ThemeTextVariant
   del: ThemeTextVariant
+  escape: ThemeTextVariant
   em: ThemeTextVariant
   text: ThemeTextVariant
 }
