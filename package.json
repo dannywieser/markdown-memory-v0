@@ -30,7 +30,7 @@
     "@nx/playwright": "20.5.0",
     "@nx/react": "20.5.0",
     "@nx/vite": "20.5.0",
-    "@nx/web": "20.5.0",
+    "@nx/web": "20.7.1",
     "@swc-node/register": "1.9.1",
     "@swc/cli": "0.6.0",
     "@swc/core": "1.5.7",
