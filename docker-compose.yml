@@ -17,7 +17,7 @@ services:
     restart: always
     volumes:
       - ${BEAR_APP_DATA_DIR}:/bearData
-      - ${ASSETS_DIR}:/assets
+      - assets:/assets
     environment:
       BEAR_APP_DATA_DIR: /bearData
       EXTRACTOR_TYPE: ${EXTRACTOR_TYPE}
@@ -38,6 +38,16 @@ services:
     env_file: .env.docker
     build:
       dockerfile: Dockerfile.web
+  images:
+    image: thoas/picfit:0.15.0
+    ports:
+      - '3001:3001'
+    environment:
+      PICFIT_CONFIG_PATH: /config/picfit.config.json
+    volumes:
+      - ./config:/config
+      - assets:/assets
 volumes:
   cache:
     driver: local
+  assets:
