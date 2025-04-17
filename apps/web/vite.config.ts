@@ -11,6 +11,10 @@ export default defineConfig({
     host: 'localhost',
     proxy: {
       '/api': 'http://localhost:4000',
+      '/images': {
+        target: 'http://localhost:3001',
+        rewrite: (path) => path.replace(/^\/images/, ''),
+      },
     },
   },
   preview: {
