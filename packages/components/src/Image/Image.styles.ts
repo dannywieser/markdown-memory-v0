@@ -1,6 +1,5 @@
 import { createUseStyles } from 'react-jss'
 
-import { spacing } from '../theme/theme'
 import { MarkdownMemoryTheme } from '../theme/theme.types'
 
 const styles = createUseStyles<string, unknown, MarkdownMemoryTheme>(
