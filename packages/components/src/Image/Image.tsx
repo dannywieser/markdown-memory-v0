@@ -1,7 +1,7 @@
 import useStyles from './Image.styles'
 import { ImageProps } from './Image.types'
 
-export default function Token({ href }: ImageProps) {
+export default function Image({ href }: ImageProps) {
   const styles = useStyles()
   const imageUrl = `images/display?path=${href}&op=noop`
   return (
