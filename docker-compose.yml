@@ -17,11 +17,11 @@ services:
     restart: always
     volumes:
       - ${BEAR_APP_DATA_DIR}:/bearData
-      - assets:/assets
+      - assets:${ASSETS_DIR}
     environment:
       BEAR_APP_DATA_DIR: /bearData
       EXTRACTOR_TYPE: ${EXTRACTOR_TYPE}
-      ASSETS_DIR: /assets
+      ASSETS_DIR: ${ASSETS_DIR}
       REDIS_HOST: redis
   api:
     env_file: .env.docker
@@ -46,7 +46,7 @@ services:
       PICFIT_CONFIG_PATH: /config/picfit.config.json
     volumes:
       - ./config:/config
-      - assets:/assets
+      - assets:${ASSETS_DIR}
 volumes:
   cache:
     driver: local

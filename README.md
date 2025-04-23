@@ -11,3 +11,5 @@ It is an application that leverages the power of modern web browsers to augment 
 `markdown-memory` allows you to take notes _however you like_ while still layering on rich capabilities to query and _introspect_ those notes.
 
 It does so in a secure, self-hosted fashion - never questioning that you own your notes; your writing.
+
+_this app is in progress - stay tuned for updates!_
