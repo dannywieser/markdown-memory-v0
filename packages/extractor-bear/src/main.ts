@@ -62,7 +62,7 @@ async function processNotes(
 ): Promise<MarkdownNote[] | undefined> {
   const notes = await db.all('SELECT * FROM ZSFNOTE')
   activity(`notes: ${notes.length}`, 2)
-  return notes.map((note) => processNote(note, tags, files))
+  return notes.map((note) => processNote(note, notes, tags, files))
 }
 
 async function processTags(db: Database) {
