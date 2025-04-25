@@ -10,8 +10,8 @@ jest.mock('../Text/Text.styles')
 
 beforeEach(() => {
   asMock(useStyles).mockReturnValue({
-    cardLink: 'cardLink',
     cardBase: 'cardBase',
+    cardLink: 'cardLink',
   })
   asMock(useStylesText).mockReturnValue({})
 })
@@ -28,7 +28,7 @@ describe('the Card component', () => {
 
   test('renders a linked card when href provided', () => {
     render(
-      <Card title="this is the title" href="/path/to/route">
+      <Card href="/path/to/route" title="this is the title">
         this is the content
       </Card>
     )
@@ -46,7 +46,7 @@ describe('the Card component', () => {
 
   test('adds the correct class to the card when an href is provided', () => {
     render(
-      <Card title="this is the title" href="foo">
+      <Card href="foo" title="this is the title">
         this is the content
       </Card>
     )

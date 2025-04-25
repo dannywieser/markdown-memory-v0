@@ -19,8 +19,8 @@ beforeEach(() => {
 
 const mockNotes = () => {
   return [
-    { title: 'notea', id: 'a' },
-    { title: 'noteb', id: 'b' },
+    { id: 'a', title: 'notea' },
+    { id: 'b', title: 'noteb' },
   ] as MarkdownNote[]
 }
 

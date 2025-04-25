@@ -4,23 +4,19 @@ import { convertDate } from '@markdown-memory/utilities'
 
 import processNote from './processNote'
 import { BearProcessedFile, BearProcessedTag, BearRawNote } from './types'
-import { generateExternalUrl } from './util'
-import extractNoteTags from './util/extractNoteTags'
-import fixImagePaths from './util/fixImagePaths'
+import { extractNoteTags, fixImagePaths, generateExternalUrl } from './util'
 
 jest.mock('./util')
-jest.mock('./util/extractNoteTags')
-jest.mock('./util/fixImagePaths')
 jest.mock('@markdown-memory/utilities')
 jest.mock('@markdown-memory/markdown')
 
 const rawNote = {
   Z_PK: 123456,
-  ZUNIQUEIDENTIFIER: 'noteUniqueID',
-  ZTEXT: 'noteText',
   ZCREATIONDATE: 'createDate',
   ZMODIFICATIONDATE: 'modificationDate',
+  ZTEXT: 'noteText',
   ZTITLE: 'noteTitle',
+  ZUNIQUEIDENTIFIER: 'noteUniqueID',
 } as BearRawNote
 
 describe('the processNote function', () => {

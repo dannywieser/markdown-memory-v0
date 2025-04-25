@@ -18,11 +18,11 @@ const blockquote = ({ text }: MarkedTokens.Blockquote) => (
   <Blockquote text={text} />
 )
 const br = () => <br />
-const code = ({ text, lang }: MarkedTokens.Code) => (
+const code = ({ lang, text }: MarkedTokens.Code) => (
   <Code code={text} language={lang} />
 )
 const heading = (token: MarkedTokens.Heading, note: MarkdownNote) => (
-  <NoteHeader token={token} note={note} />
+  <NoteHeader note={note} token={token} />
 )
 const hr = () => <Hr />
 const image = ({ href }: MarkedTokens.Image) => <Image href={href} />
@@ -32,7 +32,7 @@ const link = ({ href, text }: MarkedTokens.Link) => (
   </Link>
 )
 const list = ({ items, ordered }: MarkedTokens.List) => (
-  <List ordered={ordered} items={items} key={tokenKey()} />
+  <List items={items} key={tokenKey()} ordered={ordered} />
 )
 const space = () => (
   <>
@@ -41,7 +41,7 @@ const space = () => (
   </>
 )
 const paragraph = ({ tokens }: MarkedTokens.Paragraph, note: MarkdownNote) => (
-  <Tokens tokens={tokens} note={note} />
+  <Tokens note={note} tokens={tokens} />
 )
 
 const text = (
@@ -49,15 +49,15 @@ const text = (
     text,
     tokens,
     type,
-  }: MarkedTokens.Text | MarkedTokens.Strong | MarkedTokens.Em,
+  }: MarkedTokens.Em | MarkedTokens.Strong | MarkedTokens.Text,
   note: MarkdownNote
 ) =>
   tokens ? (
-    <Text variant={type} key={tokenKey()}>
-      <Tokens tokens={tokens} note={note} />
+    <Text key={tokenKey()} variant={type}>
+      <Tokens note={note} tokens={tokens} />
     </Text>
   ) : (
-    <Text variant={type} key={tokenKey()}>
+    <Text key={tokenKey()} variant={type}>
       {text}
     </Text>
   )
@@ -77,8 +77,8 @@ const components = {
   link,
   list,
   paragraph,
-  strong: text,
   space,
+  strong: text,
   text,
 } as unknown as {
   [key: string]: (token: MarkedToken, note?: MarkdownNote) => unknown

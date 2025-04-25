@@ -9,12 +9,19 @@ export interface ColorGradient {
   800: string
   900: string
 }
+export interface MarkdownMemoryTheme {
+  colors: ThemeColors
+  fonts: ThemeFonts
+  spacing: number
+  text: ThemeText
+}
+
 export interface ThemeColors {
-  primary: string
-  grey: string
-  slate: ColorGradient
-  contrastText: string
   black: string
+  contrastText: string
+  grey: string
+  primary: string
+  slate: ColorGradient
 }
 
 export interface ThemeFonts {
@@ -22,30 +29,23 @@ export interface ThemeFonts {
 }
 
 export interface ThemeText {
-  lineHeight: number
+  code: ThemeTextVariant
+  codespan: ThemeTextVariant
+  del: ThemeTextVariant
+  em: ThemeTextVariant
+  escape: ThemeTextVariant
   h1: ThemeTextVariant
   h2: ThemeTextVariant
   h3: ThemeTextVariant
   h4: ThemeTextVariant
   h5: ThemeTextVariant
   h6: ThemeTextVariant
+  lineHeight: number
   strong: ThemeTextVariant
-  code: ThemeTextVariant
-  codespan: ThemeTextVariant
-  del: ThemeTextVariant
-  escape: ThemeTextVariant
-  em: ThemeTextVariant
   text: ThemeTextVariant
 }
 
 export interface ThemeTextVariant {
   fontSize: string
   fontWeight?: number
-}
-
-export interface MarkdownMemoryTheme {
-  spacing: number
-  colors: ThemeColors
-  fonts: ThemeFonts
-  text: ThemeText
 }

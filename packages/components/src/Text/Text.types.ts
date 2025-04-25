@@ -1,6 +1,17 @@
 import { ReactNode } from 'react'
 
+export interface TextProps {
+  children: ReactNode | ReactNode[]
+  className?: string
+  container?: string
+  variant?: TextVariant
+}
 export type TextVariant =
+  | 'code'
+  | 'codespan'
+  | 'del'
+  | 'em'
+  | 'escape'
   | 'h1'
   | 'h2'
   | 'h3'
@@ -8,15 +19,4 @@ export type TextVariant =
   | 'h5'
   | 'h6'
   | 'strong'
-  | 'del'
-  | 'em'
-  | 'escape'
-  | 'code'
-  | 'codespan'
   | 'text'
-export interface TextProps {
-  variant?: TextVariant
-  children: ReactNode | ReactNode[]
-  container?: string
-  className?: string
-}

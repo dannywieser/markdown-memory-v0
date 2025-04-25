@@ -8,10 +8,10 @@ export const mapTokenDepthToHeading = (depth: number): TextVariant =>
   `h${depth}` as TextVariant
 
 export default function NoteHeader(props: NoteHeaderProps) {
-  const { mainHeading, headingTools } = useStyles()
-  const { token, note } = props
+  const { headingTools, mainHeading } = useStyles()
+  const { note, token } = props
   const { depth, text } = token
-  const { externalUrl, source, id } = note
+  const { externalUrl, id, source } = note
   const primaryHeading = depth === 1
   const showExternalLink = primaryHeading && externalUrl
   const mainStyle = primaryHeading ? mainHeading : ''
@@ -20,7 +20,7 @@ export default function NoteHeader(props: NoteHeaderProps) {
       <Text variant={mapTokenDepthToHeading(depth)}>{text}</Text>
       <div className={headingTools}>
         {showExternalLink && (
-          <OpenExternal url={externalUrl} source={source} noteId={id} />
+          <OpenExternal noteId={id} source={source} url={externalUrl} />
         )}
       </div>
     </div>

@@ -1,12 +1,12 @@
 import { Tokens } from 'marked'
 
-export interface ListProps {
-  ordered?: boolean
-  items: Tokens.ListItem[]
-}
-
 export interface ListItemProps {
+  index: number
   item: Tokens.ListItem
   ordered?: boolean
-  index: number
+}
+
+export interface ListProps {
+  items: Tokens.ListItem[]
+  ordered?: boolean
 }

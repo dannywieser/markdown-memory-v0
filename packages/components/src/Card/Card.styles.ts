@@ -17,10 +17,6 @@ const styles = createUseStyles<string, undefined, MarkdownMemoryTheme>(
           backgroundColor: theme.colors.slate[100],
         },
       },
-      link: {
-        textDecoration: 'none',
-        color: theme.colors.primary,
-      },
       content: {
         padding: spacing(theme, 2),
       },
@@ -29,6 +25,10 @@ const styles = createUseStyles<string, undefined, MarkdownMemoryTheme>(
         color: theme.colors.contrastText,
         margin: 0,
         padding: spacing(theme, 2),
+      },
+      link: {
+        color: theme.colors.primary,
+        textDecoration: 'none',
       },
     }
   }

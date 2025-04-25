@@ -6,7 +6,7 @@ export default function Image({ href }: ImageProps) {
   const imageUrl = `images/display?path=${href}&op=noop`
   return (
     <div className={styles.imageContainer}>
-      <img className={styles.centerFit} src={imageUrl} alt="" />
+      <img alt="" className={styles.centerFit} src={imageUrl} />
     </div>
   )
 }

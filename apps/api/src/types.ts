@@ -1,7 +1,7 @@
 export interface NoteResponse {
-  id: string
   created: number
   externalUrl: string
+  id: string
   modified: number
   source: string
   title: string

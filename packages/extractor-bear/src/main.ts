@@ -1,9 +1,9 @@
 import { MarkdownNote } from '@markdown-memory/markdown'
 import {
-  loadEnv,
+  activity,
   doCopy,
   header2,
-  activity,
+  loadEnv,
   sqliteOpen,
 } from '@markdown-memory/utilities'
 import { formatISO } from 'date-fns'
@@ -19,6 +19,29 @@ const sourceFile = 'database.sqlite'
 const targetFolder = 'extract-backup'
 const targetFile = 'bear-backup.sqlite'
 
+export default async function extract(): Promise<MarkdownNote[] | undefined> {
+  header2(`running bear extractor | ${formatISO(new Date())}`)
+  const { ASSETS_DIR: assetsDir, BEAR_APP_DATA_DIR: sourceRoot } = loadEnv()
+  activity('copy db', 1)
+  activity(`${sourceRoot}`, 2)
+  doCopy({
+    sourceFile,
+    sourceRoot,
+    targetFile,
+    targetFolder,
+    targetRoot: '.',
+  })
+  activity('copy complete', 1)
+  const db = await sqliteOpen(`${targetFolder}/bear-backup.sqlite`)
+  activity('starting note extraction', 1)
+  const files = await processFiles(db, sourceRoot, assetsDir)
+  const tags = await processTags(db)
+  // TODO: do files need to be included in the note?
+  const notes = await processNotes(db, tags, files)
+  activity('note extraction complete', 1)
+  return notes
+}
+
 async function processFiles(
   db: Database,
   sourceRoot: string,
@@ -32,13 +55,6 @@ async function processFiles(
   return processedFiles
 }
 
-async function processTags(db: Database) {
-  const tags = await db.all('SELECT * FROM ZSFNOTETAG')
-  const noteTags = await db.all('SELECT * FROM Z_5TAGS')
-  activity(`tags: ${tags.length}`, 2)
-  return tags.map((tag) => processTag(tag, noteTags))
-}
-
 async function processNotes(
   db: Database,
   tags: BearProcessedTag[],
@@ -49,25 +65,9 @@ async function processNotes(
   return notes.map((note) => processNote(note, tags, files))
 }
 
-export default async function extract(): Promise<MarkdownNote[] | undefined> {
-  header2(`running bear extractor | ${formatISO(new Date())}`)
-  const { BEAR_APP_DATA_DIR: sourceRoot, ASSETS_DIR: assetsDir } = loadEnv()
-  activity('copy db', 1)
-  activity(`${sourceRoot}`, 2)
-  doCopy({
-    sourceRoot,
-    sourceFile,
-    targetRoot: '.',
-    targetFolder,
-    targetFile,
-  })
-  activity('copy complete', 1)
-  const db = await sqliteOpen(`${targetFolder}/bear-backup.sqlite`)
-  activity('starting note extraction', 1)
-  const files = await processFiles(db, sourceRoot, assetsDir)
-  const tags = await processTags(db)
-  // TODO: do files need to be included in the note?
-  const notes = await processNotes(db, tags, files)
-  activity('note extraction complete', 1)
-  return notes
+async function processTags(db: Database) {
+  const tags = await db.all('SELECT * FROM ZSFNOTETAG')
+  const noteTags = await db.all('SELECT * FROM Z_5TAGS')
+  activity(`tags: ${tags.length}`, 2)
+  return tags.map((tag) => processTag(tag, noteTags))
 }

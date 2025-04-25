@@ -24,19 +24,23 @@ const bodyText = {
 }
 
 export const theme: MarkdownMemoryTheme = {
-  spacing: 4,
   colors: {
-    primary: zinc900,
-    grey: slate100,
-    slate,
-    contrastText: '#fff',
     black: '#000',
+    contrastText: '#fff',
+    grey: slate100,
+    primary: zinc900,
+    slate,
   },
   fonts: {
     primary: 'Anonymous Pro',
   },
+  spacing: 4,
   text: {
-    lineHeight: 1.4,
+    code: bodyText,
+    codespan: bodyText,
+    del: bodyText,
+    em: bodyText,
+    escape: bodyText,
     h1: {
       fontSize: '26px',
       fontWeight: 800,
@@ -61,11 +65,7 @@ export const theme: MarkdownMemoryTheme = {
       fontSize: '20px',
       fontWeight: 600,
     },
-    code: bodyText,
-    codespan: bodyText,
-    em: bodyText,
-    escape: bodyText,
-    del: bodyText,
+    lineHeight: 1.4,
     strong: {
       ...bodyText,
       fontWeight: 900,

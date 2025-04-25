@@ -22,11 +22,11 @@ export function copyNoteFile(
   const filesDir = `${bearRoot}/${bearFilesDir}/${fileId}`
 
   const copyConfig = {
-    sourceRoot: imagesDir,
     sourceFile: filename,
-    targetRoot: assetDir,
-    targetFolder: fileId,
+    sourceRoot: imagesDir,
     targetFile: filename,
+    targetFolder: fileId,
+    targetRoot: assetDir,
   }
 
   try {

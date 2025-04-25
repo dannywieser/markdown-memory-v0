@@ -28,7 +28,7 @@ describe('the Text component', () => {
 
   test('classnames added to Text element are passed through to child', () => {
     render(
-      <Text variant="text" className="additionalStyles">
+      <Text className="additionalStyles" variant="text">
         test
       </Text>
     )

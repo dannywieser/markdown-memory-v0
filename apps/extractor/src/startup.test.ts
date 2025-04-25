@@ -2,7 +2,7 @@ import { asMock } from '@markdown-memory/testing-support'
 import { loadEnv } from '@markdown-memory/utilities'
 import schedule from 'node-schedule'
 
-import { startup, defaultSchedule, extractorMap } from './startup'
+import { defaultSchedule, extractorMap, startup } from './startup'
 
 jest.mock('@markdown-memory/extractor-bear')
 jest.mock('@markdown-memory/utilities')

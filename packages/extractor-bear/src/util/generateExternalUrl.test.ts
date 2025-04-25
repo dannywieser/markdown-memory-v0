@@ -1,4 +1,4 @@
-import { generateExternalUrl } from './util'
+import { generateExternalUrl } from './generateExternalUrl'
 describe('generateExternalUrl', () => {
   test('generates an open not x-callback-url given a note ID', () => {
     const url = generateExternalUrl('a-note-id')

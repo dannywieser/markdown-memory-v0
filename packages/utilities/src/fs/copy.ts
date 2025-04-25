@@ -7,11 +7,11 @@ import { CopyProps } from './types'
  * If the provided destination directory does not exist, it will be created.
  */
 export function doCopy({
-  sourceRoot,
   sourceFile,
-  targetRoot,
-  targetFolder,
+  sourceRoot,
   targetFile,
+  targetFolder,
+  targetRoot,
 }: CopyProps) {
   const source = `${sourceRoot}/${sourceFile}`
   const destDir = `${targetRoot}/${targetFolder}`

@@ -20,44 +20,44 @@ describe('the processChildForSpecialTokens function', () => {
 
   const cases = [
     {
-      description: 'no hashtags',
       childString: 'this is a string',
+      description: 'no hashtags',
       expected: ['this is a string'],
     },
     {
-      description: 'single hashtag as only text in the string',
       childString: '#hashtag',
-      expected: [<HashTag text="hashtag" key="uuid" />],
+      description: 'single hashtag as only text in the string',
+      expected: [<HashTag key="uuid" text="hashtag" />],
     },
     {
-      description: 'hashtag with "@" character ',
       childString: '#hashtag@something',
-      expected: [<HashTag text="hashtag@something" key="uuid" />],
+      description: 'hashtag with "@" character ',
+      expected: [<HashTag key="uuid" text="hashtag@something" />],
     },
     {
-      description: 'hashtag with "/" character ',
       childString: '#a/b/c',
-      expected: [<HashTag text="a/b/c" key="uuid" />],
+      description: 'hashtag with "/" character ',
+      expected: [<HashTag key="uuid" text="a/b/c" />],
     },
     {
-      description: 'multiple hashtags',
       childString: '#one #two #three',
+      description: 'multiple hashtags',
       expected: [
-        <HashTag text="one" key="uuid" />,
+        <HashTag key="uuid" text="one" />,
         ' ',
-        <HashTag text="two" key="uuid" />,
+        <HashTag key="uuid" text="two" />,
         ' ',
-        <HashTag text="three" key="uuid" />,
+        <HashTag key="uuid" text="three" />,
       ],
     },
     {
-      description: 'mixed text',
       childString: 'one #two three #four five six',
+      description: 'mixed text',
       expected: [
         'one ',
-        <HashTag text="two" key="uuid" />,
+        <HashTag key="uuid" text="two" />,
         ' three ',
-        <HashTag text="four" key="uuid" />,
+        <HashTag key="uuid" text="four" />,
         ' five six',
       ],
     },
