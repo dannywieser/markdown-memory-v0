@@ -10,6 +10,7 @@ export default function Dashboard() {
   const day = currentDateNoYear()
   const personalGroup = 'personal'
   const workGroup = 'work'
+  const downtimeGroup = 'downtime'
   // TODO: this would be setup via configuration of cards
   // TODO: this should be able to return multiple groups so we don't need two calls?
   const { data: personalNotes } = useNotesForDay({
@@ -17,12 +18,21 @@ export default function Dashboard() {
     groupName: personalGroup,
   })
   const { data: workNotes } = useNotesForDay({ day, groupName: workGroup })
+  const { data: downtimeNotes } = useNotesForDay({
+    day,
+    groupName: downtimeGroup,
+  })
   return (
     <div className={styles.layout}>
       <NoteSummaryCard
         cardName={`on this day|${personalGroup}`}
         href={`on-this-day/${personalGroup}`}
         notes={personalNotes}
+      />
+      <NoteSummaryCard
+        cardName={`on this day|${downtimeGroup}`}
+        href={`on-this-day/${downtimeGroup}`}
+        notes={downtimeNotes}
       />
       <NoteSummaryCard
         cardName={`on this day|${workGroup}`}

@@ -7,7 +7,7 @@ export const ALL = '*'
 export function loadGroups(): Group[] {
   return [
     {
-      exclude: ['riverside', 'daily@work', 'development'],
+      exclude: ['riverside', 'daily@work', 'development', 'downtime'],
       include: ['*'],
       name: 'personal',
     },
@@ -18,6 +18,10 @@ export function loadGroups(): Group[] {
     {
       include: ['development'],
       name: 'development',
+    },
+    {
+      include: ['downtime'],
+      name: 'downtime',
     },
   ]
 }
