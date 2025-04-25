@@ -18,7 +18,7 @@ export function processChildForSpecialTokens(
 
   const childString = child as string
 
-  const specialTokensRegex = /(^#|#)([a-z0-9/]+)/g
+  const specialTokensRegex = /(^#|#)([a-z0-9@/]+)/g
   const matches = childString.matchAll(specialTokensRegex)
   const updatedChildren: (string | JSX.Element)[] = []
 

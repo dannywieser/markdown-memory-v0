@@ -30,6 +30,16 @@ describe('the processChildForSpecialTokens function', () => {
       expected: [<HashTag text="hashtag" key="uuid" />],
     },
     {
+      description: 'hashtag with "@" character ',
+      childString: '#hashtag@something',
+      expected: [<HashTag text="hashtag@something" key="uuid" />],
+    },
+    {
+      description: 'hashtag with "/" character ',
+      childString: '#a/b/c',
+      expected: [<HashTag text="a/b/c" key="uuid" />],
+    },
+    {
       description: 'multiple hashtags',
       childString: '#one #two #three',
       expected: [
