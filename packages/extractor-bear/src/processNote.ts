@@ -2,9 +2,7 @@ import { lexer, MarkdownNote } from '@markdown-memory/markdown'
 import { convertDate } from '@markdown-memory/utilities'
 
 import { BearProcessedFile, BearProcessedTag, BearRawNote } from './types'
-import { generateExternalUrl } from './util'
-import extractNoteTags from './util/extractNoteTags'
-import fixImagePaths from './util/fixImagePaths'
+import { extractNoteTags, fixImagePaths, generateExternalUrl } from './util'
 
 export default function processNote(
   rawNote: BearRawNote,
@@ -13,24 +11,24 @@ export default function processNote(
 ): MarkdownNote {
   const {
     Z_PK: notePrimaryKey,
-    ZUNIQUEIDENTIFIER: noteUniqueId,
-    ZTEXT: rawNoteText,
     ZCREATIONDATE: creationDate,
     ZMODIFICATIONDATE: modificationDate,
+    ZTEXT: rawNoteText,
     ZTITLE: title,
+    ZUNIQUEIDENTIFIER: noteUniqueId,
   } = rawNote
   const noteFiles = allFiles.filter(({ noteId }) => noteId === notePrimaryKey)
   const noteText = fixImagePaths(rawNoteText, noteFiles)
   const tags = extractNoteTags(notePrimaryKey, allTags)
 
   return {
-    tokens: lexer(noteText),
     created: convertDate(creationDate),
+    externalUrl: generateExternalUrl(noteUniqueId),
     id: noteUniqueId,
     modified: convertDate(modificationDate),
+    source: 'bear',
     tags,
     title,
-    source: 'bear',
-    externalUrl: generateExternalUrl(noteUniqueId),
+    tokens: lexer(noteText),
   }
 }

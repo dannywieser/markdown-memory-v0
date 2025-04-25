@@ -4,14 +4,14 @@ import { MarkdownMemoryTheme } from '../theme/theme.types'
 
 const styles = createUseStyles<string, unknown, MarkdownMemoryTheme>(
   (theme) => ({
+    centerFit: {
+      margin: 'auto',
+      maxHeight: '100vh',
+      maxWidth: '100%',
+    },
     imageContainer: {
       display: 'grid',
       height: '100%',
-    },
-    centerFit: {
-      maxWidth: '100%',
-      maxHeight: '100vh',
-      margin: 'auto',
     },
   })
 )

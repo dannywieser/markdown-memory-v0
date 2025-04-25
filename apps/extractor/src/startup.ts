@@ -26,8 +26,8 @@ const runExtractor = async () => {
 export const startup = async () => {
   // load environment config if present
   const {
-    EXTRACTOR_TYPE: extractorType = 'bear',
     EXTRACTOR_SCHEDULE: scheduleConfig = defaultSchedule,
+    EXTRACTOR_TYPE: extractorType = 'bear',
   } = loadEnv()
 
   // setup extractor for configured scheduled runs

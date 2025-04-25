@@ -3,7 +3,7 @@ import { MarkedToken } from 'marked'
 import components from './Token.components'
 import { TokensProps } from './Token.types'
 
-export default function Tokens({ tokens, note }: TokensProps) {
+export default function Tokens({ note, tokens }: TokensProps) {
   return tokens.map((token) => {
     const typeComponent = components[token.type]
     return typeComponent

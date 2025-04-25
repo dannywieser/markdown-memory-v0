@@ -9,6 +9,6 @@ export default function Today() {
   const { data: notes } = useNotesForDay({ day, groupName })
   return (
     notes &&
-    notes.map((note) => <Note note={note} showLink={true} key={note.id} />)
+    notes.map((note) => <Note key={note.id} note={note} showLink={true} />)
   )
 }

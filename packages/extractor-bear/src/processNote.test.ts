@@ -16,11 +16,11 @@ jest.mock('@markdown-memory/markdown')
 
 const rawNote = {
   Z_PK: 123456,
-  ZUNIQUEIDENTIFIER: 'noteUniqueID',
-  ZTEXT: 'noteText',
   ZCREATIONDATE: 'createDate',
   ZMODIFICATIONDATE: 'modificationDate',
+  ZTEXT: 'noteText',
   ZTITLE: 'noteTitle',
+  ZUNIQUEIDENTIFIER: 'noteUniqueID',
 } as BearRawNote
 
 describe('the processNote function', () => {

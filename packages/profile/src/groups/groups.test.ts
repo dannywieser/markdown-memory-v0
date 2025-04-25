@@ -13,33 +13,33 @@ const cases = [
   {
     description:
       'note is not included if there is neither includes nor excludes',
+    expected: false,
     group: {},
     tags: ['A', 'B', 'C'],
-    expected: false,
   },
   {
     description: 'note is included with wildcard include',
+    expected: true,
     group: { include: ['*'] },
     tags: ['A', 'B', 'C'],
-    expected: true,
   },
   {
     description: 'note is included with specific include',
+    expected: true,
     group: { include: ['B'] },
     tags: ['A', 'B', 'C'],
-    expected: true,
   },
   {
     description: 'note is excluded with a global exclude',
-    group: { include: ['D'], exclude: ['*'] },
-    tags: ['A', 'B', 'C'],
     expected: false,
+    group: { exclude: ['*'], include: ['D'] },
+    tags: ['A', 'B', 'C'],
   },
   {
     description: 'note is excluded with a specific exclude',
-    group: { include: ['*'], exclude: ['C'] },
-    tags: ['A', 'B', 'C'],
     expected: false,
+    group: { exclude: ['C'], include: ['*'] },
+    tags: ['A', 'B', 'C'],
   },
 ]
 

@@ -5,14 +5,12 @@ export default [
   ...nx.configs['flat/base'],
   ...nx.configs['flat/typescript'],
   ...nx.configs['flat/javascript'],
+  perfectionist.configs['recommended-natural'],
   {
     ignores: ['**/dist'],
   },
   {
     files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
-    plugins: {
-      perfectionist,
-    },
     rules: {
       '@nx/enforce-module-boundaries': [
         'error',
@@ -28,6 +26,13 @@ export default [
         },
       ],
       'perfectionist/sort-imports': 'error',
+      'perfectionist/sort-objects': [
+        'error',
+        {
+          type: 'alphabetical',
+        },
+      ],
+      'perfectionist/sort-interfaces': ['error'],
       'no-unused-vars': 'off',
       '@typescript-eslint/no-unused-vars': [
         'warn', // or "error"

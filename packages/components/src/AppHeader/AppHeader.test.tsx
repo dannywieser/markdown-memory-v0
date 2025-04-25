@@ -12,7 +12,7 @@ describe('AppHeader', () => {
   beforeEach(() => {
     asMock(useStyles).mockReturnValue({ root: 'root', title: 'title' })
     asMock(Text).mockImplementation(
-      ({ children, variant, className }) =>
+      ({ children, className, variant }) =>
         `${variant}:${className}:${children.toString()}`
     )
   })

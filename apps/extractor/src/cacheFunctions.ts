@@ -5,14 +5,14 @@ import {
   loadProfile,
 } from '@markdown-memory/profile'
 import {
-  NOTETAG_KEY_PREFIX,
-  NOTE_KEY_PREFIX,
-  TAGSET_PREFIX,
+  cacheKey,
+  findDatesInText,
   fmtDate,
   fmtDateNoYear,
-  findDatesInText,
-  cacheKey,
   GROUP_KEY_PREFIX,
+  NOTE_KEY_PREFIX,
+  NOTETAG_KEY_PREFIX,
+  TAGSET_PREFIX,
 } from '@markdown-memory/utilities'
 import { createClient } from 'redis'
 
@@ -23,7 +23,7 @@ export type RedisClient = ReturnType<typeof createClient>
  * The primary note data is stored as a hash set.
  */
 const cacheNote = async (client: RedisClient, note: MarkdownNote) => {
-  const { created, modified, title, id, tokens, source, externalUrl } = note
+  const { created, externalUrl, id, modified, source, title, tokens } = note
   const noteId = cacheKey(NOTE_KEY_PREFIX, id)
   await client.hSet(noteId, 'created', created.valueOf())
   await client.hSet(noteId, 'externalUrl', externalUrl)
@@ -40,7 +40,7 @@ const cacheNote = async (client: RedisClient, note: MarkdownNote) => {
  * The set is named: <TAGSET_PREFIX>:<tag>
  */
 const addNoteToTagSet = async (client: RedisClient, note: MarkdownNote) => {
-  const { tags, id } = note
+  const { id, tags } = note
   tags.map(async (tag: string) => {
     const tagId = cacheKey(TAGSET_PREFIX, tag)
     await client.sAdd(tagId, id)
@@ -53,7 +53,7 @@ const addNoteToTagSet = async (client: RedisClient, note: MarkdownNote) => {
  * The set is named <NOTETAG_KEY_PREFIX><Note Id>
  */
 const addTagsToNoteSet = async (client: RedisClient, note: MarkdownNote) => {
-  const { tags, id } = note
+  const { id, tags } = note
   // create a set of tags for the given note
   tags.map(async (tag: string) => {
     const noteTagId = cacheKey(NOTETAG_KEY_PREFIX, id)
@@ -124,8 +124,8 @@ const addNoteToGroups = async (client: RedisClient, note: MarkdownNote) => {
 
 export default {
   addNoteToDateSets,
-  cacheNote,
   addNoteToGroups,
   addNoteToTagSet,
   addTagsToNoteSet,
+  cacheNote,
 }

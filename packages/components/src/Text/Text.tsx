@@ -13,7 +13,7 @@ const determineTextElement = (variant: string): keyof JSX.IntrinsicElements => {
 }
 
 export default function Text(props: TextProps) {
-  const { variant = 'text', children, className } = props
+  const { children, className, variant = 'text' } = props
 
   // build the final styles for the Text element
   const styles = useStyles()

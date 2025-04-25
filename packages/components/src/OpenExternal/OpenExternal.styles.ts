@@ -7,10 +7,10 @@ const IconHeight = 24
 const styles = createUseStyles<string, undefined, MarkdownMemoryTheme>(
   (theme) => ({
     root: {
-      color: theme.colors.contrastText,
       ':visited': {
         color: theme.colors.contrastText,
       },
+      color: theme.colors.contrastText,
       height: `${IconHeight}px`,
       width: `${IconHeight}px`,
     },

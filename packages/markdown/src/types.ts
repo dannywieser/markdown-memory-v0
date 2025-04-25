@@ -4,14 +4,14 @@ export interface CustomTokensList extends TokensList {
   foo?: string
 }
 
-export type MarkdownNoteSource = 'bear' | 'file'
 export interface MarkdownNote {
-  tokens: CustomTokensList
   created: Date
+  externalUrl: string
   id: string
   modified: Date
+  source: MarkdownNoteSource
   tags: string[]
   title: string
-  source: MarkdownNoteSource
-  externalUrl: string
+  tokens: CustomTokensList
 }
+export type MarkdownNoteSource = 'bear' | 'file'

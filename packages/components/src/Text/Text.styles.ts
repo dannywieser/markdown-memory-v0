@@ -7,22 +7,22 @@ import { TextProps, TextVariant } from './Text.types'
 const styles = createUseStyles<string, TextProps, MarkdownMemoryTheme>(
   (theme) => {
     const base = {
-      whiteSpace: 'pre-line',
       fontFamily: theme.fonts.primary,
       lineHeight: theme.text.lineHeight,
       margin: 0,
+      whiteSpace: 'pre-line',
     }
 
     const codespan = () => ({
       backgroundColor: theme.colors.grey,
-      padding: spacing(theme, 1),
       borderRadius: theme.spacing,
+      padding: spacing(theme, 1),
       ...variantStyle('codespan'),
     })
 
     const headingStyle = (variant: TextVariant) => ({
-      marginTop: spacing(theme, 1.5),
       marginBottom: spacing(theme, 1.5),
+      marginTop: spacing(theme, 1.5),
       ...variantStyle(variant),
     })
 
@@ -35,14 +35,14 @@ const styles = createUseStyles<string, TextProps, MarkdownMemoryTheme>(
       base,
       code: variantStyle('code'),
       codespan: codespan(),
+      del: variantStyle('em'),
+      em: variantStyle('em'),
       h1: headingStyle('h1'),
       h2: headingStyle('h2'),
       h3: headingStyle('h3'),
       h4: headingStyle('h4'),
       h5: headingStyle('h5'),
       h6: headingStyle('h6'),
-      em: variantStyle('em'),
-      del: variantStyle('em'),
       strong: variantStyle('strong'),
       text: variantStyle('text'),
     }

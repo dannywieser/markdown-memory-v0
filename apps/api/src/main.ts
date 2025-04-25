@@ -1,12 +1,12 @@
 import { MarkdownNoteSource } from '@markdown-memory/markdown'
 import {
-  NOTE_KEY_PREFIX,
-  header1,
   activity,
-  NOTETAG_KEY_PREFIX,
-  loadEnv,
   cacheKey,
   GROUP_KEY_PREFIX,
+  header1,
+  loadEnv,
+  NOTE_KEY_PREFIX,
+  NOTETAG_KEY_PREFIX,
 } from '@markdown-memory/utilities'
 import { compareAsc, toDate } from 'date-fns'
 import express from 'express'
@@ -33,13 +33,13 @@ const getNote = async (id: string): Promise<NoteResponse> => {
   const noteId = id.includes(NOTE_KEY_PREFIX)
     ? id
     : cacheKey(NOTE_KEY_PREFIX, id)
-  const { created, modified, title, tokens, identifier, source, externalUrl } =
+  const { created, externalUrl, identifier, modified, source, title, tokens } =
     await redis.hGetAll(noteId)
 
   return {
-    id: identifier,
     created: Number(created),
     externalUrl,
+    id: identifier,
     modified: Number(modified),
     source: source as MarkdownNoteSource,
     title,

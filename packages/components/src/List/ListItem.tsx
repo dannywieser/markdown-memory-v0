@@ -1,4 +1,4 @@
-import { SquareCheck, SquareDashed, ChevronRight } from 'lucide-react'
+import { ChevronRight, SquareCheck, SquareDashed } from 'lucide-react'
 
 import Text from '../Text/Text'
 import Tokens from '../Token/Tokens'
@@ -6,7 +6,7 @@ import useStyles, { IconSize } from './List.styles'
 import { ListItemProps } from './List.types'
 
 export default function ListItem(props: ListItemProps) {
-  const { item, ordered, index } = props
+  const { index, item, ordered } = props
   const { bulletOrdered, bulletUnordered, listitem } = useStyles()
   const { checked, task, tokens } = item
 

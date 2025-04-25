@@ -3,12 +3,12 @@ import useStyles from './Card.styles'
 import { CardProps } from './Card.types'
 
 export default function Card(props: CardProps) {
-  const { title, href, children } = props
+  const { children, href, title } = props
   const styles = useStyles()
 
   const CardContent = () => (
     <>
-      <Text variant="h2" className={styles.header}>
+      <Text className={styles.header} variant="h2">
         {title}
       </Text>
       <div className={styles.content}>{children}</div>
@@ -20,7 +20,7 @@ export default function Card(props: CardProps) {
   return (
     <div className={cardStyles} data-testid="card">
       {href ? (
-        <a href={href} className={styles.link}>
+        <a className={styles.link} href={href}>
           <CardContent />
         </a>
       ) : (

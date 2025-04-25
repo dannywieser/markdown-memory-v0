@@ -5,19 +5,19 @@ import { MarkdownMemoryTheme } from '../theme/theme.types'
 export const IconSize = 24
 const styles = createUseStyles<string, unknown, MarkdownMemoryTheme>((data) => {
   return {
+    bulletOrdered: {},
+    bulletUnordered: {
+      paddingTop: spacing(data, 1),
+    },
     list: {
+      listStyleType: 'none',
       margin: 0,
       paddingInlineStart: 0,
-      listStyleType: 'none',
     },
     listitem: {
       display: 'grid',
       gridTemplateColumns: `${IconSize + data.spacing * 3}px 1fr`,
     },
-    bulletUnordered: {
-      paddingTop: spacing(data, 1),
-    },
-    bulletOrdered: {},
   }
 })
 

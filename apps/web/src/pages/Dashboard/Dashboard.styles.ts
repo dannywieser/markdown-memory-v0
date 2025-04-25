@@ -5,12 +5,12 @@ import { createUseStyles } from 'react-jss'
 const styles = createUseStyles<string, undefined, MarkdownMemoryTheme>(
   (theme) => ({
     layout: {
-      display: 'grid',
-      gridTemplateColumns: '100%',
       '@media (min-width: 900px)': {
         gridTemplateColumns: '1fr 1fr',
       },
+      display: 'grid',
       gap: spacing(theme, 1),
+      gridTemplateColumns: '100%',
       margin: spacing(theme, 1),
     },
   })

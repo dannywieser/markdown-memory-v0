@@ -10,8 +10,8 @@ const styles = createUseStyles<string, undefined, MarkdownMemoryTheme>(
     return {
       root: {
         backgroundColor: theme.colors.primary,
-        paddingTop: padding,
         paddingBottom: padding,
+        paddingTop: padding,
         position: 'sticky',
         top: 0,
         ...margins,

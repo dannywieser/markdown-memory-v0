@@ -4,30 +4,30 @@ import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
 
 export default defineConfig({
-  root: __dirname,
+  build: {
+    commonjsOptions: {
+      transformMixedEsModules: true,
+    },
+    emptyOutDir: true,
+    outDir: '../../dist/apps/web',
+    reportCompressedSize: true,
+  },
   cacheDir: '../../node_modules/.vite/apps/web',
-  server: {
-    port: 4200,
+  plugins: [react(), nxViteTsPaths(), nxCopyAssetsPlugin(['*.md'])],
+  preview: {
     host: 'localhost',
+    port: 4300,
+  },
+  root: __dirname,
+  server: {
+    host: 'localhost',
+    port: 4200,
     proxy: {
       '/api': 'http://localhost:4000',
       '/images': {
-        target: 'http://localhost:3001',
         rewrite: (path) => path.replace(/^\/images/, ''),
+        target: 'http://localhost:3001',
       },
-    },
-  },
-  preview: {
-    port: 4300,
-    host: 'localhost',
-  },
-  plugins: [react(), nxViteTsPaths(), nxCopyAssetsPlugin(['*.md'])],
-  build: {
-    outDir: '../../dist/apps/web',
-    emptyOutDir: true,
-    reportCompressedSize: true,
-    commonjsOptions: {
-      transformMixedEsModules: true,
     },
   },
 })

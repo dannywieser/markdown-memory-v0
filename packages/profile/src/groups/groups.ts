@@ -7,24 +7,24 @@ export const ALL = '*'
 export function loadGroups(): Group[] {
   return [
     {
-      name: 'personal',
-      include: ['*'],
       exclude: ['riverside', 'daily@work', 'development'],
+      include: ['*'],
+      name: 'personal',
     },
     {
-      name: 'work',
       include: ['riverside', 'daily@work'],
+      name: 'work',
     },
     {
-      name: 'development',
       include: ['development'],
+      name: 'development',
     },
   ]
 }
 
 export const isNoteInGroup = (
   note: MarkdownNote,
-  { include, exclude }: Group
+  { exclude, include }: Group
 ) => {
   const { tags } = note
 

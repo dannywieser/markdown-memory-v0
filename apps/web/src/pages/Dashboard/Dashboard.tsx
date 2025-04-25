@@ -20,14 +20,14 @@ export default function Dashboard() {
   return (
     <div className={styles.layout}>
       <NoteSummaryCard
-        notes={personalNotes}
         cardName={`on this day|${personalGroup}`}
         href={`on-this-day/${personalGroup}`}
+        notes={personalNotes}
       />
       <NoteSummaryCard
-        notes={workNotes}
         cardName={`on this day|${workGroup}`}
         href={`on-this-day/${workGroup}`}
+        notes={workNotes}
       />
     </div>
   )

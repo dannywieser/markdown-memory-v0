@@ -6,7 +6,7 @@ import useStyles from './OpenExternal.styles'
 import { OpenExternalProps } from './OpenExternal.types'
 
 export default function OpenExternal(props: OpenExternalProps) {
-  const { source, url, noteId } = props
+  const { noteId, source, url } = props
   const { root } = useStyles()
   const tooltipId = `open-external-${noteId}`
   const tooltipText =
@@ -16,9 +16,9 @@ export default function OpenExternal(props: OpenExternalProps) {
   return (
     <a
       className={root}
-      href={url}
-      data-tooltip-id={tooltipId}
       data-tooltip-content={tooltipText}
+      data-tooltip-id={tooltipId}
+      href={url}
     >
       <ExternalLink />
       <Tooltip

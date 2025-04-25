@@ -7,8 +7,8 @@ const rawTextWithTwoImages =
   'this is some text with an inline image ![](a.jpg). And yet another image ![](b.jpg). And then some text after that image!'
 
 const noteFiles = [
-  { filename: 'a.jpg', fileId: 'pathtoa' },
-  { filename: 'b.jpg', fileId: 'pathtob' },
+  { fileId: 'pathtoa', filename: 'a.jpg' },
+  { fileId: 'pathtob', filename: 'b.jpg' },
 ] as BearProcessedFile[]
 
 describe('the fixImagePaths utility', () => {

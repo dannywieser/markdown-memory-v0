@@ -20,7 +20,7 @@ export function processChildForSpecialTokens(
 
   const specialTokensRegex = /(^#|#)([a-z0-9@/]+)/g
   const matches = childString.matchAll(specialTokensRegex)
-  const updatedChildren: (string | JSX.Element)[] = []
+  const updatedChildren: (JSX.Element | string)[] = []
 
   let lastIndex = 0
 
@@ -30,7 +30,7 @@ export function processChildForSpecialTokens(
     if (lastIndex !== match.index) {
       updatedChildren.push(childString.substring(lastIndex, match.index))
     }
-    updatedChildren.push(<HashTag text={tagText} key={uuidv4()} />)
+    updatedChildren.push(<HashTag key={uuidv4()} text={tagText} />)
     lastIndex = match.index + fullMatch.length
   }
 
