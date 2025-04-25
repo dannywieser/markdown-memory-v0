@@ -18,6 +18,10 @@ updates:
           - '@nx/*'
           - 'babel-jest'
           - 'nx'
+      react:
+        patterns:
+          - 'react'
+          - 'react-dom'
       types:
         patterns:
           - '@types/*'
