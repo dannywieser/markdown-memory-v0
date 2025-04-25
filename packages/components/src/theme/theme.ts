@@ -16,6 +16,10 @@ export const slate = {
   900: '#0f172a',
 }
 
+export const blue = {
+  600: '#2563eb',
+}
+
 export const spacing = (theme: MarkdownMemoryTheme, units: number) =>
   `${theme.spacing * units}px`
 
@@ -26,6 +30,7 @@ const bodyText = {
 export const theme: MarkdownMemoryTheme = {
   colors: {
     black: '#000',
+    blue,
     contrastText: '#fff',
     grey: slate100,
     primary: zinc900,
