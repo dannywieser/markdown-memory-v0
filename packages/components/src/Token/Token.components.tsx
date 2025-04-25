@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from 'uuid'
 import Blockquote from '../Blockquote/Blockquote'
 import Code from '../Code/Code'
 import Hr from '../Hr/Hr'
+import Image from '../Image/Image'
 import Link from '../Link/Link'
 import List from '../List/List'
 import NoteHeader from '../NoteHeader/NoteHeader'
@@ -24,7 +25,7 @@ const heading = (token: MarkedTokens.Heading, note: MarkdownNote) => (
   <NoteHeader token={token} note={note} />
 )
 const hr = () => <Hr />
-const image = ({ href, text }: MarkedTokens.Image) => 'image'
+const image = ({ href }: MarkedTokens.Image) => <Image href={href} />
 const link = ({ href, text }: MarkedTokens.Link) => (
   <Link href={href} key={tokenKey()}>
     {text}

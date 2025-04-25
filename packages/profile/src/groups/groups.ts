@@ -9,11 +9,15 @@ export function loadGroups(): Group[] {
     {
       name: 'personal',
       include: ['*'],
-      exclude: ['riverside', 'daily@work'],
+      exclude: ['riverside', 'daily@work', 'development'],
     },
     {
       name: 'work',
       include: ['riverside', 'daily@work'],
+    },
+    {
+      name: 'development',
+      include: ['development'],
     },
   ]
 }
