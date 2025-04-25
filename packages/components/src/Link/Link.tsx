@@ -3,9 +3,10 @@ import useStyles from './Link.styles'
 import { LinkProps } from './Link.types'
 
 export default function Link({ children, href }: LinkProps) {
-  const { root } = useStyles()
+  const { external, internal } = useStyles()
+  const style = href.includes('/note') ? internal : external
   return (
-    <a className={root} href={href}>
+    <a className={style} href={href}>
       <Text>{children}</Text>
     </a>
   )

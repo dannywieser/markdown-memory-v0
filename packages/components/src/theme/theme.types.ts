@@ -18,6 +18,7 @@ export interface MarkdownMemoryTheme {
 
 export interface ThemeColors {
   black: string
+  blue: ColorGradient
   contrastText: string
   grey: string
   primary: string
