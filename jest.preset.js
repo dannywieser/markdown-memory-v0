@@ -14,4 +14,5 @@ module.exports = {
     '!src/**/*.styles.ts',
   ],
   coverageReporters: ['cobertura', 'html', 'json', 'text', 'text-summary'],
+  setupFilesAfterEnv: ['<rootDir>/../../setupTests.ts'],
 }

@@ -16,7 +16,6 @@ const textUpdates = (
   noteFiles: BearProcessedFile[]
 ) => {
   const noteTextFixedImages = fixImagePaths(rawNoteText, noteFiles)
-  console.log(noteTextFixedImages)
   return handleWikiLinks(noteTextFixedImages, allNotes)
 }
 

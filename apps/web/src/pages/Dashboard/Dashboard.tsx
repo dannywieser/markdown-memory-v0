@@ -1,34 +1,40 @@
 import { NoteSummaryCard } from '@markdown-memory/components'
+import { getAllGroupNames } from '@markdown-memory/profile'
 import { currentDateNoYear } from '@markdown-memory/utilities/date'
 import React from 'react'
 
-import useNotesForDay from '../../hooks/useNotesOnDay/useNotesOnDay'
+import useNotesOnDayByGroup from '../../hooks/useNotesOnDayByGroup/useNotesOnDayByGroup'
+import { NotesOnDayByGroup } from '../../hooks/useNotesOnDayByGroup/useNotesOnDayByGroup.types'
 import useStyles from './Dashboard.styles'
+
+// this will handle the possibility that the useNotesOnDayByGroup may return undefined for a given sub-query
+const defaultValue: NotesOnDayByGroup = {
+  day: '',
+  groupName: 'invalid',
+  notes: [],
+}
 
 export default function Dashboard() {
   const styles = useStyles()
   const day = currentDateNoYear()
-  const personalGroup = 'personal'
-  const workGroup = 'work'
-  // TODO: this would be setup via configuration of cards
-  // TODO: this should be able to return multiple groups so we don't need two calls?
-  const { data: personalNotes } = useNotesForDay({
-    day,
-    groupName: personalGroup,
-  })
-  const { data: workNotes } = useNotesForDay({ day, groupName: workGroup })
+  const groups = getAllGroupNames()
+  const { data: notesByGroup, pending } = useNotesOnDayByGroup({ day, groups })
+  console.log(notesByGroup)
+
+  if (pending) {
+    // TODO: loading screen
+    return <>loading</>
+  }
+
   return (
     <div className={styles.layout}>
-      <NoteSummaryCard
-        cardName={`on this day|${personalGroup}`}
-        href={`on-this-day/${personalGroup}`}
-        notes={personalNotes}
-      />
-      <NoteSummaryCard
-        cardName={`on this day|${workGroup}`}
-        href={`on-this-day/${workGroup}`}
-        notes={workNotes}
-      />
+      {notesByGroup.map(({ groupName, notes } = defaultValue) => (
+        <NoteSummaryCard
+          cardName={`on this day|${groupName}`}
+          href={`on-this-day/${groupName}`}
+          notes={notes}
+        />
+      ))}
     </div>
   )
 }

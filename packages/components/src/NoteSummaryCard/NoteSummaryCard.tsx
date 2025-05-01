@@ -18,14 +18,11 @@ export default function NoteSummaryCard(props: NoteSummaryCardProps) {
       </ul>
     )
 
-  const heading =
-    notes && notes.length
-      ? `${notes.length} notes on this day`
-      : 'No notes on this day!'
-
   return (
     <Card href={href} title={cardName}>
-      <Text variant="em">{heading}</Text>
+      {notes && notes.length === 0 && (
+        <Text variant="em">No notes on this day!</Text>
+      )}
       <ListNoteTitles />
     </Card>
   )

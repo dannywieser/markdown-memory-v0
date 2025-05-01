@@ -1,6 +1,6 @@
 import { MarkdownNote } from '@markdown-memory/markdown'
 
-import { isNoteInGroup } from './groups'
+import { getAllGroupNames, isNoteInGroup } from './groups'
 import { Group } from './groups.types'
 
 const mockNote = (tags: string[] = []) => {
@@ -50,5 +50,12 @@ describe('isNoteInGroup', () => {
     const result = isNoteInGroup(note, group as unknown as Group)
 
     expect(result).toBe(expected)
+  })
+})
+
+describe('getAllGroupNames', () => {
+  test('returns an array of strings representing the configured group names', () => {
+    const result = getAllGroupNames()
+    expect(result).toEqual(['downtime', 'development', 'work', 'personal'])
   })
 })
