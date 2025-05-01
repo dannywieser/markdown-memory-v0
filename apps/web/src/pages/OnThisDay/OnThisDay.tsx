@@ -2,13 +2,18 @@ import { Note } from '@markdown-memory/components'
 import { currentDateNoYear } from '@markdown-memory/utilities/date'
 import { useParams } from 'react-router'
 
-import useNotesForDay from '../../hooks/useNotesOnDay/useNotesOnDay'
+import useNotesOnDayByGroup from '../../hooks/useNotesOnDayByGroup/useNotesOnDayByGroup'
 export default function Today() {
   const { groupName } = useParams()
   const day = currentDateNoYear()
-  const { data: notes } = useNotesForDay({ day, groupName })
-  return (
-    notes &&
-    notes.map((note) => <Note key={note.id} note={note} showLink={true} />)
-  )
+  const groups = groupName ? [groupName] : []
+  const { data, pending } = useNotesOnDayByGroup({ day, groups })
+  const { notes = [] } = data[0] ?? {}
+
+  if (pending) {
+    // TODO: loading screen
+    return <>loading</>
+  }
+
+  return notes.map((note) => <Note key={note.id} note={note} showLink={true} />)
 }

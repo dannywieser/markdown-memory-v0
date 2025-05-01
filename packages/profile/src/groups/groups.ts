@@ -26,6 +26,12 @@ export function loadGroups(): Group[] {
   ]
 }
 
+export const getAllGroupNames = () =>
+  loadGroups().reduce<string[]>(
+    (allGroupNames, { name }: Group) => [name, ...allGroupNames],
+    []
+  )
+
 export const isNoteInGroup = (
   note: MarkdownNote,
   { exclude, include }: Group
