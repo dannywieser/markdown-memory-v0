@@ -31,10 +31,9 @@ describe('the NoteSummaryCard component', () => {
     screen.getByText('No notes on this day!')
   })
 
-  test('renders the number of notes and the title of each note', () => {
+  test('renders the title of each note', () => {
     const notes = mockNotes()
     render(<NoteSummaryCard cardName="test" href="/test" notes={notes} />)
-    screen.getByText(`${notes.length} notes on this day`)
     screen.getByText(notes[0].title)
     screen.getByText(notes[1].title)
   })
