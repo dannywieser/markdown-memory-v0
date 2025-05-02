@@ -6,3 +6,7 @@ export interface NoteSummaryCardProps {
   icon?: string
   notes: MarkdownNote[] | undefined
 }
+
+export interface ThumbnailGalleryProps {
+  filePaths: string[]
+}

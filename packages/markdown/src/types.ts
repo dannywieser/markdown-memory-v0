@@ -7,8 +7,8 @@ export interface CustomTokensList extends TokensList {
 export interface MarkdownNote {
   created: Date
   externalUrl: string
+  filePaths: string[]
   id: string
-  imagePaths: string[]
   modified: Date
   source: MarkdownNoteSource
   tags: string[]
