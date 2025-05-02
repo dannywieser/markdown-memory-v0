@@ -127,10 +127,10 @@ const cacheImagePathsForGroup = async (
   client: RedisClient,
   note: MarkdownNote
 ) => {
-  const { id, imagePaths } = note
+  const { filePaths, id } = note
   const fileSetKey = cacheKey(FILESET_PREFIX, id)
 
-  imagePaths.map(async (imagePath) => {
+  filePaths.map(async (imagePath) => {
     await client.sAdd(fileSetKey, imagePath)
   })
 }
