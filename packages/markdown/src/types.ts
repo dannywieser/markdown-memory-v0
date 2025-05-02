@@ -8,6 +8,7 @@ export interface MarkdownNote {
   created: Date
   externalUrl: string
   id: string
+  imagePaths: string[]
   modified: Date
   source: MarkdownNoteSource
   tags: string[]

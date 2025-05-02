@@ -36,10 +36,17 @@ export default function processNote(
   const noteText = textUpdates(rawNote, allNotes, noteFiles)
   const tags = extractNoteTags(notePrimaryKey, allTags)
 
+  // create an array of string paths to all images related to this current note
+  const imagePaths = noteFiles.reduce<string[]>(
+    (paths, { fileId, filename }) => [...paths, `${fileId}/${filename}`],
+    []
+  )
+
   return {
     created: convertDate(creationDate),
     externalUrl: generateExternalUrl(noteUniqueId),
     id: noteUniqueId,
+    imagePaths,
     modified: convertDate(modificationDate),
     source: 'bear',
     tags,
