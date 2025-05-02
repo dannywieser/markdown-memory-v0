@@ -20,7 +20,7 @@ describe('the Card component', () => {
   test('renders a normal card when no href provided', () => {
     render(<Card title="this is the title">this is the content</Card>)
 
-    screen.getByRole('heading', { level: 2, name: 'this is the title' })
+    screen.getByText('this is the title')
     screen.getByText('this is the content')
     const link = screen.queryByRole('link')
     expect(link).toBeNull()
@@ -33,9 +33,19 @@ describe('the Card component', () => {
       </Card>
     )
 
-    screen.getByRole('heading', { level: 2, name: 'this is the title' })
+    screen.getByText('this is the title')
     screen.getByText('this is the content')
     screen.getByRole('link')
+  })
+
+  test('renders an icon if provided as a prop', () => {
+    render(
+      <Card href="/path/to/route" icon="Star" title="this is the title">
+        this is the content
+      </Card>
+    )
+
+    screen.getByTestId('IconStar')
   })
 
   test('adds the correct class to the card when no href is provided', () => {

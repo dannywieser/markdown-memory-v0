@@ -28,7 +28,7 @@ describe('the NoteSummaryCard component', () => {
   test('displays a message if the note array passed in is empty', () => {
     const notes: MarkdownNote[] = []
     render(<NoteSummaryCard cardName="test" href="/test" notes={notes} />)
-    screen.getByText('No notes on this day!')
+    screen.getByText('No notes found')
   })
 
   test('renders the title of each note', () => {

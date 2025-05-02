@@ -2,7 +2,7 @@ import {
   NoteSummaryCard,
   NoteSummaryCardProps,
 } from '@markdown-memory/components'
-import { getAllGroupNames } from '@markdown-memory/profile'
+import { getAllGroupNames, loadGroups } from '@markdown-memory/profile'
 import { asMock } from '@markdown-memory/testing-support'
 import { currentDateNoYear } from '@markdown-memory/utilities/date'
 import { render, screen } from '@testing-library/react'
@@ -31,10 +31,12 @@ describe('the Dashboard page', () => {
     asMock(NoteSummaryCard).mockImplementation(
       ({ cardName, href }: NoteSummaryCardProps) => (
         <div>
-          {cardName}|{href}
+          <div>{cardName}</div>
+          <div>{href}</div>
         </div>
       )
     )
+    asMock(loadGroups).mockReturnValue([])
     jest.clearAllMocks()
   })
   test('renders a loading state while the query is pending', () => {
@@ -50,8 +52,11 @@ describe('the Dashboard page', () => {
   test('renders a NoteSummaryCard for each group defined, with the correct name and href', () => {
     render(<Dashboard />)
 
-    screen.getByText('on this day|a|on-this-day/a')
-    screen.getByText('on this day|b|on-this-day/b')
+    screen.getByText('a | curDate')
+    screen.getByText('on-this-day/a')
+
+    screen.getByText('b | curDate')
+    screen.getByText('on-this-day/b')
   })
 
   test('invokes the useNotesOnDayByGroup hook with the correct props', () => {

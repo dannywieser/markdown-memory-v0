@@ -4,14 +4,14 @@ import useStyles from './NoteSummaryCard.styles'
 import { NoteSummaryCardProps } from './NoteSummaryCard.types'
 
 export default function NoteSummaryCard(props: NoteSummaryCardProps) {
-  const { cardName, href, notes } = props
+  const { cardName, href, icon, notes } = props
   const styles = useStyles()
 
   const ListNoteTitles = () =>
     notes && (
       <ul className={styles.list}>
         {notes.map(({ id, title }) => (
-          <li key={id}>
+          <li className={styles.listitem} key={id}>
             <Text>{title}</Text>
           </li>
         ))}
@@ -19,10 +19,8 @@ export default function NoteSummaryCard(props: NoteSummaryCardProps) {
     )
 
   return (
-    <Card href={href} title={cardName}>
-      {notes && notes.length === 0 && (
-        <Text variant="em">No notes on this day!</Text>
-      )}
+    <Card href={href} icon={icon} title={cardName}>
+      {notes && notes.length === 0 && <Text variant="em">No notes found</Text>}
       <ListNoteTitles />
     </Card>
   )
