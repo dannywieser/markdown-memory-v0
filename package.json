@@ -72,7 +72,7 @@
     "@fontsource/anonymous-pro": "5.2.5",
     "@fontsource/roboto-mono": "5.1.1",
     "@tanstack/react-query": "5.74.4",
-    "@tanstack/react-query-devtools": "5.74.4",
+    "@tanstack/react-query-devtools": "5.75.2",
     "date-fns": "4.1.0",
     "express": "5.1.0",
     "lucide-react": "0.485.0",
