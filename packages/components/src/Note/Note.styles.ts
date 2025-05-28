@@ -14,6 +14,7 @@ const styles = createUseStyles<string, undefined, MarkdownMemoryTheme>(
     root: {
       ...margins,
       marginBottom: spacing(theme, 2),
+      marginTop: spacing(theme, 2),
     },
   })
 )
