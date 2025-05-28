@@ -25,7 +25,7 @@ const heading = (token: MarkedTokens.Heading, note: MarkdownNote) => (
   <NoteHeader note={note} token={token} />
 )
 const hr = () => <Hr />
-const image = ({ href }: MarkedTokens.Image) => <Image href={href} />
+const image = ({ href }: MarkedTokens.Image) => <Image centerFit href={href} />
 const link = ({ href, text }: MarkedTokens.Link) => (
   <Link href={href} key={tokenKey()}>
     {text}

@@ -26,7 +26,26 @@ const rawNote = {
 
 const allNotes: BearRawNote[] = []
 const allTags: BearProcessedTag[] = []
-const allFiles: BearProcessedFile[] = []
+const matchedFiles = [
+  {
+    fileId: '123456a',
+    filename: '123456a.jpg',
+    noteId: 123456,
+  },
+  {
+    fileId: '123456b',
+    filename: '123456b.jpg',
+    noteId: 123456,
+  },
+]
+const allFiles: BearProcessedFile[] = [
+  ...matchedFiles,
+  {
+    fileId: '2',
+    filename: '2.jpg',
+    noteId: 2,
+  },
+]
 
 describe('the processNote function', () => {
   beforeEach(() => {
@@ -39,12 +58,13 @@ describe('the processNote function', () => {
     asMock(extractNoteTags).mockReturnValue('tags')
     asMock(lexer).mockReturnValue('lexerResult')
   })
-  test('mapping of the raw note to Markdown Note', () => {
+  test('mapping of the raw note and related images to a Markdown Note', () => {
     const result = processNote(rawNote, allNotes, allTags, allFiles)
     expect(result).toEqual({
       created: `convertDate${rawNote.ZCREATIONDATE}`,
       externalUrl: `generateExternalUrl${rawNote.ZUNIQUEIDENTIFIER}`,
       id: rawNote.ZUNIQUEIDENTIFIER,
+      imagePaths: ['123456a/123456a.jpg', '123456b/123456b.jpg'],
       modified: `convertDate${rawNote.ZMODIFICATIONDATE}`,
       source: 'bear',
       tags: 'tags',
@@ -63,7 +83,8 @@ describe('the processNote function', () => {
 
     processNote(rawNote, allNotes, allTags, allFiles)
 
-    expect(fixImagePaths).toHaveBeenCalledWith(rawNote.ZTEXT, allFiles)
+    // only the files mapped to the current note are passed into this function
+    expect(fixImagePaths).toHaveBeenCalledWith(rawNote.ZTEXT, matchedFiles)
     expect(handleWikiLinks).toHaveBeenCalledWith('textFromFixImages', allNotes)
   })
 

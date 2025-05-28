@@ -6,6 +6,7 @@ import {
 } from '@markdown-memory/profile'
 import {
   cacheKey,
+  FILESET_PREFIX,
   findDatesInText,
   fmtDate,
   fmtDateNoYear,
@@ -122,10 +123,23 @@ const addNoteToGroups = async (client: RedisClient, note: MarkdownNote) => {
   })
 }
 
+const cacheImagePathsForGroup = async (
+  client: RedisClient,
+  note: MarkdownNote
+) => {
+  const { filePaths, id } = note
+  const fileSetKey = cacheKey(FILESET_PREFIX, id)
+
+  filePaths.map(async (imagePath) => {
+    await client.sAdd(fileSetKey, imagePath)
+  })
+}
+
 export default {
   addNoteToDateSets,
   addNoteToGroups,
   addNoteToTagSet,
   addTagsToNoteSet,
+  cacheImagePathsForGroup,
   cacheNote,
 }

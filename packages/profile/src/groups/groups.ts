@@ -8,18 +8,22 @@ export function loadGroups(): Group[] {
   return [
     {
       exclude: ['riverside', 'daily@work', 'development', 'downtime'],
+      icon: 'BookHeart',
       include: ['*'],
       name: 'personal',
     },
     {
+      icon: 'Briefcase',
       include: ['riverside', 'daily@work'],
       name: 'work',
     },
     {
+      icon: 'FileCode',
       include: ['development'],
       name: 'development',
     },
     {
+      icon: 'Gamepad',
       include: ['downtime'],
       name: 'downtime',
     },

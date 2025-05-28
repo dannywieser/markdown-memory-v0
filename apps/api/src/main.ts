@@ -2,6 +2,7 @@ import { MarkdownNoteSource } from '@markdown-memory/markdown'
 import {
   activity,
   cacheKey,
+  FILESET_PREFIX,
   GROUP_KEY_PREFIX,
   header1,
   loadEnv,
@@ -36,15 +37,24 @@ const getNote = async (id: string): Promise<NoteResponse> => {
   const { created, externalUrl, identifier, modified, source, title, tokens } =
     await redis.hGetAll(noteId)
 
+  const filePaths = await getFiles(id)
+
   return {
     created: Number(created),
     externalUrl,
+    filePaths,
     id: identifier,
     modified: Number(modified),
     source: source as MarkdownNoteSource,
     title,
     tokens: JSON.parse(tokens),
   }
+}
+
+const getFiles = async (noteId: string) => {
+  const setKey = cacheKey(FILESET_PREFIX, noteId)
+  const files = await redis.sMembers(setKey)
+  return files
 }
 
 const getTags = async (noteId: string) => {

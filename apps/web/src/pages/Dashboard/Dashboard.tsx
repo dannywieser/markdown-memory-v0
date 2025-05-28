@@ -1,5 +1,5 @@
 import { NoteSummaryCard } from '@markdown-memory/components'
-import { getAllGroupNames } from '@markdown-memory/profile'
+import { getAllGroupNames, loadGroups } from '@markdown-memory/profile'
 import { currentDateNoYear } from '@markdown-memory/utilities/date'
 import React from 'react'
 
@@ -17,21 +17,28 @@ const defaultValue: NotesOnDayByGroup = {
 export default function Dashboard() {
   const styles = useStyles()
   const day = currentDateNoYear()
-  const groups = getAllGroupNames()
-  const { data: notesByGroup, pending } = useNotesOnDayByGroup({ day, groups })
-  console.log(notesByGroup)
+  const groups = loadGroups()
+  const groupNames = getAllGroupNames()
+  const { data: notesByGroup, pending } = useNotesOnDayByGroup({
+    day,
+    groups: groupNames,
+  })
 
   if (pending) {
     // TODO: loading screen
     return <>loading</>
   }
 
+  const groupIcon = (groupName: string) =>
+    groups.find(({ name }) => name === groupName)?.icon
+
   return (
     <div className={styles.layout}>
       {notesByGroup.map(({ groupName, notes } = defaultValue) => (
         <NoteSummaryCard
-          cardName={`on this day|${groupName}`}
+          cardName={`${groupName} | ${day}`}
           href={`on-this-day/${groupName}`}
+          icon={groupIcon(groupName)}
           notes={notes}
         />
       ))}
