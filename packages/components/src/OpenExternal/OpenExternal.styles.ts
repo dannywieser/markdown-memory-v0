@@ -8,9 +8,9 @@ const styles = createUseStyles<string, undefined, MarkdownMemoryTheme>(
   (theme) => ({
     root: {
       ':visited': {
-        color: theme.colors.contrastText,
+        color: theme.colors.primary,
       },
-      color: theme.colors.contrastText,
+      color: theme.colors.primary,
       height: `${IconHeight}px`,
       width: `${IconHeight}px`,
     },

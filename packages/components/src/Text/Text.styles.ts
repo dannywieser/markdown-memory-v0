@@ -11,6 +11,7 @@ const styles = createUseStyles<string, TextProps, MarkdownMemoryTheme>(
       lineHeight: theme.text.lineHeight,
       margin: 0,
       whiteSpace: 'pre-line',
+      wordBreak: 'break-word',
     }
 
     const codespan = () => ({
@@ -21,8 +22,6 @@ const styles = createUseStyles<string, TextProps, MarkdownMemoryTheme>(
     })
 
     const headingStyle = (variant: TextVariant) => ({
-      marginBottom: spacing(theme, 1.5),
-      marginTop: spacing(theme, 1.5),
       ...variantStyle(variant),
     })
 

@@ -13,15 +13,17 @@ const filterHeader = (tokens: MarkedToken[]): MarkedToken[] => {
 
 export default function Note({ note, suppressHeader = false }: NoteProps) {
   const { id, tokens } = note
-  const { root } = useStyles()
+  const { card, root } = useStyles()
   const key = (index: number) => `${id}-${index}`
   const filteredTokens = suppressHeader ? filterHeader(tokens) : tokens
 
   return (
     <div className={root}>
-      {filteredTokens.map((token, index) => (
-        <Token key={key(index)} note={note} token={token} />
-      ))}
+      <div className={card}>
+        {filteredTokens.map((token, index) => (
+          <Token key={key(index)} note={note} token={token} />
+        ))}
+      </div>
     </div>
   )
 }

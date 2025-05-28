@@ -14,14 +14,9 @@ const styles = createUseStyles<string, undefined, MarkdownMemoryTheme>(
       padding: spacing(theme, 2),
     },
     mainHeading: {
-      backgroundColor: theme.colors.primary,
-      color: theme.colors.contrastText,
       display: 'grid',
       gap: spacing(theme, 1),
       gridTemplateColumns: '1fr 10%',
-      lineHeight: `${theme.text.lineHeight}em`,
-      marginBottom: spacing(theme, 1),
-      paddingLeft: spacing(theme, 2),
     },
   })
 )
