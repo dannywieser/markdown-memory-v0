@@ -69,7 +69,7 @@
   },
   "dependencies": {
     "@chakra-ui/react": "3.22.0",
-    "@fontsource/anonymous-pro": "5.2.5",
+    "@fontsource/anonymous-pro": "5.2.6",
     "@fontsource/roboto-mono": "5.1.1",
     "@tanstack/react-query": "5.83.0",
     "@tanstack/react-query-devtools": "5.83.0",
