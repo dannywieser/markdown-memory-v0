@@ -92,7 +92,7 @@
     "uuid": "11.1.0"
   },
   "optionalDependencies": {
-    "@rollup/rollup-linux-x64-musl": "4.34.8"
+    "@rollup/rollup-linux-x64-musl": "4.45.1"
   },
   "nx": {}
 }
