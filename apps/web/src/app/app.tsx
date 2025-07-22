@@ -1,8 +1,7 @@
-import { theme } from '@markdown-memory/components'
+import { Provider as ChakraProvider } from '@markdown-memory/components'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import React from 'react'
-import { ThemeProvider } from 'react-jss'
 import { BrowserRouter, Route, Routes } from 'react-router'
 
 import Dashboard from '../pages/Dashboard/Dashboard'
@@ -15,7 +14,7 @@ const queryClient = new QueryClient()
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider theme={theme}>
+      <ChakraProvider>
         <BrowserRouter>
           <Routes>
             <Route element={<Dashboard />} path="/" />
@@ -24,7 +23,7 @@ function App() {
             <Route element={<OnThisDay />} path="/on-this-day/:groupName" />
           </Routes>
         </BrowserRouter>
-      </ThemeProvider>
+      </ChakraProvider>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   )

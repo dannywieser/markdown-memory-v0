@@ -1,3 +1,4 @@
+import { Box, Center, Spinner } from '@chakra-ui/react'
 import { NoteSummaryCard } from '@markdown-memory/components'
 import { getAllGroupNames, loadGroups } from '@markdown-memory/profile'
 import { currentDateNoYear } from '@markdown-memory/utilities/date'
@@ -25,8 +26,13 @@ export default function Dashboard() {
   })
 
   if (pending) {
-    // TODO: loading screen
-    return <>loading</>
+    return (
+      <Box bg="bg/80" inset="0" pos="absolute">
+        <Center h="full">
+          <Spinner animationDuration="1.2s" borderWidth="6px" size="lg" />
+        </Center>
+      </Box>
+    )
   }
 
   const groupIcon = (groupName: string) =>
