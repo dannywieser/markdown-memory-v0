@@ -1,53 +1,41 @@
-import { Box, Center, Spinner } from '@chakra-ui/react'
-import { NoteSummaryCard } from '@markdown-memory/components'
-import { getAllGroupNames, loadGroups } from '@markdown-memory/profile'
-import { currentDateNoYear } from '@markdown-memory/utilities/date'
+import { Badge, HStack, SimpleGrid, Stat } from '@chakra-ui/react'
 import React from 'react'
 
-import useNotesOnDayByGroup from '../../hooks/useNotesOnDayByGroup/useNotesOnDayByGroup'
-import { NotesOnDayByGroup } from '../../hooks/useNotesOnDayByGroup/useNotesOnDayByGroup.types'
-import useStyles from './Dashboard.styles'
+const TotalEntries = () => (
+  <Stat.Root borderWidth="1px" p="2" rounded="sm">
+    <Stat.Label>Entries | All</Stat.Label>
+    <Stat.ValueText>3500</Stat.ValueText>
+  </Stat.Root>
+)
 
-// this will handle the possibility that the useNotesOnDayByGroup may return undefined for a given sub-query
-const defaultValue: NotesOnDayByGroup = {
-  day: '',
-  groupName: 'invalid',
-  notes: [],
-}
+const EntriesThisWeek = () => (
+  <Stat.Root borderWidth="1px" p="2" rounded="sm">
+    <Stat.Label>Entries | Last 7 days</Stat.Label>
+    <HStack>
+      <Stat.ValueText>10</Stat.ValueText>
+      <Badge colorPalette="green" gap="0">
+        <Stat.UpIndicator />
+        12%
+      </Badge>
+    </HStack>
+  </Stat.Root>
+)
+
+const EntriesOnThisDay = () => (
+  <Stat.Root borderWidth="1px" p="2" rounded="sm">
+    <Stat.Label>On This Day | 07.22</Stat.Label>
+    <Stat.ValueText>6</Stat.ValueText>
+  </Stat.Root>
+)
+
+// TODO: heat graph showing entries over time
 
 export default function Dashboard() {
-  const styles = useStyles()
-  const day = currentDateNoYear()
-  const groups = loadGroups()
-  const groupNames = getAllGroupNames()
-  const { data: notesByGroup, pending } = useNotesOnDayByGroup({
-    day,
-    groups: groupNames,
-  })
-
-  if (pending) {
-    return (
-      <Box bg="bg/80" inset="0" pos="absolute">
-        <Center h="full">
-          <Spinner animationDuration="1.2s" borderWidth="6px" size="lg" />
-        </Center>
-      </Box>
-    )
-  }
-
-  const groupIcon = (groupName: string) =>
-    groups.find(({ name }) => name === groupName)?.icon
-
   return (
-    <div className={styles.layout}>
-      {notesByGroup.map(({ groupName, notes } = defaultValue) => (
-        <NoteSummaryCard
-          cardName={`${groupName} | ${day}`}
-          href={`on-this-day/${groupName}`}
-          icon={groupIcon(groupName)}
-          notes={notes}
-        />
-      ))}
-    </div>
+    <SimpleGrid gap="2" minChildWidth="sm" p="2">
+      <TotalEntries />
+      <EntriesThisWeek />
+      <EntriesOnThisDay />
+    </SimpleGrid>
   )
 }
