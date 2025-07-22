@@ -5,7 +5,7 @@ export default {
   preset: '../../jest.preset.js',
   testEnvironment: 'node',
   transform: {
-    '^.+\\.(js|jsx)$': 'babel-jest',
-    '^.+\\.(ts|tsx)?$': 'ts-jest',
+    '^.+\\.[tj]s$': ['ts-jest', { tsconfig: '<rootDir>/tsconfig.spec.json' }],
   },
+  transformIgnorePatterns: ['<rootDir>/node_modules/(?!(marked)/)'],
 }

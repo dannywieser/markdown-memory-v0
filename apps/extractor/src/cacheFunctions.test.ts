@@ -1,7 +1,9 @@
-import { MarkdownNote } from '@markdown-memory/markdown'
+import type { MarkdownNote } from '@markdown-memory/markdown'
 
 import { RedisClient } from './cacheFunctions'
 import cacheFunctions from './cacheFunctions'
+
+jest.mock('@markdown-memory/markdown')
 
 const setupClientMock = () => {
   return {
@@ -11,8 +13,8 @@ const setupClientMock = () => {
 
 const setupMarkdownNoteMock = (overrides?: Partial<MarkdownNote>) => {
   return {
+    filePaths: [],
     id: 'abc123',
-    imagePaths: [],
     ...overrides,
   } as MarkdownNote
 }
@@ -29,7 +31,7 @@ describe('caching functions', () => {
     })
 
     test('adds image paths to a set with the correct key', () => {
-      const note = setupMarkdownNoteMock({ imagePaths: ['a', 'b', 'c'] })
+      const note = setupMarkdownNoteMock({ filePaths: ['a', 'b', 'c'] })
       const client = setupClientMock()
 
       cacheFunctions.cacheImagePathsForGroup(client, note)

@@ -63,8 +63,8 @@ describe('the processNote function', () => {
     expect(result).toEqual({
       created: `convertDate${rawNote.ZCREATIONDATE}`,
       externalUrl: `generateExternalUrl${rawNote.ZUNIQUEIDENTIFIER}`,
+      filePaths: ['123456a/123456a.jpg', '123456b/123456b.jpg'],
       id: rawNote.ZUNIQUEIDENTIFIER,
-      imagePaths: ['123456a/123456a.jpg', '123456b/123456b.jpg'],
       modified: `convertDate${rawNote.ZMODIFICATIONDATE}`,
       source: 'bear',
       tags: 'tags',

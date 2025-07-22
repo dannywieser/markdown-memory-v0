@@ -36,26 +36,6 @@
         }
       }
     },
-    "container": {
-      "executor": "@nx-tools/nx-container:build",
-      "dependsOn": ["build"],
-      "defaultConfiguration": "local",
-      "options": {
-        "engine": "docker",
-        "context": "dist/apps/api",
-        "file": "apps/api/Dockerfile"
-      },
-      "configurations": {
-        "local": {
-          "tags": ["api:latest"],
-          "push": false
-        },
-        "production": {
-          "tags": ["@markdown-memory/api:latest"],
-          "push": true
-        }
-      }
-    },
     "serve": {
       "executor": "@nx/js:node",
       "defaultConfiguration": "development",

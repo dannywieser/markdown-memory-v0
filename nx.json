@@ -44,13 +44,6 @@
       "options": {
         "targetName": "test"
       }
-    },
-    {
-      "plugin": "@nx-tools/nx-container",
-      "options": {
-        "defaultEngine": "docker",
-        "defaultRegistry": "docker.io"
-      }
     }
   ],
   "nxCloudId": "67b48f2dac038544655b1c1a",
