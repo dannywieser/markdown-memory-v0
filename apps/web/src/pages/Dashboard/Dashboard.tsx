@@ -1,45 +1,31 @@
-import { Badge, HStack, SimpleGrid, Stat } from '@chakra-ui/react'
+import { SimpleGrid } from '@chakra-ui/react'
+import { CenteredSpinner } from '@markdown-memory/components'
 import React from 'react'
 
-const TotalEntries = () => (
-  <Stat.Root borderWidth="1px" p="2" rounded="sm">
-    <Stat.Label>Entries | All</Stat.Label>
-    <Stat.ValueText>3500</Stat.ValueText>
-  </Stat.Root>
-)
-
-const EntriesThisWeek = () => (
-  <Stat.Root borderWidth="1px" p="2" rounded="sm">
-    <Stat.Label>Entries | Last 7 days</Stat.Label>
-    <HStack>
-      <Stat.ValueText>10</Stat.ValueText>
-      <Badge colorPalette="green" gap="0">
-        <Stat.UpIndicator />
-        12%
-      </Badge>
-    </HStack>
-  </Stat.Root>
-)
-
-const EntriesOnThisDay = () => (
-  <Stat.Root borderWidth="1px" p="2" rounded="sm">
-    <Stat.Label>On This Day | 07.22</Stat.Label>
-    <Stat.ValueText>6</Stat.ValueText>
-  </Stat.Root>
-)
+import useStats from '../../hooks/useStats/useStats'
+import { TotalEntries } from './statCards'
 
 // TODO:
 //   - heat graph showing entries over time
 //   - random note
 //   - AI summary of on this day
+//.  - total tags
 //. - pinned notes
 
+// next: need to move hooks/service types into package
+
 export default function Dashboard() {
+  const { data: stats, isPending } = useStats()
+
+  if (isPending || !stats) {
+    return <CenteredSpinner />
+  }
+
   return (
     <SimpleGrid gap="2" minChildWidth="sm" p="2">
-      <TotalEntries />
-      <EntriesThisWeek />
-      <EntriesOnThisDay />
+      <TotalEntries stats={stats} />
+      {/* <EntriesThisWeek />
+      <EntriesOnThisDay /> */}
     </SimpleGrid>
   )
 }

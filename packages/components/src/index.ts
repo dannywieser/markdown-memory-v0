@@ -1,4 +1,5 @@
 export * from './AppHeader'
+export { default as CenteredSpinner } from './CenteredSpinner/CenteredSpinner'
 export * from './Note'
 export * from './NoteSummaryCard'
 export * from './theme/theme'

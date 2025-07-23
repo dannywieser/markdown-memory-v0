@@ -81,7 +81,7 @@ app.get('/api/stats', async (_req, res) => {
 })
 
 redis.connect().then(() => {
-  const port = 3333 // process.env.API_PORT || 3333
+  const port = process.env.API_PORT || 3333
   const server = app.listen(port, () => {
     header1('markdown memory: api')
     activity(`API ready | http://localhost:${port}/api`, 1)
