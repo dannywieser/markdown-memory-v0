@@ -28,7 +28,11 @@ const EntriesOnThisDay = () => (
   </Stat.Root>
 )
 
-// TODO: heat graph showing entries over time
+// TODO:
+//   - heat graph showing entries over time
+//   - random note
+//   - AI summary of on this day
+//. - pinned notes
 
 export default function Dashboard() {
   return (
