@@ -1,8 +1,8 @@
 import { SimpleGrid } from '@chakra-ui/react'
 import { CenteredSpinner } from '@markdown-memory/components'
+import { useStats } from '@markdown-memory/services'
 import React from 'react'
 
-import useStats from '../../hooks/useStats/useStats'
 import { TotalEntries } from './statCards'
 
 // TODO:

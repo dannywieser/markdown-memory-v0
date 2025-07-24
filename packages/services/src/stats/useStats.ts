@@ -1,7 +1,7 @@
 import { currentDate } from '@markdown-memory/utilities/date'
 import { useQuery } from '@tanstack/react-query'
 
-import { Stats } from './types'
+import { Stats } from './stats.types'
 
 const fetchStats = async () => {
   const url = `api/stats/`

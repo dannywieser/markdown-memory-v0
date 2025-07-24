@@ -1,7 +1,6 @@
 import { HStack, Stat } from '@chakra-ui/react'
+import { Stats } from '@markdown-memory/services'
 import { Badge } from 'lucide-react'
-
-import { Stats } from '../../hooks/useStats/types'
 
 interface StatProps {
   stats: Stats

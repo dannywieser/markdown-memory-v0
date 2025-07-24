@@ -1,7 +1,7 @@
+import { Stats } from '@markdown-memory/services'
 import { RedisClientType } from 'redis'
 
 import { getAllNotes } from '../notes/util'
-import { Stats } from './types'
 
 export default async function buildStats(
   redis: RedisClientType
