@@ -1,5 +1,5 @@
 import { SimpleGrid } from '@chakra-ui/react'
-import { CenteredSpinner } from '@markdown-memory/components'
+import { CenteredSpinner, FrequencyMap } from '@markdown-memory/components'
 import { useStats } from '@markdown-memory/services'
 import React from 'react'
 
@@ -23,6 +23,7 @@ export default function Dashboard() {
 
   return (
     <SimpleGrid gap="2" minChildWidth="sm" p="2">
+      <FrequencyMap />
       <TotalEntries stats={stats} />
       {/* <EntriesThisWeek />
       <EntriesOnThisDay /> */}
