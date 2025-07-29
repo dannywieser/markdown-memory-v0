@@ -37,7 +37,7 @@ export default async function buildStats(
 ): Promise<Stats> {
   const allNotes = await getAllNotes(redis)
   return {
-    entriesByDay: createDateMap(allNotes),
+    dateMap: createDateMap(allNotes),
     totalEntries: allNotes.length,
     totalTags: 0,
   }

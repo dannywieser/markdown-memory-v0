@@ -3,8 +3,10 @@ export interface DateCreatedAndModified {
   modifiedCount: number
 }
 
+export type DateMap = { [key: string]: DateCreatedAndModified }
+
 export interface Stats {
-  entriesByDay: { [key: string]: DateCreatedAndModified }
+  dateMap: DateMap
   totalEntries: number
   totalTags: number
 }

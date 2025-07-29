@@ -23,7 +23,7 @@ export default function Dashboard() {
 
   return (
     <SimpleGrid gap="2" minChildWidth="sm" p="2">
-      <FrequencyMap />
+      <FrequencyMap dateMap={stats.dateMap} />
       <TotalEntries stats={stats} />
       {/* <EntriesThisWeek />
       <EntriesOnThisDay /> */}

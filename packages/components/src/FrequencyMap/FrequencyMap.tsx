@@ -1,66 +1,70 @@
 import { Box, Flex, SimpleGrid } from '@chakra-ui/react'
+import { DateMap } from '@markdown-memory/services'
 
-interface ItemProps {
-  count: number
-  index: number
+import { FrequencyMapItemProps, FrequencyMapProps } from './FrequencyMap.types'
+
+const sortDateMap = (dateMap: DateMap) => {
+  return Object.entries(dateMap).sort(([dateA], [dateB]) =>
+    dateA > dateB ? 0 : -1
+  )
 }
 
-const Item = ({ count, index }: ItemProps) => {
-  const maxCount = 20
-  const percent = count / maxCount
+const getColor = (value: number, rootColor = 'gray') => {
+  if (value > 10) return `${rootColor}.950`
+  else if (value > 7) return `${rootColor}.900`
+  else if (value > 6) return `${rootColor}.800`
+  else if (value > 5) return `${rootColor}.700`
+  else if (value > 4) return `${rootColor}.600`
+  else if (value > 3) return `${rootColor}.500`
+  else if (value > 2) return `${rootColor}.400`
+  else if (value > 1) return `${rootColor}.300`
+  else return `${rootColor}.50`
+}
 
-  const maxHeight = 10
-  const height = count > 20 ? `${maxHeight}px` : `${10 * percent}px`
-
-  let color = 'blue.500'
-
-  // TODO: improve
-  if (count > 18) {
-    color = 'blue.800'
-  }
-  if (count > 15) {
-    color = 'blue.700'
-  }
-  if (count > 10) {
-    color = 'blue.600'
-  }
-
-  const borderWidth = count > 0 ? '1px' : 0
-
+const FrequencyMapItem = ({
+  createdCount,
+  date,
+  modifiedCount,
+}: FrequencyMapItemProps) => {
+  const height = 5
+  const total = createdCount + modifiedCount
+  const modifiedHeight = (modifiedCount / total) * height
+  const createdHeight = (createdCount / total) * height
   return (
-    <Flex align="flex-end" height="100%">
+    <Flex direction="column" height="100%">
       <Box
-        backgroundColor={color}
-        borderColor={color}
-        borderWidth={borderWidth}
-        height={height}
+        backgroundColor={getColor(createdCount)}
+        height={`${createdHeight}px`}
+        id={`${date}-created`}
+        width="100%"
+      ></Box>
+      <Box
+        backgroundColor={getColor(modifiedCount)}
+        height={`${modifiedHeight}px`}
+        id={`${date}-modified`}
         width="100%"
       ></Box>
     </Flex>
   )
 }
 
-export default function FrequencyMap() {
-  const elements = fillArrayWithRandomNumbers(500)
-  console.log(elements)
-
-  const columns = elements.length > 50 ? 50 : elements.length
+export default function FrequencyMap({ dateMap }: FrequencyMapProps) {
+  const entries = Object.keys(dateMap).length
+  const columns = entries > 50 ? 50 : entries
+  const sorted = sortDateMap(dateMap)
 
   return (
     <Box borderWidth="1px" p="2" rounded="sm">
-      <SimpleGrid columns={columns} gap="0.5px">
-        {elements.map((val: number, index: number) => (
-          <Item count={val} index={index} key={index} />
+      <SimpleGrid columns={columns} gap="3px">
+        {sorted.map(([key, { createdCount, modifiedCount }]) => (
+          <FrequencyMapItem
+            createdCount={createdCount}
+            date={key}
+            key={key}
+            modifiedCount={modifiedCount}
+          />
         ))}
       </SimpleGrid>
     </Box>
   )
-}
-
-function fillArrayWithRandomNumbers(size: number) {
-  const arr = []
-  for (let i = 0; i < size; i++) {
-    arr.push(Math.floor(Math.random() * 20) + 0)
-  }
-  return arr
 }
