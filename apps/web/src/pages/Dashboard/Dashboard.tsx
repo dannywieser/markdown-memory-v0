@@ -3,10 +3,9 @@ import { CenteredSpinner, FrequencyMap } from '@markdown-memory/components'
 import { useStats } from '@markdown-memory/services'
 import React from 'react'
 
-import { TotalEntries } from './statCards'
+import { EntriesOnThisDay, TotalEntries } from './statCards'
 
 // TODO:
-//   - heat graph showing entries over time
 //   - random note
 //   - AI summary of on this day
 //.  - total tags
@@ -25,8 +24,8 @@ export default function Dashboard() {
     <SimpleGrid gap="2" minChildWidth="sm" p="2">
       <FrequencyMap dateMap={stats.dateMap} />
       <TotalEntries stats={stats} />
-      {/* <EntriesThisWeek />
-      <EntriesOnThisDay /> */}
+      {/* <EntriesThisWeek />*/}
+      <EntriesOnThisDay />
     </SimpleGrid>
   )
 }
