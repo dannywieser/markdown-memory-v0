@@ -1,4 +1,4 @@
-import { SimpleGrid } from '@chakra-ui/react'
+import { SimpleGrid, Stat } from '@chakra-ui/react'
 import {
   CenteredSpinner,
   EntriesOnThisDay,
@@ -6,8 +6,6 @@ import {
 } from '@markdown-memory/components'
 import { useStats } from '@markdown-memory/services'
 import React from 'react'
-
-import { TotalEntries } from './statCards'
 
 // TODO:
 //   - random note
@@ -26,8 +24,12 @@ export default function Dashboard() {
 
   return (
     <SimpleGrid gap="2" minChildWidth="sm" p="2">
-      <FrequencyMap dateMap={stats.dateMap} />
-      <TotalEntries stats={stats} />
+      <Stat.Root borderWidth="1px" p="2" rounded="sm">
+        <Stat.Label>Entries | All</Stat.Label>
+        <Stat.ValueText>{stats.totalEntries}</Stat.ValueText>
+        <FrequencyMap dateMap={stats.dateMap} />
+      </Stat.Root>
+
       {/* <EntriesThisWeek />*/}
       <EntriesOnThisDay />
     </SimpleGrid>

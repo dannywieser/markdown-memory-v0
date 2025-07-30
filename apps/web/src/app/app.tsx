@@ -8,6 +8,7 @@ import Dashboard from '../pages/Dashboard/Dashboard'
 import Note from '../pages/Note/Note'
 import OnThisDay from '../pages/OnThisDay/OnThisDay'
 import '../../main.css'
+import { Tags } from '../pages/Tags/Tags'
 
 const queryClient = new QueryClient()
 
@@ -18,6 +19,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route element={<Dashboard />} path="/" />
+            <Route element={<Tags />} path="/tags/*" />
             <Route element={<Note />} path="/note/:noteId" />
             <Route element={<OnThisDay />} path="/on-this-day" />
             <Route element={<OnThisDay />} path="/on-this-day/:groupName" />

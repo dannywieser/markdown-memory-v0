@@ -54,17 +54,15 @@ export default function FrequencyMap({ dateMap }: FrequencyMapProps) {
   const sorted = sortDateMap(dateMap)
 
   return (
-    <Box borderWidth="1px" p="2" rounded="sm">
-      <SimpleGrid columns={columns} gap="3px">
-        {sorted.map(([key, { createdCount, modifiedCount }]) => (
-          <FrequencyMapItem
-            createdCount={createdCount}
-            date={key}
-            key={key}
-            modifiedCount={modifiedCount}
-          />
-        ))}
-      </SimpleGrid>
-    </Box>
+    <SimpleGrid columns={columns} gap="3px">
+      {sorted.map(([key, { createdCount, modifiedCount }]) => (
+        <FrequencyMapItem
+          createdCount={createdCount}
+          date={key}
+          key={key}
+          modifiedCount={modifiedCount}
+        />
+      ))}
+    </SimpleGrid>
   )
 }

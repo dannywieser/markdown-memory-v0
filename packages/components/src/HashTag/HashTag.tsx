@@ -1,10 +1,11 @@
 import { Badge, Box, Text } from '@chakra-ui/react'
+import { Link } from 'react-router'
 
 import { HashTagProps } from './HashTag.types'
 
 const HASH_SYMBOL = '#'
 
-export default function HashTag({ count, text }: HashTagProps) {
+export default function HashTag({ count, text, to = '' }: HashTagProps) {
   const Count = () => {
     if (count && count > 0) {
       return (
@@ -16,7 +17,7 @@ export default function HashTag({ count, text }: HashTagProps) {
     return null
   }
 
-  return (
+  const Tag = () => (
     <Badge colorPalette="gray" size="lg" variant="subtle">
       <Text color="gray.400" fontSize="xx-small">
         {HASH_SYMBOL}
@@ -26,5 +27,13 @@ export default function HashTag({ count, text }: HashTagProps) {
       </Text>
       <Count />
     </Badge>
+  )
+
+  return to ? (
+    <Link to={to}>
+      <Tag />
+    </Link>
+  ) : (
+    <Tag />
   )
 }
