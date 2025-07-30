@@ -1,20 +1,30 @@
-import { Badge, Stack, Stat, Text } from '@chakra-ui/react'
+import { Badge, Flex, SimpleGrid, Stack, Stat, Text } from '@chakra-ui/react'
+import { useDay } from '@markdown-memory/services'
+import { currentDateNoYear } from '@markdown-memory/utilities/date'
+
+import HashTag from '../HashTag/HashTag'
 
 export function EntriesOnThisDay() {
+  const day = currentDateNoYear()
+  const { data, isPending } = useDay({ day })
+  console.log(data)
+
+  if (isPending || !data) {
+    return 'loading'
+  }
+
+  const { entries, tags } = data
+  const label = `On This Day | ${day}`
+
   return (
     <Stat.Root borderWidth="1px" p="2" rounded="sm">
-      <Stat.Label>On This Day | 07.22</Stat.Label>
-      <Stat.ValueText>10</Stat.ValueText>
-      <Stack direction="row">
-        <Badge colorPalette="gray" size="lg" variant="subtle">
-          <Text color="gray.400">#</Text>
-          <Text fontWeight="bolder">daily</Text> 4
-        </Badge>
-        <Badge colorPalette="gray" size="lg" variant="subtle">
-          <Text color="gray.400">#</Text>
-          <Text fontWeight="bold">daily@work</Text> 6
-        </Badge>
-      </Stack>
+      <Stat.Label>{label}</Stat.Label>
+      <Stat.ValueText>{entries}</Stat.ValueText>
+      <Flex gap="2" wrap="wrap">
+        {tags.map(({ count, value }) => (
+          <HashTag count={count} text={value} />
+        ))}
+      </Flex>
     </Stat.Root>
   )
 }

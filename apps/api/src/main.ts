@@ -1,6 +1,9 @@
 import {
   activity,
   cacheKey,
+  countFrequenciesInArray,
+  DAY_PREFIX,
+  DAY_TAGS_PREFIX,
   GROUP_KEY_PREFIX,
   header1,
   loadEnv,
@@ -48,7 +51,9 @@ app.get('/api/notes/:noteId/tags', async ({ params: { noteId } }, res) => {
 })
 
 const getNotesForDay = async (day: string) => {
-  const daySet = await redis.sMembers(day as string)
+  const dayKey = cacheKey(DAY_PREFIX, day)
+  activity(`dayKey : ${dayKey}`, 2)
+  const daySet = await redis.sMembers(dayKey as string)
   const notes = await Promise.all(
     daySet.map(async (id) => await getNote(redis, id))
   )
@@ -60,6 +65,21 @@ app.get('/api/notes', async (req, res) => {
   const day = req.query.day as string
   const notes = day ? await getNotesForDay(day) : await getAllNotes(redis)
   res.send(sortNotesByDate(notes))
+})
+
+app.get('/api/day/:day', async ({ params: { day } }, res) => {
+  const dayKey = cacheKey(DAY_PREFIX, day)
+  const daySet = await redis.sMembers(dayKey as string)
+
+  const dayTagsKey = cacheKey(DAY_TAGS_PREFIX, day)
+  const dayTagsList = await redis.lRange(dayTagsKey, 0, -1)
+  const tagFrequency = countFrequenciesInArray(dayTagsList)
+
+  activity(`/api/day/${day} (${dayKey})| results: ${daySet.length}`, 2)
+  res.send({
+    entries: daySet.length,
+    tags: tagFrequency,
+  })
 })
 
 app.get(

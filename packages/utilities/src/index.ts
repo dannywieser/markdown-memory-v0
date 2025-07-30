@@ -1,3 +1,4 @@
+export * from './array/array'
 export * from './date'
 export * from './env'
 export * from './fs'
