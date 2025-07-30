@@ -1,21 +1,18 @@
-import { getRawNoteText, MarkdownNote } from '@markdown-memory/markdown'
-import {
-  isNoteInGroup,
-  loadGroups,
-  loadProfile,
-} from '@markdown-memory/profile'
+import { MarkdownNote } from '@markdown-memory/markdown'
+import { isNoteInGroup, loadGroups } from '@markdown-memory/profile'
 import {
   cacheKey,
+  DAY_PREFIX,
+  DAY_TAGS_PREFIX,
   FILESET_PREFIX,
-  findDatesInText,
-  fmtDate,
-  fmtDateNoYear,
   GROUP_KEY_PREFIX,
   NOTE_KEY_PREFIX,
   NOTETAG_KEY_PREFIX,
   TAGSET_PREFIX,
 } from '@markdown-memory/utilities'
 import { createClient } from 'redis'
+
+import { noteDateCaching } from './util'
 
 export type RedisClient = ReturnType<typeof createClient>
 
@@ -62,52 +59,6 @@ const addTagsToNoteSet = async (client: RedisClient, note: MarkdownNote) => {
   })
 }
 
-/**
- * This helper function will return an array of all dates relevant for the note.
- * This includes:
- *  - the creation date for the note. Creation date is parsed into local time to ensure it matches the expected "on this day".
- *  - dates mentioned in the raw note text
- */
-const getDatesForNote = (note: MarkdownNote): Date[] => {
-  const { created } = note
-  const { timezone: timeZone } = loadProfile()
-  const fullText = getRawNoteText(note)
-  return [
-    new Date(created.toLocaleDateString('en-US', { timeZone })),
-    ...findDatesInText(fullText),
-  ]
-}
-/**
- * The ID of each note will be added to two date sets:
- *  - one with the full date YYYY.MM.DD.
- *  - one with a partial date MM.DD.
- *
- * This date is based on two things:
- *  - create date for the note
- *  - a full text search for string patterns matching the defined date format
- */
-const addNoteToDateSets = async (
-  client: RedisClient,
-  note: MarkdownNote,
-  keyPrefix = ''
-) => {
-  const { id } = note
-  const dates = getDatesForNote(note)
-  for (const date of dates) {
-    // // add note to a set for the current date in yyyy.MM.dd format
-    const wholeDate = fmtDate(date)
-    const wholeDateSetKey = keyPrefix
-      ? cacheKey(keyPrefix, wholeDate)
-      : wholeDate
-    await client.sAdd(wholeDateSetKey, id)
-
-    // add note to a set with the date in MM.dd format
-    const partDate = fmtDateNoYear(date)
-    const partDateSetKey = keyPrefix ? cacheKey(keyPrefix, partDate) : wholeDate
-    await client.sAdd(partDateSetKey, id)
-  }
-}
-
 const addNoteToGroups = async (client: RedisClient, note: MarkdownNote) => {
   const groups = loadGroups()
   const { id } = note
@@ -118,8 +69,32 @@ const addNoteToGroups = async (client: RedisClient, note: MarkdownNote) => {
     const groupKey = cacheKey(GROUP_KEY_PREFIX, name)
     if (noteInGroup) {
       await client.sAdd(groupKey, id)
-      addNoteToDateSets(client, note, groupKey)
+      noteDateCaching(note, async (date) => {
+        const key = cacheKey(groupKey, date)
+        await client.sAdd(key, id)
+      })
     }
+  })
+}
+
+const cacheNoteByDay = async (client: RedisClient, note: MarkdownNote) => {
+  const { id } = note
+  noteDateCaching(note, async (date) => {
+    const key = cacheKey(DAY_PREFIX, date)
+    await client.sAdd(key, id)
+  })
+}
+
+const cacheListOfTagsByDay = async (
+  client: RedisClient,
+  note: MarkdownNote
+) => {
+  const { tags } = note
+  tags.map(async (tag: string) => {
+    noteDateCaching(note, async (date) => {
+      const key = cacheKey(DAY_TAGS_PREFIX, date)
+      await client.rPush(key, tag)
+    })
   })
 }
 
@@ -130,16 +105,15 @@ const cacheImagePathsForGroup = async (
   const { filePaths, id } = note
   const fileSetKey = cacheKey(FILESET_PREFIX, id)
 
-  filePaths.map(async (imagePath) => {
-    await client.sAdd(fileSetKey, imagePath)
-  })
+  filePaths.map(async (imagePath) => await client.sAdd(fileSetKey, imagePath))
 }
 
 export default {
-  addNoteToDateSets,
   addNoteToGroups,
   addNoteToTagSet,
   addTagsToNoteSet,
   cacheImagePathsForGroup,
+  cacheListOfTagsByDay,
   cacheNote,
+  cacheNoteByDay,
 }

@@ -1,9 +1,13 @@
 import { SimpleGrid } from '@chakra-ui/react'
-import { CenteredSpinner, FrequencyMap } from '@markdown-memory/components'
+import {
+  CenteredSpinner,
+  EntriesOnThisDay,
+  FrequencyMap,
+} from '@markdown-memory/components'
 import { useStats } from '@markdown-memory/services'
 import React from 'react'
 
-import { EntriesOnThisDay, TotalEntries } from './statCards'
+import { TotalEntries } from './statCards'
 
 // TODO:
 //   - random note
