@@ -3,9 +3,14 @@ import {
   CenteredSpinner,
   EntriesOnThisDay,
   FrequencyMap,
+  NoteSummaryCard,
 } from '@markdown-memory/components'
+import { getAllGroupNames, loadGroups } from '@markdown-memory/profile'
 import { useStats } from '@markdown-memory/services'
+import { currentDateNoYear } from '@markdown-memory/utilities/date'
 import React from 'react'
+
+import useNotesOnDayByGroup from '../../hooks/useNotesOnDayByGroup/useNotesOnDayByGroup'
 
 // TODO:
 //   - random note
@@ -18,7 +23,17 @@ import React from 'react'
 export default function Dashboard() {
   const { data: stats, isPending } = useStats()
 
-  if (isPending || !stats) {
+  const day = currentDateNoYear()
+  const groups = loadGroups()
+  const groupNames = getAllGroupNames()
+  const { data: notesByGroup, pending: notesPending } = useNotesOnDayByGroup({
+    day,
+    groups: groupNames,
+  })
+  const groupIcon = (groupName: string) =>
+    groups.find(({ name }) => name === groupName)?.icon
+
+  if (isPending || notesPending || !stats || !notesByGroup) {
     return <CenteredSpinner />
   }
 
@@ -32,6 +47,14 @@ export default function Dashboard() {
 
       {/* <EntriesThisWeek />*/}
       <EntriesOnThisDay />
+      {notesByGroup.map(({ groupName, notes } = defaultValue) => (
+        <NoteSummaryCard
+          cardName={`${groupName} | ${day}`}
+          href={`on-this-day/${groupName}`}
+          icon={groupIcon(groupName)}
+          notes={notes}
+        />
+      ))}
     </SimpleGrid>
   )
 }

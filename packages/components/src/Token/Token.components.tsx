@@ -1,5 +1,7 @@
+import { Heading } from '@chakra-ui/react'
 import { MarkdownNote } from '@markdown-memory/markdown'
 import { MarkedToken, Tokens as MarkedTokens } from 'marked'
+import { ElementType } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 
 import Blockquote from '../Blockquote/Blockquote'
@@ -8,7 +10,6 @@ import Hr from '../Hr/Hr'
 import Image from '../Image/Image'
 import Link from '../Link/Link'
 import List from '../List/List'
-import NoteHeader from '../NoteHeader/NoteHeader'
 import Text from '../Text/Text'
 import Tokens from './Tokens'
 
@@ -21,9 +22,12 @@ const br = () => <br />
 const code = ({ lang, text }: MarkedTokens.Code) => (
   <Code code={text} language={lang} />
 )
-const heading = (token: MarkedTokens.Heading, note: MarkdownNote) => (
-  <NoteHeader note={note} token={token} />
-)
+const heading = (token: MarkedTokens.Heading) => {
+  const { depth, text } = token
+  const headerLevel = `h${depth}` as ElementType
+  // Heading Level 1 is always handling differently
+  return depth > 1 ? <Heading as={headerLevel}>{text}</Heading> : null
+}
 const hr = () => <Hr />
 const image = ({ href }: MarkedTokens.Image) => <Image centerFit href={href} />
 const link = ({ href, text }: MarkedTokens.Link) => (

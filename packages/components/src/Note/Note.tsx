@@ -1,29 +1,29 @@
-import { Token as MarkedToken } from 'marked'
+import { Card, Flex, Heading } from '@chakra-ui/react'
 
+import OpenExternal from '../OpenExternal/OpenExternal'
 import Token from '../Token/Token'
-import useStyles from './Note.styles'
 import { NoteProps } from './Note.types'
 
-const filterHeader = (tokens: MarkedToken[]): MarkedToken[] => {
-  const firstHeadingIndex = tokens.findIndex(
-    ({ type }: MarkedToken) => type === 'heading'
-  )
-  return tokens.filter((_token, i) => firstHeadingIndex !== i)
-}
-
-export default function Note({ note, suppressHeader = false }: NoteProps) {
-  const { id, tokens } = note
-  const { card, root } = useStyles()
+export default function Note({ note }: NoteProps) {
+  const { externalUrl, id, source, title, tokens } = note
   const key = (index: number) => `${id}-${index}`
-  const filteredTokens = suppressHeader ? filterHeader(tokens) : tokens
 
+  const margins = { lg: '10%', md: '6%', sm: 1 }
   return (
-    <div className={root}>
-      <div className={card}>
-        {filteredTokens.map((token, index) => (
+    <Card.Root gap="2" ml={margins} mr={margins} mt={1}>
+      <Card.Header>
+        <Flex gap="2" justify="space-between">
+          <Heading as="h1">{title}</Heading>
+          {externalUrl && (
+            <OpenExternal noteId={id} source={source} url={externalUrl} />
+          )}
+        </Flex>
+      </Card.Header>
+      <Card.Body>
+        {tokens.map((token, index) => (
           <Token key={key(index)} note={note} token={token} />
         ))}
-      </div>
-    </div>
+      </Card.Body>
+    </Card.Root>
   )
 }
