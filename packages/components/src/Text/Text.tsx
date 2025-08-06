@@ -20,5 +20,7 @@ export default function Text(props: TextProps) {
   // if the child text has hashtags, those are extracted and rendered components
   const text = processChildForSpecialTokens(children)
 
-  return <TextElement key={uuidv4()}>{text}</TextElement>
+  // return <TextElement key={uuidv4()}>{text}</TextElement>
+  //return <Text>{text}</Text>
+  return ''
 }

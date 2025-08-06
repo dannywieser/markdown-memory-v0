@@ -1,4 +1,4 @@
-import { Heading } from '@chakra-ui/react'
+import { Heading, Text } from '@chakra-ui/react'
 import { MarkdownNote } from '@markdown-memory/markdown'
 import { MarkedToken, Tokens as MarkedTokens } from 'marked'
 import { ElementType } from 'react'
@@ -10,7 +10,6 @@ import Hr from '../Hr/Hr'
 import Image from '../Image/Image'
 import Link from '../Link/Link'
 import List from '../List/List'
-import Text from '../Text/Text'
 import Tokens from './Tokens'
 
 const tokenKey = uuidv4
@@ -49,41 +48,35 @@ const paragraph = ({ tokens }: MarkedTokens.Paragraph, note: MarkdownNote) => (
 )
 
 const text = (
-  {
-    text,
-    tokens,
-    type,
-  }: MarkedTokens.Em | MarkedTokens.Strong | MarkedTokens.Text,
+  { text, tokens }: MarkedTokens.Em | MarkedTokens.Strong | MarkedTokens.Text,
   note: MarkdownNote
 ) =>
   tokens ? (
-    <Text key={tokenKey()} variant={type}>
-      <Tokens note={note} tokens={tokens} />
-    </Text>
+    <Tokens note={note} tokens={tokens} />
   ) : (
-    <Text key={tokenKey()} variant={type}>
+    <Text display={'inline'} key={uuidv4()}>
       {text}
     </Text>
   )
 
 // TODO: figure out this typing
 const components = {
-  blockquote,
-  br,
-  code,
-  codespan: text,
-  del: text,
-  em: text,
-  escape: text,
+  // blockquote,
+  // br,
+  // code,
+  // codespan: text,
+  // del: text,
+  // em: text,
+  // escape: text,
   heading,
-  hr,
-  image,
-  link,
-  list,
-  paragraph,
-  space,
-  strong: text,
-  text,
+  // hr,
+  // image,
+  //link,
+  //list,
+  // paragraph,
+  //space,
+  // strong: text,
+  // text,
 } as unknown as {
   [key: string]: (token: MarkedToken, note?: MarkdownNote) => unknown
 }
