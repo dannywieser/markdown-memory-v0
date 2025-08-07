@@ -11,7 +11,13 @@ export default function Note({ note }: NoteProps) {
   return (
     <Card.Root gap="2" mb={1} ml={margins} mr={margins} mt={1}>
       <Card.Header>
-        <Flex gap="2" justify="space-between">
+        <Flex
+          borderBottomWidth="1px"
+          borderColor="gray.300"
+          borderStyle="solid"
+          gap="2"
+          justify="space-between"
+        >
           <Heading as="h1">{title}</Heading>
           {externalUrl && (
             <OpenExternal noteId={id} source={source} url={externalUrl} />
