@@ -1,5 +1,4 @@
 import { ExternalLink } from 'lucide-react'
-import { Tooltip } from 'react-tooltip'
 
 import { OpenExternalProps } from './OpenExternal.types'
 
@@ -9,7 +8,7 @@ export default function OpenExternal(props: OpenExternalProps) {
   const tooltipText =
     source === 'bear' ? 'Open in Bear' : 'Open in External Editor'
 
-  // TODO: how to use useStyles for the tooltip component?
+  // TODO: Tooltip
   return (
     <a
       data-tooltip-content={tooltipText}
@@ -17,7 +16,6 @@ export default function OpenExternal(props: OpenExternalProps) {
       href={url}
     >
       <ExternalLink />
-      <Tooltip id={tooltipId} />
     </a>
   )
 }

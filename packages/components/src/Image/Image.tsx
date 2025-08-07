@@ -1,23 +1,19 @@
-import useStyles from './Image.styles'
+import { Image as ChakraImage } from '@chakra-ui/react'
+
 import { ImageProps } from './Image.types'
 
-export default function Image({
-  centerFit = false,
-  h,
-  href,
-  op = 'noop',
-  w,
-}: ImageProps) {
-  const styles = useStyles()
+export default function Image({ h, href, op = 'noop', w }: ImageProps) {
   const width = w ? `&w=${w}` : ''
   const height = h ? `&h=${h}` : ''
   const imageUrl = `images/display?path=${href}&op=${op}${width}${height}`
 
-  return centerFit ? (
-    <div className={styles.imageContainer}>
-      <img alt="" className={styles.centerFit} src={imageUrl} />
-    </div>
-  ) : (
-    <img alt="" src={imageUrl} />
+  return (
+    <ChakraImage
+      fit="contain"
+      margin="auto"
+      maxWidth="50%"
+      rounded="md"
+      src={imageUrl}
+    />
   )
 }

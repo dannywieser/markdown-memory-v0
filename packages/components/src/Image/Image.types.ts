@@ -1,5 +1,4 @@
 export interface ImageProps {
-  centerFit?: boolean
   h?: number
   href: string
   op?: op

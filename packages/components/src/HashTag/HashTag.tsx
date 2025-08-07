@@ -22,7 +22,7 @@ export default function HashTag({ count, text, to = '' }: HashTagProps) {
       <Text fontSize="xx-small" fontWeight="extralight">
         {HASH_SYMBOL}
       </Text>
-      <Text color="primary" fontSize="small" fontWeight="bolder">
+      <Text color="secondary" fontSize="small" fontWeight="bolder">
         {text}
       </Text>
       <Count />

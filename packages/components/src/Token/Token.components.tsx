@@ -29,32 +29,6 @@ const heading = (token: MarkedTokens.Heading) => {
 }
 const hr = () => <Hr />
 const image = ({ href }: MarkedTokens.Image) => <Image centerFit href={href} />
-const link = ({ href, text }: MarkedTokens.Link) => (
-  <Link href={href} key={tokenKey()}>
-    {text}
-  </Link>
-)
-const list = ({ items, ordered }: MarkedTokens.List) => (
-  <List items={items} key={tokenKey()} ordered={ordered} />
-)
-const space = () => (
-  <>
-    <br />
-    <br />
-  </>
-)
-
-const text = (
-  { text, tokens }: MarkedTokens.Em | MarkedTokens.Strong | MarkedTokens.Text,
-  note: MarkdownNote
-) =>
-  tokens ? (
-    <Tokens note={note} tokens={tokens} />
-  ) : (
-    <Text display={'inline'} key={uuidv4()}>
-      {text}
-    </Text>
-  )
 
 // TODO: figure out this typing
 const components = {
