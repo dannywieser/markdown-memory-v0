@@ -1,20 +1,22 @@
 import {
   Card,
   Icon as ChakraIcon,
+  Em,
   Flex,
   Heading,
   Link,
   LinkOverlay,
+  Text,
 } from '@chakra-ui/react'
 
 import Icon from '../Icon/Icon'
-import Text from '../Text/Text'
 import { NoteSummaryCardProps } from './NoteSummaryCard.types'
 
 export default function NoteSummaryCard(props: NoteSummaryCardProps) {
   const { cardName, href, icon, notes } = props
 
   const hasNotes = notes && notes.length > 0
+  console.log(notes)
   const ListNoteTitles = () =>
     notes && (
       <ul>
@@ -27,7 +29,7 @@ export default function NoteSummaryCard(props: NoteSummaryCardProps) {
     )
 
   return (
-    <Card.Root>
+    <Card.Root minWidth="sm">
       <Card.Header>
         <Flex gap="4" justify="space-between">
           <Heading size="sm">{cardName}</Heading>
@@ -39,7 +41,7 @@ export default function NoteSummaryCard(props: NoteSummaryCardProps) {
         </Flex>
       </Card.Header>
       <Card.Body color="fg.muted">
-        {!hasNotes && <Text variant="em">No notes found</Text>}
+        {!hasNotes && <Em>No notes found</Em>}
         <ListNoteTitles />
       </Card.Body>
       <Card.Footer justifyContent="flex-end">

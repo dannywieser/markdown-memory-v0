@@ -9,6 +9,10 @@ import '@fontsource/anonymous-pro'
 export const system = createSystem(defaultConfig, {
   theme: {
     tokens: {
+      // colors: {
+      //   primary: { value: '#0FEE0F' },
+      //   secondary: { value: '#EE0F0F' },
+      // },
       fonts: {
         body: { value: 'Anonymous Pro' },
         heading: { value: 'Anonymous Pro' },

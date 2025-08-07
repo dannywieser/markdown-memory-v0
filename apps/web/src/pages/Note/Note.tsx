@@ -1,5 +1,4 @@
 import { Note } from '@markdown-memory/components'
-import { Header } from '@markdown-memory/components'
 import React from 'react'
 import { useParams } from 'react-router'
 
@@ -12,10 +11,5 @@ export default function NotePage() {
     return null
   }
 
-  return (
-    <>
-      <Header title={noteData.title} />
-      <Note note={noteData} suppressHeader={true} />
-    </>
-  )
+  return <Note note={noteData} suppressHeader={true} />
 }

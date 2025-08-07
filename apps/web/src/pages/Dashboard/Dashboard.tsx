@@ -1,4 +1,4 @@
-import { SimpleGrid, Stat } from '@chakra-ui/react'
+import { SimpleGrid } from '@chakra-ui/react'
 import {
   CenteredSpinner,
   EntriesOnThisDay,
@@ -8,7 +8,6 @@ import {
 import { getAllGroupNames, loadGroups } from '@markdown-memory/profile'
 import { useStats } from '@markdown-memory/services'
 import { currentDateNoYear } from '@markdown-memory/utilities/date'
-import React from 'react'
 
 import useNotesOnDayByGroup from '../../hooks/useNotesOnDayByGroup/useNotesOnDayByGroup'
 
@@ -33,28 +32,26 @@ export default function Dashboard() {
   const groupIcon = (groupName: string) =>
     groups.find(({ name }) => name === groupName)?.icon
 
-  if (isPending || notesPending || !stats || !notesByGroup) {
+  if (isPending || notesPending || !stats) {
     return <CenteredSpinner />
   }
 
+  const margins = { lg: '10%', md: '6%', sm: '50px' }
   return (
-    <SimpleGrid gap="2" minChildWidth="sm" p="2">
-      <Stat.Root borderWidth="1px" p="2" rounded="sm">
-        <Stat.Label>Entries | All</Stat.Label>
-        <Stat.ValueText>{stats.totalEntries}</Stat.ValueText>
-        <FrequencyMap dateMap={stats.dateMap} />
-      </Stat.Root>
-
+    <SimpleGrid gap="2" ml={margins} mr={margins} p="2">
+      <FrequencyMap stats={stats} />
       {/* <EntriesThisWeek />*/}
       <EntriesOnThisDay />
-      {notesByGroup.map(({ groupName, notes } = defaultValue) => (
-        <NoteSummaryCard
-          cardName={`${groupName} | ${day}`}
-          href={`on-this-day/${groupName}`}
-          icon={groupIcon(groupName)}
-          notes={notes}
-        />
-      ))}
+      {notesByGroup.map((groupNotes) =>
+        groupNotes ? (
+          <NoteSummaryCard
+            cardName={`${groupNotes.groupName} | ${day}`}
+            href={`on-this-day/${groupNotes.groupName}`}
+            icon={groupIcon(groupNotes.groupName)}
+            notes={groupNotes.notes}
+          />
+        ) : null
+      )}
     </SimpleGrid>
   )
 }

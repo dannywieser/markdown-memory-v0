@@ -1,7 +1,6 @@
 import { ExternalLink } from 'lucide-react'
 import { Tooltip } from 'react-tooltip'
 
-import { theme } from '../theme/theme'
 import { OpenExternalProps } from './OpenExternal.types'
 
 export default function OpenExternal(props: OpenExternalProps) {
@@ -18,14 +17,7 @@ export default function OpenExternal(props: OpenExternalProps) {
       href={url}
     >
       <ExternalLink />
-      <Tooltip
-        id={tooltipId}
-        style={{
-          backgroundColor: theme.colors.primary,
-          color: theme.colors.contrastText,
-          fontFamily: theme.fonts.primary,
-        }}
-      />
+      <Tooltip id={tooltipId} />
     </a>
   )
 }

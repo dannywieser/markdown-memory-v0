@@ -1,4 +1,4 @@
-import { Provider as ChakraProvider } from '@markdown-memory/components'
+import { Provider as ChakraProvider, system } from '@markdown-memory/components'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import React from 'react'

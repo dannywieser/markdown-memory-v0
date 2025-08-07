@@ -1,8 +1,6 @@
-export * from './AppHeader'
 export { default as CenteredSpinner } from './CenteredSpinner/CenteredSpinner'
 export * from './EntriesOnThisDayCard'
 export * from './FrequencyMap'
 export * from './Note'
 export * from './NoteSummaryCard'
-export * from './theme/theme'
 export * from './ui/provider'

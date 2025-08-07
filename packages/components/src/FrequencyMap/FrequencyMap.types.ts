@@ -1,4 +1,4 @@
-import type { DateMap } from '@markdown-memory/services'
+import type { Stats } from '@markdown-memory/services'
 
 export interface FrequencyMapItemProps {
   createdCount: number
@@ -7,5 +7,5 @@ export interface FrequencyMapItemProps {
 }
 
 export interface FrequencyMapProps {
-  dateMap: DateMap
+  stats: Stats
 }

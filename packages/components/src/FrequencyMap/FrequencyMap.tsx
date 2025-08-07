@@ -1,4 +1,4 @@
-import { Box, Flex, SimpleGrid } from '@chakra-ui/react'
+import { Box, Flex, SimpleGrid, Stat } from '@chakra-ui/react'
 import { DateMap } from '@markdown-memory/services'
 
 import { FrequencyMapItemProps, FrequencyMapProps } from './FrequencyMap.types'
@@ -48,21 +48,27 @@ const FrequencyMapItem = ({
   )
 }
 
-export default function FrequencyMap({ dateMap }: FrequencyMapProps) {
+export default function FrequencyMap({ stats }: FrequencyMapProps) {
+  const { dateMap, totalEntries } = stats
   const entries = Object.keys(dateMap).length
   const columns = entries > 50 ? 50 : entries
   const sorted = sortDateMap(dateMap)
 
   return (
-    <SimpleGrid columns={columns} gap="3px">
-      {sorted.map(([key, { createdCount, modifiedCount }]) => (
-        <FrequencyMapItem
-          createdCount={createdCount}
-          date={key}
-          key={key}
-          modifiedCount={modifiedCount}
-        />
-      ))}
-    </SimpleGrid>
+    <Stat.Root borderWidth="1px" p="2" rounded="sm">
+      <Stat.Label>Entries | All</Stat.Label>
+      <Stat.ValueText>{totalEntries}</Stat.ValueText>
+
+      <SimpleGrid columns={columns} gap="3px">
+        {sorted.map(([key, { createdCount, modifiedCount }]) => (
+          <FrequencyMapItem
+            createdCount={createdCount}
+            date={key}
+            key={key}
+            modifiedCount={modifiedCount}
+          />
+        ))}
+      </SimpleGrid>
+    </Stat.Root>
   )
 }
