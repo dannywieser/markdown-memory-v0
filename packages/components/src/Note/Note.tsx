@@ -18,7 +18,7 @@ export default function Note({ note }: NoteProps) {
           )}
         </Flex>
       </Card.Header>
-      <Card.Body>
+      <Card.Body pt={0}>
         <Tokens tokens={tokens} />
       </Card.Body>
     </Card.Root>

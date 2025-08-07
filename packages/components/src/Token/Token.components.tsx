@@ -43,9 +43,6 @@ const space = () => (
     <br />
   </>
 )
-const paragraph = ({ tokens }: MarkedTokens.Paragraph, note: MarkdownNote) => (
-  <Tokens note={note} tokens={tokens} />
-)
 
 const text = (
   { text, tokens }: MarkedTokens.Em | MarkedTokens.Strong | MarkedTokens.Text,

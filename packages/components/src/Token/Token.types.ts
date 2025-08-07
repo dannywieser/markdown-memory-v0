@@ -8,5 +8,5 @@ export interface TokenProps {
 
 export interface TokensProps {
   note?: MarkdownNote
-  tokens: Token[]
+  tokens?: Token[]
 }
