@@ -1,4 +1,4 @@
-import { Note } from '@markdown-memory/components'
+import { CenteredSpinner, Note } from '@markdown-memory/components'
 import { currentDateNoYear } from '@markdown-memory/utilities/date'
 import { useParams } from 'react-router'
 
@@ -11,8 +11,7 @@ export default function Today() {
   const { notes = [] } = data[0] ?? {}
 
   if (pending) {
-    // TODO: loading screen
-    return <>loading</>
+    return <CenteredSpinner />
   }
 
   return notes.map((note) => <Note key={note.id} note={note} showLink={true} />)
