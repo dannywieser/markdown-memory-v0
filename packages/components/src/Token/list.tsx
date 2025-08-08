@@ -20,7 +20,7 @@ export default function list(token: MarkedTokens.List) {
   console.log(token)
   return (
     <List.Root
-      align="center"
+      align="start"
       as={listType}
       listStylePosition="inside"
       variant={variant}

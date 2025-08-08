@@ -37,12 +37,8 @@ const image = ({ href }: MarkedTokens.Image) => <Image centerFit href={href} />
 
 const link = ({ href, tokens }: MarkedTokens.Link) => {
   const style = href.includes('/note') ? 'internal' : 'external'
-  // backgroundColor: theme.colors.slate[200],
-  // color: theme.colors.blue[600],
-  // textDecoration: 'none',
-
   const color = style === 'internal' ? 'secondary' : undefined
-  const backgroundColor = style === 'internal' ? 'gray.100' : undefined
+  const backgroundColor = style === 'internal' ? 'gray.200' : undefined
 
   return (
     <Link
@@ -65,18 +61,19 @@ const p = (token: MarkedTokens.Paragraph, note?: MarkdownNote) => (
 const space = () => <br />
 
 const text = (token: Token) => {
-  const typeToken = token as MarkedTokens.Text
-  const fontWeight = token.type === 'strong' ? 'bold' : 'normal'
+  const typedToken = token as MarkedTokens.Text
+  const as = token.type === 'strong' ? 'strong' : 'span'
   const Element = token.type === 'em' ? Em : Text
-  const text = processChildForSpecialTokens(typeToken.text)
+  const text = processChildForSpecialTokens(typedToken.text)
+
   return (
     <Element
-      as="span"
-      fontWeight={fontWeight}
+      as={as}
       key={uuidv4()}
-      whiteSpace={'pre-line'}
+      whiteSpace="pre-line"
+      wordBreak="break-word"
     >
-      {text}
+      {typedToken.tokens ? <Tokens tokens={typedToken.tokens} /> : text}
     </Element>
   )
 }
@@ -97,6 +94,8 @@ export default function Tokens({ note, tokens }: TokensProps) {
           return text(token)
         case 'heading':
           return heading(token as MarkedTokens.Heading)
+        case 'hr':
+          return <hr />
         case 'image':
           return image(token as MarkedTokens.Image)
         case 'link':

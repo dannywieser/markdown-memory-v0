@@ -7,11 +7,13 @@ export default function Image({ h, href, op = 'noop', w }: ImageProps) {
   const height = h ? `&h=${h}` : ''
   const imageUrl = `images/display?path=${href}&op=${op}${width}${height}`
 
+  const maxWidth = { lg: '50%', md: '75%', sm: '100%' }
+
   return (
     <ChakraImage
       fit="contain"
       margin="auto"
-      maxWidth="50%"
+      maxWidth={maxWidth}
       rounded="md"
       src={imageUrl}
     />
