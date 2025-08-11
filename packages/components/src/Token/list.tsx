@@ -1,6 +1,7 @@
 import { Icon, List } from '@chakra-ui/react'
 import { CircleCheck, CircleDashed } from 'lucide-react'
 import { Tokens as MarkedTokens } from 'marked'
+import { v4 as uuidv4 } from 'uuid'
 
 import Tokens from './Tokens'
 
@@ -17,16 +18,16 @@ export default function list(token: MarkedTokens.List) {
   const listType = ordered ? 'ol' : 'ul'
   const taskList = items.some(({ task }) => task === true)
   const variant = taskList ? 'plain' : 'marker'
-  console.log(token)
   return (
     <List.Root
       align="start"
       as={listType}
+      key={uuidv4()}
       listStylePosition="inside"
       variant={variant}
     >
       {items.map(({ checked, task, tokens }) => (
-        <List.Item>
+        <List.Item key={uuidv4()}>
           {task && checked && <TodoItemCompleted />}
           {task && !checked && (
             <List.Indicator asChild>

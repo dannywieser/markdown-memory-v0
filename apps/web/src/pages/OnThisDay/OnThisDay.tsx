@@ -14,5 +14,7 @@ export default function Today() {
     return <CenteredSpinner />
   }
 
-  return notes.map((note) => <Note key={note.id} note={note} showLink={true} />)
+  return notes.map((note) => (
+    <Note key={note.id} note={note} showLink={true} searchTerm={day} />
+  ))
 }

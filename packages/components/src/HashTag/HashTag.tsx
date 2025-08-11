@@ -18,11 +18,16 @@ export default function HashTag({ count, text, to = '' }: HashTagProps) {
   }
 
   const Tag = () => (
-    <Badge colorPalette="gray" size="lg" variant="subtle">
-      <Text fontSize="xx-small" fontWeight="extralight">
+    <Badge
+      colorPalette="gray"
+      backgroundColor="gray.200"
+      size="lg"
+      variant="subtle"
+    >
+      <Text as="span" fontSize="xx-small" fontWeight="extralight">
         {HASH_SYMBOL}
       </Text>
-      <Text color="secondary" fontSize="small" fontWeight="bolder">
+      <Text as="span" color="secondary" fontSize="small" fontWeight="bolder">
         {text}
       </Text>
       <Count />

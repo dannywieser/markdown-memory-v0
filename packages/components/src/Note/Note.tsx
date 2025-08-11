@@ -4,7 +4,7 @@ import OpenExternal from '../OpenExternal/OpenExternal'
 import Tokens from '../Token/Tokens'
 import { NoteProps } from './Note.types'
 
-export default function Note({ note }: NoteProps) {
+export default function Note({ note, searchTerm }: NoteProps) {
   const { externalUrl, id, source, title, tokens } = note
 
   const margins = { lg: '10%', md: '6%', sm: 0 }
@@ -25,7 +25,7 @@ export default function Note({ note }: NoteProps) {
         </Flex>
       </Card.Header>
       <Card.Body pt={0}>
-        <Tokens tokens={tokens} />
+        <Tokens tokens={tokens} searchTerm={searchTerm} />
       </Card.Body>
     </Card.Root>
   )

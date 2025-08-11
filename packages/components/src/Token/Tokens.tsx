@@ -1,4 +1,12 @@
-import { Blockquote, Code, Em, Heading, Link, Text } from '@chakra-ui/react'
+import {
+  Blockquote,
+  Code,
+  Em,
+  Heading,
+  Link,
+  Text,
+  Highlight,
+} from '@chakra-ui/react'
 import { MarkdownNote } from '@markdown-memory/markdown'
 import { Tokens as MarkedTokens, Token } from 'marked'
 import { ElementType } from 'react'
@@ -10,7 +18,7 @@ import { TokensProps } from './Token.types'
 import { processChildForSpecialTokens } from './Token.util'
 
 const blockquote = (token: MarkedTokens.Blockquote) => (
-  <Blockquote.Root>
+  <Blockquote.Root key={uuidv4()}>
     <Blockquote.Content>
       <Tokens tokens={token.tokens} />
     </Blockquote.Content>
@@ -18,7 +26,7 @@ const blockquote = (token: MarkedTokens.Blockquote) => (
 )
 
 const code = ({ text }: MarkedTokens.Code) => (
-  <Code as="pre" variant="solid">
+  <Code as="pre" key={uuidv4()} variant="solid">
     {text}
   </Code>
 )
@@ -45,6 +53,7 @@ const link = ({ href, tokens }: MarkedTokens.Link) => {
       backgroundColor={backgroundColor}
       color={color}
       href={href}
+      key={uuidv4()}
       variant="underline"
     >
       <Tokens tokens={tokens} />
@@ -52,19 +61,24 @@ const link = ({ href, tokens }: MarkedTokens.Link) => {
   )
 }
 
-const p = (token: MarkedTokens.Paragraph, note?: MarkdownNote) => (
+const p = (
+  token: MarkedTokens.Paragraph,
+  note?: MarkdownNote,
+  searchTerm?: string
+) => (
   <p key={uuidv4()}>
-    <Tokens note={note} tokens={token.tokens} />
+    <Tokens note={note} tokens={token.tokens} searchTerm={searchTerm} />
   </p>
 )
 
-const space = () => <br />
+const space = () => <br key={uuidv4()} />
 
-const text = (token: Token) => {
+const text = (token: Token, searchTerm?: string) => {
   const typedToken = token as MarkedTokens.Text
   const as = token.type === 'strong' ? 'strong' : 'span'
   const Element = token.type === 'em' ? Em : Text
-  const text = processChildForSpecialTokens(typedToken.text)
+  console.log('text', searchTerm)
+  const text = processChildForSpecialTokens(typedToken.text, searchTerm)
 
   return (
     <Element
@@ -78,7 +92,7 @@ const text = (token: Token) => {
   )
 }
 
-export default function Tokens({ note, tokens }: TokensProps) {
+export default function Tokens({ note, tokens, searchTerm }: TokensProps) {
   return (
     tokens &&
     tokens.map((token) => {
@@ -91,7 +105,7 @@ export default function Tokens({ note, tokens }: TokensProps) {
         case 'escape':
         case 'strong':
         case 'text':
-          return text(token)
+          return text(token, searchTerm)
         case 'heading':
           return heading(token as MarkedTokens.Heading)
         case 'hr':
@@ -103,7 +117,7 @@ export default function Tokens({ note, tokens }: TokensProps) {
         case 'list':
           return list(token as MarkedTokens.List)
         case 'paragraph':
-          return p(token as MarkedTokens.Paragraph, note)
+          return p(token as MarkedTokens.Paragraph, note, searchTerm)
         case 'space':
           return space()
         default:

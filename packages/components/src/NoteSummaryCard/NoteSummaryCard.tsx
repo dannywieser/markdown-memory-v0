@@ -16,7 +16,6 @@ export default function NoteSummaryCard(props: NoteSummaryCardProps) {
   const { cardName, href, icon, notes } = props
 
   const hasNotes = notes && notes.length > 0
-  console.log(notes)
   const ListNoteTitles = () =>
     notes && (
       <ul>
