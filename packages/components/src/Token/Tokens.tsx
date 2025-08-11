@@ -1,12 +1,4 @@
-import {
-  Blockquote,
-  Code,
-  Em,
-  Heading,
-  Link,
-  Text,
-  Highlight,
-} from '@chakra-ui/react'
+import { Blockquote, Code, Em, Heading, Link, Text } from '@chakra-ui/react'
 import { MarkdownNote } from '@markdown-memory/markdown'
 import { Tokens as MarkedTokens, Token } from 'marked'
 import { ElementType } from 'react'
