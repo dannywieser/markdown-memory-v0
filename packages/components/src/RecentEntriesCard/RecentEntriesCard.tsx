@@ -28,8 +28,6 @@ const buildRecentStats = (
   const createdDifference = calcDifference(created, trailingCreated)
   const modifiedDifference = calcDifference(modified, trailingModified)
 
-  console.log(created, trailingCreated)
-
   const count = type === 'modified' ? modified : created
   const difference =
     type === 'modified' ? modifiedDifference : createdDifference
@@ -55,12 +53,12 @@ export function RecentEntriesCard(props: RecentEntriesCardProps) {
     difference < 0 ? (
       <Badge colorPalette="red" variant="plain" px="0">
         <Stat.DownIndicator />
-        {difference}%
+        {Math.abs(difference)}%
       </Badge>
     ) : (
       <Badge colorPalette="green" variant="plain" px="0">
-        <Stat.UpIndicator />
-        {difference}%
+        {difference > 0 ? <Stat.UpIndicator /> : null}
+        {difference > 0 ? `${difference}%` : '-'}
       </Badge>
     )
 

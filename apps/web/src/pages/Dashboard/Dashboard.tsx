@@ -42,6 +42,7 @@ export default function Dashboard() {
     <SimpleGrid gap="2" ml={margins} mr={margins} p="2">
       <FrequencyMap stats={stats} />
       <RecentEntriesCard stats={stats} days={7} type="created" />
+      <RecentEntriesCard stats={stats} days={7} type="modified" />
       <EntriesOnThisDayCard />
       {notesByGroup.map((groupNotes) =>
         groupNotes ? (
