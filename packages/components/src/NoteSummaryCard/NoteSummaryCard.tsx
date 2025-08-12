@@ -29,7 +29,7 @@ export default function NoteSummaryCard(props: NoteSummaryCardProps) {
 
   return (
     <Card.Root minWidth="sm">
-      <Card.Header>
+      <Card.Header padding={2}>
         <Flex gap="4" justify="space-between">
           <Heading size="sm">{cardName}</Heading>
           {icon && (
@@ -39,11 +39,11 @@ export default function NoteSummaryCard(props: NoteSummaryCardProps) {
           )}
         </Flex>
       </Card.Header>
-      <Card.Body color="fg.muted">
+      <Card.Body color="fg.muted" padding={2}>
         {!hasNotes && <Em>No notes found</Em>}
         <ListNoteTitles />
       </Card.Body>
-      <Card.Footer justifyContent="flex-end">
+      <Card.Footer justifyContent="flex-end" padding={2}>
         {hasNotes && (
           <LinkOverlay asChild href="#">
             <Link href={href} variant="underline">

@@ -13,6 +13,14 @@ const TodoItemCompleted = () => (
   </List.Indicator>
 )
 
+const TodoItemIncomplete = () => (
+  <List.Indicator asChild>
+    <Icon size="sm">
+      <CircleDashed />
+    </Icon>
+  </List.Indicator>
+)
+
 export default function list(token: MarkedTokens.List) {
   const { items, ordered } = token
   const listType = ordered ? 'ol' : 'ul'
@@ -29,13 +37,7 @@ export default function list(token: MarkedTokens.List) {
       {items.map(({ checked, task, tokens }) => (
         <List.Item key={uuidv4()}>
           {task && checked && <TodoItemCompleted />}
-          {task && !checked && (
-            <List.Indicator asChild>
-              <Icon size="sm">
-                <CircleDashed />
-              </Icon>
-            </List.Indicator>
-          )}
+          {task && !checked && <TodoItemIncomplete />}
           <Tokens tokens={tokens} />
         </List.Item>
       ))}

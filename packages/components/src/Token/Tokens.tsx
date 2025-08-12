@@ -33,7 +33,7 @@ const heading = (token: MarkedTokens.Heading) => {
   ) : null
 }
 
-const image = ({ href }: MarkedTokens.Image) => <Image centerFit href={href} />
+const image = ({ href }: MarkedTokens.Image) => <Image href={href} />
 
 const link = ({ href, tokens }: MarkedTokens.Link) => {
   const style = href.includes('/note') ? 'internal' : 'external'

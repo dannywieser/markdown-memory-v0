@@ -1,7 +1,8 @@
 import { SimpleGrid } from '@chakra-ui/react'
 import {
   CenteredSpinner,
-  EntriesOnThisDay,
+  EntriesOnThisDayCard,
+  RecentEntriesCard,
   FrequencyMap,
   NoteSummaryCard,
 } from '@markdown-memory/components'
@@ -40,8 +41,8 @@ export default function Dashboard() {
   return (
     <SimpleGrid gap="2" ml={margins} mr={margins} p="2">
       <FrequencyMap stats={stats} />
-      {/* <EntriesThisWeek />*/}
-      <EntriesOnThisDay />
+      <RecentEntriesCard stats={stats} days={7} type="created" />
+      <EntriesOnThisDayCard />
       {notesByGroup.map((groupNotes) =>
         groupNotes ? (
           <NoteSummaryCard

@@ -4,7 +4,7 @@ import { currentDateNoYear } from '@markdown-memory/utilities/date'
 
 import HashTag from '../HashTag/HashTag'
 
-export function EntriesOnThisDay() {
+export function EntriesOnThisDayCard() {
   const day = currentDateNoYear()
   const { data, isPending } = useDay({ day })
 
@@ -13,7 +13,7 @@ export function EntriesOnThisDay() {
   }
 
   const { entries, tags } = data
-  const label = `On This Day | ${day}`
+  const label = `on this day | ${day}`
 
   return (
     <Stat.Root borderWidth="1px" p="2" rounded="sm">
