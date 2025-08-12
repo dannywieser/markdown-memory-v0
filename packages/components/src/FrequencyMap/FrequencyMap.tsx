@@ -55,7 +55,7 @@ export default function FrequencyMap({ stats }: FrequencyMapProps) {
   const sorted = sortDateMap(dateMap)
 
   return (
-    <Stat.Root borderWidth="1px" p="2" rounded="sm">
+    <Stat.Root borderWidth="1px" p="2" rounded="sm" h="full">
       <Stat.Label>entries | all</Stat.Label>
       <Stat.ValueText>{totalEntries}</Stat.ValueText>
 

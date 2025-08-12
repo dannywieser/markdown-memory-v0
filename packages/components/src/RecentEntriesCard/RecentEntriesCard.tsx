@@ -63,7 +63,7 @@ export function RecentEntriesCard(props: RecentEntriesCardProps) {
     )
 
   return (
-    <Stat.Root borderWidth="1px" p="2" rounded="sm">
+    <Stat.Root borderWidth="1px" p="2" rounded="sm" h="full">
       <Stat.Label>{label}</Stat.Label>
       <Stat.ValueText>{count}</Stat.ValueText>
       {indicator}

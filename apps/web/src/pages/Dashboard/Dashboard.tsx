@@ -1,4 +1,4 @@
-import { SimpleGrid } from '@chakra-ui/react'
+import { Grid, GridItem, SimpleGrid } from '@chakra-ui/react'
 import {
   CenteredSpinner,
   EntriesOnThisDayCard,
@@ -37,23 +37,40 @@ export default function Dashboard() {
     return <CenteredSpinner />
   }
 
-  const margins = { lg: '10%', md: '6%', sm: '50px' }
   return (
-    <SimpleGrid gap="2" ml={margins} mr={margins} p="2">
-      <FrequencyMap stats={stats} />
-      <RecentEntriesCard stats={stats} days={7} type="created" />
-      <RecentEntriesCard stats={stats} days={7} type="modified" />
-      <EntriesOnThisDayCard />
-      {notesByGroup.map((groupNotes) =>
+    <Grid
+      templateColumns={{
+        base: 'repeat(6, 1fr)',
+      }}
+      gap={4}
+      p="2"
+      alignItems="stretch"
+      mx={{ base: 1, md: 6, lg: 12 }}
+    >
+      <GridItem colSpan={{ base: 6, md: 5 }} h="full" rowSpan={2}>
+        <FrequencyMap stats={stats} />
+      </GridItem>
+      <GridItem h="full" colSpan={{ base: 6, md: 1 }}>
+        <RecentEntriesCard stats={stats} days={7} type="created" />
+      </GridItem>
+      <GridItem h="full" colSpan={{ base: 6, md: 1 }}>
+        <RecentEntriesCard stats={stats} days={7} type="modified" />
+      </GridItem>
+      <GridItem colSpan={{ base: 6 }} h="full">
+        <EntriesOnThisDayCard />
+      </GridItem>
+      {notesByGroup.map((groupNotes, idx) =>
         groupNotes ? (
-          <NoteSummaryCard
-            cardName={`${groupNotes.groupName} | ${day}`}
-            href={`on-this-day/${groupNotes.groupName}`}
-            icon={groupIcon(groupNotes.groupName)}
-            notes={groupNotes.notes}
-          />
+          <GridItem key={idx} colSpan={{ base: 6, md: 2, lg: 2 }} h="full">
+            <NoteSummaryCard
+              cardName={`${groupNotes.groupName} | ${day}`}
+              href={`on-this-day/${groupNotes.groupName}`}
+              icon={groupIcon(groupNotes.groupName)}
+              notes={groupNotes.notes}
+            />
+          </GridItem>
         ) : null
       )}
-    </SimpleGrid>
+    </Grid>
   )
 }

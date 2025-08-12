@@ -28,7 +28,7 @@ export default function NoteSummaryCard(props: NoteSummaryCardProps) {
     )
 
   return (
-    <Card.Root minWidth="sm">
+    <Card.Root h="full">
       <Card.Header padding={2}>
         <Flex gap="4" justify="space-between">
           <Heading size="sm">{cardName}</Heading>
