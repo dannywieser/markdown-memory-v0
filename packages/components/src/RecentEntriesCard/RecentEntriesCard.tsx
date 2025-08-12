@@ -10,8 +10,11 @@ import {
   getTrailingDateEntries,
 } from '@markdown-memory/services'
 
-const calcDifference = (current: number, trailing: number) =>
-  Math.round(((current - trailing) / trailing) * 100)
+const calcDifference = (current: number, trailing: number) => {
+  const diff = current - trailing
+  const diffPercent = Math.round((diff / trailing) * 100)
+  return { diff, diffPercent }
+}
 
 const buildRecentStats = (
   dateMap: DateMap,
@@ -32,7 +35,7 @@ const buildRecentStats = (
   const difference =
     type === 'modified' ? modifiedDifference : createdDifference
 
-  return { count, difference }
+  return { count, ...difference }
 }
 
 export function RecentEntriesCard(props: RecentEntriesCardProps) {
@@ -42,7 +45,7 @@ export function RecentEntriesCard(props: RecentEntriesCardProps) {
     type,
   } = props
 
-  const { count, difference } = buildRecentStats(dateMap, days, type)
+  const { count, diff, diffPercent } = buildRecentStats(dateMap, days, type)
 
   const label =
     type === 'created'
@@ -50,15 +53,15 @@ export function RecentEntriesCard(props: RecentEntriesCardProps) {
       : `modified | past ${days} days`
 
   const indicator =
-    difference < 0 ? (
+    diff < 0 ? (
       <Badge colorPalette="red" variant="plain" px="0">
         <Stat.DownIndicator />
-        {Math.abs(difference)}%
+        {Math.abs(diffPercent)}% ({diff})
       </Badge>
     ) : (
       <Badge colorPalette="green" variant="plain" px="0">
-        {difference > 0 ? <Stat.UpIndicator /> : null}
-        {difference > 0 ? `${difference}%` : '-'}
+        {diff > 0 ? <Stat.UpIndicator /> : null}
+        {diff > 0 ? `${diffPercent}% (+${diff})` : '-'}
       </Badge>
     )
 

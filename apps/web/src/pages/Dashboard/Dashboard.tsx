@@ -12,14 +12,6 @@ import { currentDateNoYear } from '@markdown-memory/utilities/date'
 
 import useNotesOnDayByGroup from '../../hooks/useNotesOnDayByGroup/useNotesOnDayByGroup'
 
-// TODO:
-//   - random note
-//   - AI summary of on this day
-//.  - total tags
-//. - pinned notes
-
-// next: need to move hooks/service types into package
-
 export default function Dashboard() {
   const { data: stats, isPending } = useStats()
 

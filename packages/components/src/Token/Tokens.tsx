@@ -23,12 +23,13 @@ const code = ({ text }: MarkedTokens.Code) => (
   </Code>
 )
 
-const heading = (token: MarkedTokens.Heading) => {
+const heading = (token: MarkedTokens.Heading, searchTerm: string) => {
   const { depth, text } = token
   const headingType = `h${depth}` as ElementType
+  const processedText = processChildForSpecialTokens(text, searchTerm)
   return depth > 1 ? (
     <Heading as={headingType} key={uuidv4()}>
-      {text}
+      {processedText}
     </Heading>
   ) : null
 }
@@ -69,7 +70,6 @@ const text = (token: Token, searchTerm?: string) => {
   const typedToken = token as MarkedTokens.Text
   const as = token.type === 'strong' ? 'strong' : 'span'
   const Element = token.type === 'em' ? Em : Text
-  console.log('text', searchTerm)
   const text = processChildForSpecialTokens(typedToken.text, searchTerm)
 
   return (
@@ -99,7 +99,7 @@ export default function Tokens({ note, tokens, searchTerm }: TokensProps) {
         case 'text':
           return text(token, searchTerm)
         case 'heading':
-          return heading(token as MarkedTokens.Heading)
+          return heading(token as MarkedTokens.Heading, searchTerm)
         case 'hr':
           return <hr />
         case 'image':

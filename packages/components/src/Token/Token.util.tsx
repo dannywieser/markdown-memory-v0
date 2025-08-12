@@ -86,7 +86,11 @@ export function processChildForSpecialTokens(
       updatedChildren.push(<HashTag key={uuidv4()} text={text} />)
     }
     if (type === 'searchterm') {
-      updatedChildren.push(<Mark variant={'solid'}>{text}</Mark>)
+      updatedChildren.push(
+        <Mark variant={'subtle'} colorPalette="yellow">
+          {text}
+        </Mark>
+      )
     }
 
     lastIndex = index + length
