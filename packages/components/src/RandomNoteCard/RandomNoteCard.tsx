@@ -1,5 +1,6 @@
 import {
   Card,
+  Icon as ChakraIcon,
   Flex,
   Heading,
   Link,
@@ -8,6 +9,7 @@ import {
 } from '@chakra-ui/react'
 import { useNote } from '@markdown-memory/services'
 import Tokens from '../Token/Tokens'
+import Icon from '../Icon/Icon'
 
 export function RandomNoteCard() {
   const { data: randomNote, isPending } = useNote('random')
@@ -24,6 +26,9 @@ export function RandomNoteCard() {
       <Card.Header padding={2}>
         <Flex gap="4" justify="space-between">
           <Heading size="sm">{headingText}</Heading>
+          <ChakraIcon marginEnd="auto" size="lg">
+            <Icon name={'Dices'} />
+          </ChakraIcon>
         </Flex>
       </Card.Header>
       <Card.Body color="fg.muted" padding={2}>
