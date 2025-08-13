@@ -16,7 +16,7 @@ const fetchNotesByDayAndGroup = async (
   return { day, groupName, notes }
 }
 
-export default function useNotesOnDayByGroup({
+export function useNotesOnDayByGroup({
   day,
   groups,
 }: UseNotesOnDayByGroupProps) {

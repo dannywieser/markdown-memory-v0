@@ -1,8 +1,8 @@
 import { CenteredSpinner, Note } from '@markdown-memory/components'
 import { currentDateNoYear } from '@markdown-memory/utilities/date'
+import { useNotesOnDayByGroup } from '@markdown-memory/services'
 import { useParams } from 'react-router'
 
-import useNotesOnDayByGroup from '../../hooks/useNotesOnDayByGroup/useNotesOnDayByGroup'
 export default function Today() {
   const { groupName } = useParams()
   const day = currentDateNoYear()

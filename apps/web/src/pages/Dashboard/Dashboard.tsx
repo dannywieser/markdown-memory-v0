@@ -9,10 +9,9 @@ import {
   Error,
 } from '@markdown-memory/components'
 import { getAllGroupNames, loadGroups } from '@markdown-memory/profile'
-import { useStats } from '@markdown-memory/services'
+import { useStats, useNotesOnDayByGroup } from '@markdown-memory/services'
 import { currentDateNoYear } from '@markdown-memory/utilities/date'
 
-import useNotesOnDayByGroup from '../../hooks/useNotesOnDayByGroup/useNotesOnDayByGroup'
 export default function Dashboard() {
   const {
     data: stats,

@@ -9,5 +9,14 @@ It is an application that acknowledges that the act of _review_ and _reflection_
 - cleanup code for icon handling
 - Pinned Headers
 - tag stats: total tags, Most active tags
-- hooks into service package
-- don't show note summary card if no notes
+- tags page, see all notes for a given tag
+
+## Security
+
+- how to encrypt note data?
+
+## Infra
+
+- terraform deploy of web app to AWS amplify (static)
+- API deployment (static)
+- Elasticache
