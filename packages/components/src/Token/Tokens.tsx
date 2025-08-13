@@ -23,7 +23,7 @@ const code = ({ text }: MarkedTokens.Code) => (
   </Code>
 )
 
-const heading = (token: MarkedTokens.Heading, searchTerm: string) => {
+const heading = (token: MarkedTokens.Heading, searchTerm?: string) => {
   const { depth, text } = token
   const headingType = `h${depth}` as ElementType
   const processedText = processChildForSpecialTokens(text, searchTerm)
@@ -91,6 +91,8 @@ export default function Tokens({ note, tokens, searchTerm }: TokensProps) {
       switch (token.type) {
         case 'blockquote':
           return blockquote(token as MarkedTokens.Blockquote)
+        case 'br':
+          return <br />
         case 'code':
           return code(token as MarkedTokens.Code)
         case 'em':

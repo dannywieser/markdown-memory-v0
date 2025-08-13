@@ -7,9 +7,8 @@ import { NoteProps } from './Note.types'
 export default function Note({ note, searchTerm }: NoteProps) {
   const { externalUrl, id, source, title, tokens } = note
 
-  const margins = { lg: '10%', md: '6%', sm: 0 }
   return (
-    <Card.Root gap="2" mb={1} ml={margins} mr={margins} mt={1} variant="subtle">
+    <Card.Root gap="2" variant="subtle" mx={{ base: 1, md: 6, lg: 12 }} mt="1">
       <Card.Header>
         <Flex
           borderBottomWidth="1px"

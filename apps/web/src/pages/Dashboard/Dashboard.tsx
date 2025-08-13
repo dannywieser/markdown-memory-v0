@@ -5,13 +5,14 @@ import {
   RecentEntriesCard,
   FrequencyMap,
   NoteSummaryCard,
+  Note,
+  RandomNoteCard,
 } from '@markdown-memory/components'
 import { getAllGroupNames, loadGroups } from '@markdown-memory/profile'
 import { useStats } from '@markdown-memory/services'
 import { currentDateNoYear } from '@markdown-memory/utilities/date'
 
 import useNotesOnDayByGroup from '../../hooks/useNotesOnDayByGroup/useNotesOnDayByGroup'
-
 export default function Dashboard() {
   const { data: stats, isPending } = useStats()
 
@@ -52,8 +53,8 @@ export default function Dashboard() {
         <EntriesOnThisDayCard />
       </GridItem>
       {notesByGroup.map((groupNotes, idx) =>
-        groupNotes ? (
-          <GridItem key={idx} colSpan={{ base: 6, md: 2, lg: 2 }} h="full">
+        groupNotes && groupNotes.notes.length > 0 ? (
+          <GridItem key={idx} colSpan={{ base: 6, md: 2 }} h="full">
             <NoteSummaryCard
               cardName={`${groupNotes.groupName} | ${day}`}
               href={`on-this-day/${groupNotes.groupName}`}
@@ -63,6 +64,9 @@ export default function Dashboard() {
           </GridItem>
         ) : null
       )}
+      <GridItem colSpan={{ base: 6 }} h="full">
+        <RandomNoteCard />
+      </GridItem>
     </Grid>
   )
 }

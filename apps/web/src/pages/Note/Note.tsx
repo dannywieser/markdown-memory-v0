@@ -2,7 +2,7 @@ import { Note } from '@markdown-memory/components'
 import React from 'react'
 import { useParams } from 'react-router'
 
-import useNote from '../../hooks/useNote/useNote'
+import { useNote } from '@markdown-memory/services'
 
 export default function NotePage() {
   const { noteId } = useParams()

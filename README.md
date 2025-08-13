@@ -6,7 +6,8 @@ It is an application that acknowledges that the act of _review_ and _reflection_
 
 ## Next
 
-- Random Note on Dashboard
+- Bug with counts for past 7 days...
+- Error Handling!
 - Pinned Headers
 - tag stats: total tags, Most active tags
 - hooks into service package

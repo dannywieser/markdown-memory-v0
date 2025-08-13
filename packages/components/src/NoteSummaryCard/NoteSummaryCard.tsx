@@ -15,7 +15,6 @@ import { NoteSummaryCardProps } from './NoteSummaryCard.types'
 export default function NoteSummaryCard(props: NoteSummaryCardProps) {
   const { cardName, href, icon, notes } = props
 
-  const hasNotes = notes && notes.length > 0
   const ListNoteTitles = () =>
     notes && (
       <ul>
@@ -40,17 +39,14 @@ export default function NoteSummaryCard(props: NoteSummaryCardProps) {
         </Flex>
       </Card.Header>
       <Card.Body color="fg.muted" padding={2}>
-        {!hasNotes && <Em>No notes found</Em>}
         <ListNoteTitles />
       </Card.Body>
       <Card.Footer justifyContent="flex-end" padding={2}>
-        {hasNotes && (
-          <LinkOverlay asChild href="#">
-            <Link href={href} variant="underline">
-              view entries
-            </Link>
-          </LinkOverlay>
-        )}
+        <LinkOverlay asChild href="#">
+          <Link href={href} variant="underline">
+            view entries
+          </Link>
+        </LinkOverlay>
       </Card.Footer>
     </Card.Root>
   )

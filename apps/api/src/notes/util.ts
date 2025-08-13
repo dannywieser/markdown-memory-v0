@@ -34,3 +34,11 @@ export const getAllNotes = async (redis: RedisClientType) => {
 
   return await Promise.all(allKeys.map(async (id) => await getNote(redis, id)))
 }
+
+export const getRandomNote = async (redis: RedisClientType) => {
+  const allKeys = await redis.keys('note:*')
+  if (allKeys.length === 0) return null
+  const randomIndex = Math.floor(Math.random() * allKeys.length)
+  const randomKey = allKeys[randomIndex]
+  return await getNote(redis, randomKey)
+}

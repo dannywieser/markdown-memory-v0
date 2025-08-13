@@ -8,7 +8,7 @@ const fetchNote = async (noteId: string) => {
   return (await res.json()) as MarkdownNote
 }
 
-export default function useNote(noteId: string | undefined) {
+export function useNote(noteId: string | undefined) {
   if (!noteId) {
     throw new Error('missing note ID')
   }

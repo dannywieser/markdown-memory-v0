@@ -13,7 +13,7 @@ import express from 'express'
 import { createClient, RedisClientType } from 'redis'
 
 import { sortNotesByDate } from './files/util'
-import { getAllNotes, getNote } from './notes/util'
+import { getAllNotes, getNote, getRandomNote } from './notes/util'
 import buildStats from './stats/buildStats'
 
 const app = express()
@@ -31,7 +31,10 @@ const getTags = async (noteId: string) => {
 }
 
 app.get('/api/notes/:noteId', async ({ params: { noteId } }, res) => {
-  const note = await getNote(redis, noteId)
+  const note =
+    noteId === 'random'
+      ? await getRandomNote(redis)
+      : await getNote(redis, noteId)
   if (!note) {
     res.status(404).send(NOT_FOUND)
   }
