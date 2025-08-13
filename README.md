@@ -6,6 +6,7 @@ It is an application that acknowledges that the act of _review_ and _reflection_
 
 ## Next
 
+- hover over squares on frequency map with tooltip
 - cleanup code for icon handling
 - Pinned Headers
 - tag stats: total tags, Most active tags
