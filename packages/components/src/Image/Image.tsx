@@ -1,5 +1,4 @@
 import { Box, Image as ChakraImage } from '@chakra-ui/react'
-
 import { ImageProps } from './Image.types'
 
 export default function Image({ h, href, op = 'noop', w }: ImageProps) {

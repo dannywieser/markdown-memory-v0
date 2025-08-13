@@ -34,7 +34,9 @@ const heading = (token: MarkedTokens.Heading, searchTerm?: string) => {
   ) : null
 }
 
-const image = ({ href }: MarkedTokens.Image) => <Image href={href} />
+const image = ({ href }: MarkedTokens.Image) => (
+  <Image href={href} key={uuidv4()} />
+)
 
 const link = ({ href, tokens }: MarkedTokens.Link) => {
   const style = href.includes('/note') ? 'internal' : 'external'
@@ -59,9 +61,9 @@ const p = (
   note?: MarkdownNote,
   searchTerm?: string
 ) => (
-  <p key={uuidv4()}>
+  <span key={uuidv4()}>
     <Tokens note={note} tokens={token.tokens} searchTerm={searchTerm} />
-  </p>
+  </span>
 )
 
 const space = () => <br key={uuidv4()} />

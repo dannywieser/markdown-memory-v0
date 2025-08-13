@@ -14,7 +14,7 @@ import { currentDateNoYear } from '@markdown-memory/utilities/date'
 
 import useNotesOnDayByGroup from '../../hooks/useNotesOnDayByGroup/useNotesOnDayByGroup'
 export default function Dashboard() {
-  const { data: stats, isPending } = useStats()
+  const { data: stats, isPending: statsPending } = useStats()
 
   const day = currentDateNoYear()
   const groups = loadGroups()
@@ -26,7 +26,8 @@ export default function Dashboard() {
   const groupIcon = (groupName: string) =>
     groups.find(({ name }) => name === groupName)?.icon
 
-  if (isPending || notesPending || !stats) {
+  const loading = statsPending || notesPending || !stats
+  if (loading) {
     return <CenteredSpinner />
   }
 

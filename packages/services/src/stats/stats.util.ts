@@ -1,18 +1,13 @@
-import { differenceInCalendarDays, parse } from 'date-fns'
-
 import { DateMap } from './stats.types'
 
 export function getRecentDateEntries(dateMap: DateMap, days: number) {
-  const today = new Date()
   return Object.entries(dateMap)
+    .sort((a, b) => b[0].localeCompare(a[0])) // Sort by date string descending
+    .slice(0, days)
     .map(([dateStr, data]) => ({
-      dateObj: parse(dateStr, 'yyyy.MM.dd', new Date()),
       dateStr,
       ...data,
     }))
-    .filter((entry) => differenceInCalendarDays(today, entry.dateObj) <= days)
-    .sort((a, b) => b.dateObj.getTime() - a.dateObj.getTime())
-    .slice(0, days)
 }
 
 export function getTotalsForEntries(
@@ -33,17 +28,11 @@ export function getTrailingDateEntries(
   startDaysAgo: number,
   endDaysAgo: number
 ) {
-  const today = new Date()
   return Object.entries(dateMap)
+    .sort((a, b) => b[0].localeCompare(a[0])) // Sort by date string descending
+    .slice(startDaysAgo, endDaysAgo)
     .map(([dateStr, data]) => ({
-      dateObj: parse(dateStr, 'yyyy.MM.dd', new Date()),
       dateStr,
       ...data,
     }))
-    .filter((entry) => {
-      const diff = differenceInCalendarDays(today, entry.dateObj)
-      return diff > startDaysAgo && diff <= endDaysAgo
-    })
-    .sort((a, b) => b.dateObj.getTime() - a.dateObj.getTime())
-    .slice(0, endDaysAgo - startDaysAgo)
 }

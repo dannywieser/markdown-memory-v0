@@ -67,7 +67,6 @@ export function processChildForSpecialTokens(
   if (typeof child !== 'string') {
     return child
   }
-  console.log('child', child)
 
   // build the ruleset and find matches in the current child string
   const childString = child as string
@@ -87,7 +86,7 @@ export function processChildForSpecialTokens(
     }
     if (type === 'searchterm') {
       updatedChildren.push(
-        <Mark variant={'subtle'} colorPalette="yellow">
+        <Mark key={uuidv4()} variant={'subtle'} colorPalette="yellow">
           {text}
         </Mark>
       )
