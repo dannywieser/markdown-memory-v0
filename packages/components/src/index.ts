@@ -1,8 +1,10 @@
 export { default as CenteredSpinner } from './CenteredSpinner/CenteredSpinner'
 export * from './EntriesOnThisDayCard'
+export * from './Error'
 export * from './FrequencyMap'
 export * from './Note'
 export * from './NoteSummaryCard'
 export * from './RandomNoteCard'
 export * from './RecentEntriesCard'
+
 export * from './ui/provider'

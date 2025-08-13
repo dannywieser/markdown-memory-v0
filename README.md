@@ -6,8 +6,7 @@ It is an application that acknowledges that the act of _review_ and _reflection_
 
 ## Next
 
-- Bug with counts for past 7 days...
-- Error Handling!
+- cleanup code for icon handling
 - Pinned Headers
 - tag stats: total tags, Most active tags
 - hooks into service package

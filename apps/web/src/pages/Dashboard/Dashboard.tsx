@@ -1,12 +1,12 @@
-import { Grid, GridItem, SimpleGrid } from '@chakra-ui/react'
+import { Grid, GridItem } from '@chakra-ui/react'
 import {
   CenteredSpinner,
   EntriesOnThisDayCard,
   RecentEntriesCard,
   FrequencyMap,
   NoteSummaryCard,
-  Note,
   RandomNoteCard,
+  Error,
 } from '@markdown-memory/components'
 import { getAllGroupNames, loadGroups } from '@markdown-memory/profile'
 import { useStats } from '@markdown-memory/services'
@@ -14,17 +14,36 @@ import { currentDateNoYear } from '@markdown-memory/utilities/date'
 
 import useNotesOnDayByGroup from '../../hooks/useNotesOnDayByGroup/useNotesOnDayByGroup'
 export default function Dashboard() {
-  const { data: stats, isPending: statsPending } = useStats()
+  const {
+    data: stats,
+    isPending: statsPending,
+    isError: statsError,
+  } = useStats()
 
   const day = currentDateNoYear()
   const groups = loadGroups()
   const groupNames = getAllGroupNames()
-  const { data: notesByGroup, pending: notesPending } = useNotesOnDayByGroup({
+  const {
+    data: notesByGroup,
+    pending: notesPending,
+    error: notesError,
+  } = useNotesOnDayByGroup({
     day,
     groups: groupNames,
   })
   const groupIcon = (groupName: string) =>
     groups.find(({ name }) => name === groupName)?.icon
+
+  const error = statsError || notesError
+
+  if (error) {
+    return (
+      <Error
+        errorTitle="Well, that's not right!"
+        errorText="Please try reloading the page..."
+      />
+    )
+  }
 
   const loading = statsPending || notesPending || !stats
   if (loading) {

@@ -23,6 +23,7 @@ export default function useNotesOnDayByGroup({
   return useQueries({
     combine: (results) => ({
       data: results.map(({ data }) => data),
+      error: results.some(({ isError }) => isError),
       pending: results.some(({ isPending }) => isPending),
     }),
     queries: groups.map((group) => ({
