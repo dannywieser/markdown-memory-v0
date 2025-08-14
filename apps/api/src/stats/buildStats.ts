@@ -1,3 +1,4 @@
+import { loadProfile } from '@markdown-memory/profile'
 import { Stats } from '@markdown-memory/services'
 import { fmtDate } from '@markdown-memory/utilities'
 import { RedisClientType } from 'redis'
@@ -7,9 +8,11 @@ import { NoteResponse } from '../types'
 
 const createDateMap = (notes: NoteResponse[]) => {
   const dateMap = {}
+  const { timezone } = loadProfile()
+
   notes.forEach(({ created, modified }) => {
-    const createDate = fmtDate(new Date(created))
-    const modifiedDate = fmtDate(new Date(modified))
+    const createDate = fmtDate(new Date(created), timezone)
+    const modifiedDate = fmtDate(new Date(modified), timezone)
 
     const findDate = (searchDate: string) =>
       dateMap[searchDate] ?? { createdCount: 0, modifiedCount: 0 }

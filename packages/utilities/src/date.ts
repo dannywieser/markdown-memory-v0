@@ -2,11 +2,14 @@ import { format } from 'date-fns'
 
 // TODO: configurable date format based on user preference
 
-export const fmtDate = (date: Date) => {
+export const fmtDate = (date: Date, timeZone?: string) => {
+  const localeDate = timeZone
+    ? date.toLocaleString('en-US', { timeZone })
+    : date
   try {
-    return format(date, 'yyyy.MM.dd')
+    return format(localeDate, 'yyyy.MM.dd')
   } catch (_e) {
-    console.error(date)
+    console.error(localeDate)
   }
   return null
 }
