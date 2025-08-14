@@ -1,26 +1,17 @@
-import {
-  Box,
-  Center,
-  Heading,
-  Stack,
-  Text,
-  Icon as ChakraIcon,
-} from '@chakra-ui/react'
+import { Box, Button, Center, Heading, Stack, Text } from '@chakra-ui/react'
 import { ErrorProps } from './Error.types'
 import Icon from '../Icon/Icon'
 
-export function Error({ errorTitle, errorText, errorDetail }: ErrorProps) {
+export function Error({ errorTitle }: ErrorProps) {
   return (
     <Box bg="bg/80" inset="0" pos="absolute">
       <Center h="full">
         <Stack>
           <Center>
-            <ChakraIcon size="2xl" alignContent="center">
-              <Icon name={'Annoyed'} />
-            </ChakraIcon>
+            <Icon size="2xl" name={'Annoyed'} />
           </Center>
           <Heading>{errorTitle}</Heading>
-          <Text>{errorText}</Text>
+          <Button>Reload</Button>
         </Stack>
       </Center>
     </Box>

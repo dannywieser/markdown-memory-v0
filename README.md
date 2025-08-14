@@ -6,8 +6,6 @@ It is an application that acknowledges that the act of _review_ and _reflection_
 
 ## next
 
-- still bug with recent entry stats!
-- cleanup code for icon handling
 - tag stats: total tags, Most active tags
 - tags page, see all notes for a given tag
 - hover over squares on frequency map with tooltip
@@ -18,6 +16,7 @@ App that does everything I need it to, and is deployed to the cloud.
 Security (mainly encryption) can come later.
 Extractor as a more user friendly standalone app that runs locally
 I guess I will need basic auth here - the API calls to retrieve the data need to be behind auth
+versioning and CD
 
 ## Milestone 2
 
@@ -33,3 +32,4 @@ I guess I will need basic auth here - the API calls to retrieve the data need to
 ## Future Feature Ideas
 
 - Pinned Headers
+- Dark Theme

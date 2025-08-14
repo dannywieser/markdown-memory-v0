@@ -36,12 +36,7 @@ export default function Dashboard() {
   const error = statsError || notesError
 
   if (error) {
-    return (
-      <Error
-        errorTitle="Well, that's not right!"
-        errorText="Please try reloading the page..."
-      />
-    )
+    return <Error errorTitle="Did you expect an error? Well, neither did I!" />
   }
 
   const loading = statsPending || notesPending || !stats

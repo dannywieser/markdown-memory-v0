@@ -31,11 +31,7 @@ export default function NoteSummaryCard(props: NoteSummaryCardProps) {
       <Card.Header padding={2}>
         <Flex gap="4" justify="space-between">
           <Heading size="sm">{cardName}</Heading>
-          {icon && (
-            <ChakraIcon color="red.500" marginEnd="auto" size="lg">
-              <Icon name={icon} />
-            </ChakraIcon>
-          )}
+          {icon && <Icon name={icon} />}
         </Flex>
       </Card.Header>
       <Card.Body color="fg.muted" padding={2}>

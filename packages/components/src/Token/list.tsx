@@ -1,5 +1,5 @@
-import { Icon, List } from '@chakra-ui/react'
-import { CircleCheck, CircleDashed } from 'lucide-react'
+import { List } from '@chakra-ui/react'
+import Icon from '../Icon/Icon'
 import { Tokens as MarkedTokens } from 'marked'
 import { v4 as uuidv4 } from 'uuid'
 
@@ -7,17 +7,13 @@ import Tokens from './Tokens'
 
 const TodoItemCompleted = () => (
   <List.Indicator asChild>
-    <Icon size="sm">
-      <CircleCheck />
-    </Icon>
+    <Icon size="sm" name="CircleCheck" />
   </List.Indicator>
 )
 
 const TodoItemIncomplete = () => (
   <List.Indicator asChild>
-    <Icon size="sm">
-      <CircleDashed />
-    </Icon>
+    <Icon size="sm" name="CircleDashed" />
   </List.Indicator>
 )
 
