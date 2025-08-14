@@ -4,20 +4,32 @@
 
 It is an application that acknowledges that the act of _review_ and _reflection_ on your notes is different than the act of note taking.
 
-## Next
+## next
 
-- hover over squares on frequency map with tooltip
+- still bug with recent entry stats!
 - cleanup code for icon handling
-- Pinned Headers
 - tag stats: total tags, Most active tags
 - tags page, see all notes for a given tag
+- hover over squares on frequency map with tooltip
 
-## Security
+## Milestone 1
 
-- how to encrypt note data?
+App that does everything I need it to, and is deployed to the cloud.
+Security (mainly encryption) can come later.
+Extractor as a more user friendly standalone app that runs locally
+I guess I will need basic auth here - the API calls to retrieve the data need to be behind auth
 
-## Infra
+## Milestone 2
 
-- terraform deploy of web app to AWS amplify (static)
-- API deployment (static)
-- Elasticache
+- Text Extractor + Demo
+- Docs about how it works and the architecture
+- At this point it can be a "portfolio" project I could share when applying for jobs
+
+## Milestone 3
+
+- New User support
+- Encryption during transfer and at rest
+
+## Future Feature Ideas
+
+- Pinned Headers
