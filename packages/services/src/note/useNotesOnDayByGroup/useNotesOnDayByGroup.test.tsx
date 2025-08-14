@@ -1,8 +1,7 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { renderHook, waitFor } from '@testing-library/react'
-import { glob } from 'fs'
 
-import useNotesOnDayByGroup from './useNotesOnDayByGroup'
+import { useNotesOnDayByGroup } from './useNotesOnDayByGroup'
 
 const queryClient = new QueryClient({
   defaultOptions: {
